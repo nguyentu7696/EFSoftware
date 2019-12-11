@@ -1,0 +1,130 @@
+<div class="content-wrapper content-main" style="display: table">
+  <!-- Page header -->
+  <div class="page-header">
+      <div class="breadcrumb-line breadcrumb-line-component">
+          <ul class="breadcrumb">
+              <li>
+                  <a [routerLink]="['/company/job-site/list']">{{currentCompany.jobSite}}</a>
+              </li>
+              <li>
+                  <a [routerLink]="['/company/job-site/detail/edit']">{{currentJobSite.name}}</a>
+              </li>
+              <li class="active">
+                  <a>Roster</a>
+              </li>
+          </ul>
+      </div>
+  </div>
+  <!-- /page header -->
+  <!-- Content area -->
+  <div class="page-body">
+      <div class="clearfix big-top-title">
+          <div class="supper-title">Roster Management</div>
+      </div>
+      <div class="jobsite-table">
+          <div class="body-content form-horizontal form-label-left">
+              <div class="row">
+                  <div class="form-group">
+                      <label class="control-label col-md-2 col-md-push-1 col-sm-3 col-xs-12 text-right">Employee</label>
+                      <div class="col-md-6 col-md-push-1 col-sm-9 col-xs-12">
+                          <input type="text" #employeeName="ngModel" [(ngModel)]="EmployeeInfo.name" disabled="disabled" name="employeeName" class="form-control" />
+                      </div>
+                  </div>
+              </div>
+
+              <div class="row">
+                  <div class="form-group">
+                      <label class="control-label col-md-2 col-md-push-1 col-sm-3 col-xs-12 text-right">Date</label>
+                      <div class="col-md-6 col-md-push-1 col-sm-9 col-xs-12">
+                          <div class="select-group">
+                              <angular2-date-picker [(ngModel)]="rosterDate" [settings]="settings" (ngModelChange)="changeDateSelect($event)"></angular2-date-picker>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="row">
+                  <div class="form-group">
+                      <label class="control-label col-md-2 col-md-push-1 col-sm-3 col-xs-12 text-right">Type</label>
+                      <div class="col-md-6 col-md-push-1 col-sm-9 col-xs-12">
+                      <select class="form-control" [(ngModel)]="entity.TypeCode" #typeCode="ngModel" name="typeCode">
+                          <option *ngFor="let item of listTypeCode" [value]="item.id">{{ item.name }}</option>
+                      </select>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="row">
+                  <div class="form-group">
+                      <label class="control-label col-md-2 col-md-push-1 col-sm-3 col-xs-12 text-right">Start Time</label>
+                      <div class="col-md-2 col-md-push-1 col-sm-9 col-xs-12">
+                          <div class="select-group">
+                              <angular2-date-picker [(ngModel)]="startTime" [settings]="settingsHour" (ngModelChange)="changeDateStartSelect($event)"></angular2-date-picker>
+                          </div>
+                      </div>
+
+                      <label class="control-label col-md-2 col-md-push-1 col-sm-3 col-xs-12 text-right">End Time</label>
+                      <div class="col-md-2 col-md-push-1 col-sm-9 col-xs-12">
+                          <div class="select-group">
+                              <angular2-date-picker [(ngModel)]="endTime" [settings]="settingsHour" (ngModelChange)="changeDateEndSelect($event)"></angular2-date-picker>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="row">
+                  <div class="form-group">
+                      <label class="control-label col-md-2 col-md-push-1 col-sm-3 col-xs-12 text-right">Shift Code</label>
+                      <div class="col-md-6 col-md-push-1 col-sm-9 col-xs-12">
+                      <select class="form-control" [(ngModel)]="entity.ShiftCode" #shiftCode="ngModel" name="shiftCode">
+                          <option *ngFor="let item of listShiftCode" [value]="item.id">{{ item.mainCode }}</option>
+                      </select>
+                      </div>
+                  </div>
+              </div>
+              
+              <div class="row">
+                  <div class="form-group">
+                      <label class="control-label col-md-2 col-md-push-1 col-sm-3 col-xs-12 text-right">Attendance Code</label>
+                      <div class="col-md-6 col-md-push-1 col-sm-9 col-xs-12">
+                      <select class="form-control" [(ngModel)]="entity.AttendanceCode" #attendenceCode="ngModel" name="attendenceCode">
+                          <option *ngFor="let item of listAttendence" [value]="item.id">{{ item.name }}</option>
+                      </select>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="row">
+                  <div class="form-group">
+                      <label class="control-label col-md-2 col-md-push-1 col-sm-3 col-xs-12 text-right">OT Code</label>
+                      <div class="col-md-6 col-md-push-1 col-sm-9 col-xs-12">
+                      <select class="form-control" [(ngModel)]="entity.OTCode" #OTCode="ngModel" name="OTCode">
+                          <option *ngFor="let item of listOTSettingCode" [value]="item.id">{{ item.remarks }}</option>
+                      </select>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="row">
+                  <div class="form-group">
+                      <label class="control-label col-md-2 col-md-push-1 col-sm-3 col-xs-12 text-right">Remarks</label>
+                      <div class="col-md-6 col-md-push-1 col-sm-9 col-xs-12">
+                          <input type="text" #remark="ngModel" [(ngModel)]="entity.Remark" name="remark" class="form-control" />
+                      </div>
+                  </div>
+              </div>
+
+              <div class="ln_solid"></div>
+              <div class="form-group" style="margin-top: 20px">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <button type="button" class="btn bg-dark-blue text-white btn-flat btn-save col-sm-2" (click)="SaveUpdate()">Update</button>
+                  <button type="button" class="btn bg-dark-blue text-white btn-flat btn-save col-sm-2" (click)="CancelUpdate()">Cancel</button>
+                </div>
+              </div>
+              
+          </div>
+      </div>
+  </div>
+</div>
+
+<ng2-toasty [position]="'top-right'"></ng2-toasty>

@@ -1,0 +1,123 @@
+<div class="content-wrapper content-main">
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="breadcrumb-line breadcrumb-line-component">
+            <ul class="breadcrumb">
+                <li>
+                    <a [routerLink]="['/company/job-site/list']">{{currentCompany.jobSite}}</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/company/job-site/detail/edit']">{{currentJobsite.name}}</a>
+                </li>
+                <li class="active">
+                    Allowance
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /page header -->
+    <!-- Content area -->
+    <div class="page-body">
+        <div class="clearfix big-top-title">
+            <div class="supper-title">Allowance Management</div>
+            <div class="action-right">
+                <button type="button" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom"
+                    (click)="addAllowanceJobsite()">Add</button>
+            </div>
+            <div class="select-group action-right select-attendance">
+                <select name="" id="" class="form-control" (change)="onSelectAllowanceCompany($event.target.value)">
+                    <option value="">Choose Allowance Code</option>
+                    <option *ngFor="let item of allowanceCompany" value="{{item.id}}">{{item.code}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="jobsite-table">
+            <div class="body-content">
+
+                <div class="row">
+                    <div class="col-sm-1 public-holiday-filter">
+                        <div>Filter by</div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="select-group">
+                            <input class="form-control select-custom" [(ngModel)]="filterByName" placeholder="Search"
+                                (keyup.enter)="Search()" />
+                        </div>
+                    </div>
+                    <div class="col-sm-1 public-holiday-filter">
+                        <button type="button" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom"
+                            (click)="Search()">Search</button>
+                    </div>
+                </div>
+                <br>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <b>Name</b>
+                                </th>
+                                <th>
+                                    <b>Code</b>
+                                </th>
+                                <th>
+                                    <b>Amount</b>
+                                </th>
+                                <th>
+                                    <b>Remarks</b>
+                                </th>
+                                <th>
+                                    <b>Start Date</b>
+                                </th>
+                                <th>
+                                    <b>End Date</b>
+                                </th>
+                                <th>
+                                    <b>Action</b>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of allowanceJobsiteList">
+                                <th>{{ item.name }}</th>
+                                <td>{{ item.code }}</td>
+                                <td>{{ item.amount }}</td>
+                                <td>{{ item.remarks }}</td>
+                                <td>
+                                    <div *ngIf="item.startDate.indexOf('0001-01-01') < 0? true : false">
+                                        {{ item.startDate | date:'dd MMM yyyy' }}</div>
+                                </td>
+                                <td>
+                                    <div *ngIf="item.endDate.indexOf('0001-01-01') < 0? true : false">
+                                        {{ item.endDate | date:'dd MMM yyyy' }}</div>
+                                </td>
+                                <td class="tbody-action">
+                                    <a [routerLink]="['/company/job-site/detail/allowance/edit/', item.id]"
+                                        title="Edit">
+                                        <img src="../../../../assets/images/icon/icon-edit.png" alt="">
+                                        <!-- <span>Edit</span> -->
+                                    </a>
+                                    <a href="javascript:void(0)" (click)="delete(item.id)" title="Remove">
+                                        <img src="../../../../../assets/images/icon/icon-trash.png" alt="">
+                                        <!-- <span>Remove</span> -->
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="clearfix foot-content">
+                <div class="b-left">
+                    Show {{show}} to 10 of {{totalItems}} entries
+                </div>
+                <div class="b-right">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="size" [rotate]="true"
+                        [maxSize]="5" (pageChange)="loadPage($event)">
+                    </ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng2-toasty [position]="'top-right'"></ng2-toasty>

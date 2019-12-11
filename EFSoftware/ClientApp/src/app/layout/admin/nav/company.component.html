@@ -1,0 +1,163 @@
+<div class="page-container">
+  <!-- Page content -->
+  <div class="page-content">
+    <!-- Main sidebar -->
+    <div class="sidebar sidebar-main" *ngIf="!hiddenMenu">
+      <div class="sidebar-content">
+        <div class="sidebar-category sidebar-category-visible">
+          <div class="category-content no-padding">
+
+            <div class="company-name">
+              <div class="thumbs">
+                <img src="{{this.currentCompany.logo? baseUrl + this.currentCompany.logo :'../../../assets/images/inspius.jpg'}}" alt=""
+                  class="img-responsive center-block">
+              </div>
+              <div class="name text-center" *ngIf="!jobsitedetail">{{currentCompany.name}}</div>
+              <div class="name text-center" *ngIf="jobsitedetail">{{this.currentJobSite.name + ' ' + currentCompany.jobSite }}</div>
+            </div>
+
+            <div class="group-name text-uppercase">Detail</div>
+
+            <ul class="navigation navigation-main navigation-accordion ul-detail" *ngIf="!jobsitedetail">
+              <li [ngClass]="{'detail1': true, 'active': tabSelect == 1 }">
+                <a [routerLink]="['/company/basic/update']">
+                  <img src="{{tabSelect == 1?'../../../assets/images/icon/icon-sidebar1.png' : '../../../assets/images/icon/icon-sidebar_1.png'}}"
+                    alt="">
+                  <span>Basic information</span>
+                </a>
+              </li>
+              <li [ngClass]="{'detail2': true, 'active': tabSelect == 2 }">
+                <a [routerLink]="['/company/department/list']">
+                  <img alt="" src="../../../assets/images/icon/Asset 9.png">
+                  <span>{{currentCompany.department}}</span>
+                </a>
+              </li>
+              <li [ngClass]="{'detail3': true, 'active': tabSelect == 3 }">
+                <a (click)="gotoSiteList()">
+                  <img src="../../../assets/images/icon/Asset 8.png" alt="">
+                  <span>{{currentCompany.site}}</span>
+                </a>
+              </li>
+              <li [ngClass]="{'detail4': true, 'active': tabSelect == 4 }">
+                <a (click)="gotoJobSiteList()">
+                  <img src="../../../assets/images/icon/Asset 7.png" alt="">
+                  <span>{{currentCompany.jobSite}}</span>
+                </a>
+              </li>
+            </ul>
+
+            <ul class="navigation navigation-main navigation-accordion ul-detail" *ngIf="jobsitedetail">
+              <li [ngClass]="{'detail1': true, 'active': tabSelect == 11 }">
+                <a [routerLink]="['/company/job-site/detail/edit']">
+                  <img src="{{tabSelect == 11?'../../../assets/images/icon/icon-sidebar1.png' : '../../../assets/images/icon/icon-sidebar_1.png'}}"
+                    alt="">
+                  <span>Basic information</span>
+                </a>
+              </li>
+              <li [ngClass]="{'detail2': true, 'active': tabSelect == 12 }">
+                <a [routerLink]="['/company/job-site/detail/zone-location']">
+                  <img alt="" src="../../../assets/images/icon/Asset 9.png">
+                  <span>Zone Location</span>
+                </a>
+              </li>
+              <li [ngClass]="{'detail3': true, 'active': tabSelect == 13 }">
+                <a [routerLink]="['/company/job-site/detail/zone/list']">
+                  <img src="../../../assets/images/icon/Asset 8.png" alt="">
+                  <span>{{currentCompany.zone}}</span>
+                </a>
+              </li>
+              <li [ngClass]="{'detail4': true, 'active': tabSelect == 14 }">
+                <a [routerLink]="['/company/job-site/detail/employee']">
+                  <img src="../../../assets/images/icon/Asset 7.png" alt="">
+                  <span>Employee</span>
+                </a>
+              </li>
+            </ul>
+
+            <div class="group-name text-uppercase">Config</div>
+
+            <ul class="navigation navigation-main navigation-accordion ul-detail" *ngIf="!jobsitedetail">
+              <li [ngClass]="{'active': tabSelect == 5 }">
+                <a [routerLink]="['/company/attendance/list']">
+                  <img src="../../../assets/images/icon/Asset 6.png" alt="">
+                  <span>Attendance</span>
+                </a>
+              </li>
+              <li [ngClass]="{'active': tabSelect == 6}">
+                <a [routerLink]="['/company/resign-reason/list']">
+                  <img src="../../../assets/images/icon/Asset 4.png" alt="">
+                  <span>Resign Reason</span>
+                </a>
+              </li>
+              <li [ngClass]="{'active': tabSelect == 7 }">
+                <a [routerLink]="['/company/public-holiday/list']">
+                  <img src="../../../assets/images/icon/Asset 5.png" alt="">
+                  <span>Public Holiday</span>
+                </a>
+              </li>
+              <li [ngClass]="{'active': tabSelect == 8 }">
+                <a [routerLink]="['/company/race/list']">
+                  <img src="../../../assets/images/icon/Asset 3.png" alt="">
+                  <span>Race</span>
+                </a>
+              </li>
+              <li [ngClass]="{'active': tabSelect == 9 }">
+                <a [routerLink]="['/company/otcode/list']">
+                  <img src="../../../assets/images/icon/Asset 2.png" alt="">
+                  <span>OT Code</span>
+                </a>
+              </li>
+              <li [ngClass]="{'active': tabSelect == 10 }">
+                <a [routerLink]="['/company/allowance/list']">
+                  <img src="../../../assets/images/icon/Asset 1.png" alt="">
+                  <span>Allowance</span>
+                </a>
+              </li>
+              <li [ngClass]="{'active': tabSelect == 17 }">
+                <a [routerLink]="['/company/shift/list']">
+                  <img src="../../../assets/images/icon/icons8-meeting_time.png" alt="">
+                  <span>Shift</span>
+                </a>
+              </li>
+            </ul>
+
+            <ul class="navigation navigation-main navigation-accordion ul-detail" *ngIf="jobsitedetail">
+
+              <li [ngClass]="{'active': tabSelect == 15 }">
+                <a [routerLink]="['/company/job-site/detail/otsetting']">
+                  <img src="../../../assets/images/icon/Asset 6.png" alt="">
+                  <span>OT Setting</span>
+                </a>
+              </li>
+
+              <li [ngClass]="{'active': tabSelect == 16}">
+                <a [routerLink]="['/company/job-site/detail/allowance']">
+                  <img src="../../../assets/images/icon/Asset 4.png" alt="">
+                  <span>Allowance</span>
+                </a>
+              </li>
+
+              <li [ngClass]="{'active': tabSelect == 18}">
+                <a [routerLink]="['/company/job-site/detail/job-site-shift']">
+                  <img src="../../../assets/images/icon/icons8-meeting_time.png" alt="">
+                  <span>Shift</span>
+                </a>
+              </li>
+
+            </ul>
+
+            <br>
+            <br>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- /main sidebar -->
+    <div>
+      <router-outlet></router-outlet>
+    </div>
+    <!-- Main content -->
+
+  </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="page-container">
+    <!-- Page content -->
+    <div class="page-content">
+        <!-- Main sidebar -->
+        <div class="sidebar sidebar-main">
+            <div class="sidebar-content">
+                <div class="sidebar-category sidebar-category-visible">
+                    <div class="category-content no-padding">
+                        <ul class="navigation navigation-main navigation-accordion ul-detail">
+                            <li  [ngClass]="{'active': tabSelect == 1 }">
+                                <a [routerLink]="['/global/attendance/']">
+                                    <img src="../../../../../assets/images/icon/Asset 6.png" alt="">
+                                    <span>Attendance</span>
+                                </a>
+                            </li>
+                            <li [ngClass]="{'active': tabSelect == 2 }">
+                                <a [routerLink]="['/global/holiday/']">
+                                    <img src="../../../../../assets/images/icon/Asset 5.png" alt="">
+                                    <span>Public Holiday</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+         <!-- /main sidebar -->
+        <router-outlet></router-outlet>
+      <!-- Main content -->
+
+    </div>
+</div>

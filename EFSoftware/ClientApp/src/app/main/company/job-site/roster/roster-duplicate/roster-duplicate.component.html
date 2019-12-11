@@ -1,0 +1,130 @@
+<div class="content-wrapper content-main" style="display: table">
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="breadcrumb-line breadcrumb-line-component">
+            <ul class="breadcrumb">
+                <li>
+                    <a [routerLink]="['/company/job-site/list']">{{currentCompany.jobSite}}</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/company/job-site/detail/edit']">{{currentJobSite.name}}</a>
+                </li>
+                <li class="active">
+                    <a>Roster</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /page header -->
+    <!-- Content area -->
+    <div class="page-body">
+        <div class="clearfix big-top-title">
+            <div class="supper-title">Duplicate Roster</div>
+        </div>
+        <div class="jobsite-table">
+            <div class="body-content">
+
+                <div class="row">
+                    <div class="col-sm-2 public-holiday-filter title-search-roster">
+                        <label>Duplicate from</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="select-group">
+                            <angular2-date-picker [(ngModel)]="dateStart" [settings]="settings" (ngModelChange)="changeDateStartSelect($event)"></angular2-date-picker>
+                        </div>
+                    </div>
+                    <div class="col-sm-1 to-search-roster">
+                        To
+                    </div>
+                    <div class="col-sm-2">
+                        <angular2-date-picker [(ngModel)]="dateEnd" [settings]="settings" (ngModelChange)="changeDateEndSelect($event)"></angular2-date-picker>
+                    </div>
+                    <div class="clearfix big-top-title"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-2 public-holiday-filter title-search-roster">
+                        <div>Duplicate on</div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="select-group">
+                            <angular2-date-picker [(ngModel)]="toStartDate" [settings]="settings" (ngModelChange)="changeToStartDateSelect($event)"></angular2-date-picker>
+                        </div>
+                    </div>
+                    <div class="col-sm-1 to-search-roster">
+                        To
+                    </div>
+                    <div class="col-sm-2">
+                        <angular2-date-picker [(ngModel)]="toEndDate" [settings]="settings" (ngModelChange)="changeToEndDateSelect($event)"></angular2-date-picker>
+                    </div>
+                    <div class="clearfix big-top-title"></div>
+                </div>
+
+                <div class="row div-group-btn">
+                    <button type="button" class="btn bg-dark-blue text-white btn-flat btn-update col-sm-2" (click)="DuplicateRoster()" title="Update">Duplicate</button>
+                </div>
+
+                <div class="table-responsive">
+                        <table class="table table-bordered table-striped" *ngFor="let item of trData; let itemIndex = index">
+                                <thead>
+                                    <tr>
+                                        <th class="month-title" colspan="6">{{ item.monthStr }}</th>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 20%">Date</th>
+                                        <th style="width: 15%">Roster Code</th>
+                                        <th style="width: 15%">OT Code</th>
+                                        <th style="width: 25%">Remarks</th>
+                                        <th style="width: 25%">Type</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let td of item.listRoster; let index = index">
+                                        <td>{{ td.date }}</td>
+                                        <td *ngIf="!checkPublicHoliday(td.date)">{{ td.shiftCodeName }}</td>
+                                        <td *ngIf="!checkPublicHoliday(td.date)">{{ td.otCodeName }}</td>
+                                        <td *ngIf="!checkPublicHoliday(td.date)">{{ td.remarksSplit }}</td>
+                                        <td *ngIf="!checkPublicHoliday(td.date)">
+                                            <span class="icon-type">
+                                                <img src="../../../../assets/images/icon/01-longshift.png" alt="">
+                                                Planned OT
+                                                <input type="checkbox"  [checked]="td.type1 == 1 || td.type2 == 1 || td.type3 == 1"
+                                                disabled>
+                                            </span>
+                                            <br/>
+                                            <span class="icon-type">
+                                                <img src="../../../../assets/images/icon/02-vaccination.png" alt="">
+                                                Vaccination
+                                                <input type="checkbox" [checked]="td.type1 == 2 || td.type2 == 2 || td.type3 == 2"
+                                                disabled>
+                                            </span>
+                                            <br/>
+                                            <span class="icon-type">
+                                                <img src="../../../../assets/images/icon/03-training.png" alt="">
+                                                Training
+                                                <input type="checkbox" [checked]="td.type1 == 3 || td.type2 == 3 || td.type3 == 3"
+                                                disabled>
+                                            </span>
+                                        </td>
+                                        <td *ngIf="checkPublicHoliday(td.date)">
+                                            <span></span>
+                                        </td>
+                                        <td *ngIf="checkPublicHoliday(td.date)">
+                                            <span></span>
+                                        </td>
+                                        <td *ngIf="checkPublicHoliday(td.date)">
+                                            <span></span>
+                                        </td>
+                                        <td *ngIf="checkPublicHoliday(td.date)">
+                                            <span></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                        </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng2-toasty [position]="'top-right'"></ng2-toasty>

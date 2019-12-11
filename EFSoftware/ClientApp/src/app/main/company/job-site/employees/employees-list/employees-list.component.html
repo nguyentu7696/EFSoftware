@@ -1,0 +1,153 @@
+<div class="content-wrapper content-main">
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="breadcrumb-line breadcrumb-line-component">
+            <ul class="breadcrumb">
+                <li [routerLink]="['/company/job-site/list']">{{currentCompany.jobSite}}</li>
+                <li>
+                    <a [routerLink]="['/company/job-site/detail/edit']">{{currentJobsite.name}}</a>
+                </li>
+                <li class="active">Employee</li>
+            </ul>
+        </div>
+    </div>
+    <!-- /page header -->
+    <!-- Content area -->
+    <div class="page-body">
+        <div class="clearfix big-top-title">
+            <div class="supper-title">Employee List</div>
+            <div class="action-right">
+                <a [routerLink]="['/company/job-site/detail/employee/create']"
+                    class="btn bg-dark-blue text-white btn-flat btn-block btn-custom">
+                    Create
+                </a>
+            </div>
+        </div>
+        <div class="jobsite-table">
+            <div class="body-content">
+                <div class="table-responsive" style="overflow: hidden">
+                    <div class="div-public-holiday-filter">
+                        <div class="row">
+                            <div class="col-sm-9">
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div>Filter by</div>
+                                    </div>
+                                    <div class="col-sm-10 filter-pad">
+                                        <div class="col-sm-3">
+                                            <div class="select-group">
+                                                <select name="" id="" class="form-control"
+                                                    [(ngModel)]="currentCompanyIdSelect"
+                                                    (ngModelChange)="onSelectCompany($event)">
+                                                    <option *ngFor="let item of listCompany" value="{{item.id}}">
+                                                        {{item.name}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="select-group">
+                                                <select name="" id="" class="form-control"
+                                                    [(ngModel)]="currentDepartmentIdSelect"
+                                                    (ngModelChange)="onSelectDepartment($event)">
+                                                    <option value="0">All {{currentCompany.department}}
+                                                    </option>
+                                                    <option *ngFor="let item of listDepartment" value="{{item.id}}">
+                                                        {{item.name}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="select-group">
+                                                <select name="" id="" class="form-control"
+                                                    [(ngModel)]="currentSiteIdSelect"
+                                                    (ngModelChange)="onSelectSite($event)">
+                                                    <option value="0">All {{currentCompany.site}}</option>
+                                                    <option *ngFor="let item of listSite" value="{{item.id}}">
+                                                        {{item.name}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="select-group">
+                                                <select name="" id="" class="form-control"
+                                                    [(ngModel)]="currentJobsiteIdSelect"
+                                                    (ngModelChange)="onSelectJobSite($event)">
+                                                    <option value="0">All {{currentCompany.jobSite}}
+                                                    </option>
+                                                    <option *ngFor="let item of listJobsite" value="{{item.id}}">
+                                                        {{item.name}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 filter-pad">
+                                <div class="col-sm-8">
+                                    <div class="select-group">
+                                        <input class="form-control select-custom" [(ngModel)]="filterByName"
+                                            placeholder="Search" (keyup.enter)="Search()" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button"
+                                        class="btn bg-dark-blue text-white btn-flat btn-block btn-custom"
+                                        (click)="Search()">Search</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Company</th>
+                                <th>Key</th>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>{{currentCompany.jobSite}}</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let employee of employees">
+                                <th>{{ employee.companyName }}</th>
+                                <td>{{ employee.empkey }}</td>
+                                <td>{{ employee.empID }}</td>
+                                <td>{{ employee.name }}</td>
+                                <td>{{ employee.jobSite }}</td>
+                                <td class="tbody-action">
+                                    <a (click)="getRosterOfEmployee(employee)" title="Roster">
+                                        <img src="../../../../assets/images/icons8-overtime.png" alt="">
+                                    </a>
+                                    <a (click)="getEvent(employee)" title="Event">
+                                        <img src="../../../../assets/images/icons8-person_calendar.png" alt="">
+                                    </a>
+                                    <a (click)="gotoEmployeesEdit(employee)" title="Edit">
+                                        <img src="../../../../assets/images/icon-edit.png" alt="">
+                                    </a>
+                                    <a href="javascript:void(0)" (click)="delete(employee.id)" title="Remove">
+                                        <img src="../../../../../assets/images/icon-trash.png" alt="">
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="clearfix foot-content">
+                <div class="b-left">
+                    Show {{show}} to 10 of {{totalItems}} entries
+                </div>
+                <div class="b-right">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="size" [rotate]="true"
+                        [maxSize]="5" (pageChange)="loadPage($event)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng2-toasty [position]="'top-right'"></ng2-toasty>

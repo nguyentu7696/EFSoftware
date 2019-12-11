@@ -1,0 +1,642 @@
+<div class="content-wrapper content-main">
+  <!-- Page header -->
+  <div class="page-header">
+    <div class="breadcrumb-line breadcrumb-line-component">
+      <ul class="breadcrumb">
+        <li>
+          <a href="javascript:void(0)">Dashboard</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- /page header -->
+  <!-- Content area -->
+  <div class="page-body">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="jobsite-table">
+          <div class="body-content">
+            <div>
+              <div class="row">
+                <div class="col-sm-3">
+                  <div class="select-group">
+                    <select name="" id="" class="form-control" [(ngModel)]="currentCompanyIdSelect" (ngModelChange)="onSelectCompany($event)">
+                      <option *ngFor="let item of listCompanyModal" value="{{item.id}}">{{item.name}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <!-- <input type="date" class="form-control ipn-custom" [ngModel]="dateTimeSelected | date:'yyyy-MM-dd'" (ngModelChange)="dateTimeSelected = $event"> -->
+                    <angular2-date-picker [(ngModel)]="date" [settings]="settings" (ngModelChange)="changeDateSelect($event)"></angular2-date-picker>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <ng-template #customCellTemplate let-day="day" let-locale="locale">
+                  <div class="cal-cell-top">
+                    <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
+                  </div>
+                  <small class="number-employee"> {{day.events.length? day.events[0].title : '' }}</small>
+                </ng-template>
+                <mwl-calendar-month-view [viewDate]="viewDate" [events]="events" (beforeViewRender)="beforeMonthViewRender($event)" [cellTemplate]="customCellTemplate"
+                  (dayClicked)="dayClicked($event.day)">
+                </mwl-calendar-month-view>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="jobsite-table">
+          <div class="body-content">
+            <div class="table-responsive" style="overflow: hidden">
+              <div class="div-dashboard-search">
+                <div class="row">
+                  <div class="col-sm-2">
+                    <div>
+                      <input class="form-control ipn-custom" [(ngModel)]="stringDateSelected" disabled>
+                    </div>
+                  </div>
+                  <div class="col-sm-2 division-select">
+                    <div class="select-group">
+                      <select name="" id="" class="form-control" [(ngModel)]="currentDepartmentIdSelect" (ngModelChange)="onSelectDepartment($event)">
+                        <option value="0">All Division
+                        </option>
+                        <option *ngFor="let item of listDepartment" value="{{item.id}}">{{item.name}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-sm-2 division-select">
+                    <div class="select-group">
+                      <select name="" id="" class="form-control" [(ngModel)]="currentSiteIdSelect" (ngModelChange)="onSelectSite($event)">
+                        <option value="0">All Site</option>
+                        <option *ngFor="let item of listSite" value="{{item.id}}">{{item.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-sm-2 division-select input-job-site-dashboard div-alljobsite-dashboard">
+                    <div class="select-group">
+                      <select name="" id="" class="form-control" [(ngModel)]="currentJobsiteIdSelect">
+                        <option value="0">All Job Site
+                        </option>
+                        <option *ngFor="let item of listJobsite" value="{{item.id}}">{{item.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-sm-2 division-select">
+                    <div class="select-group">
+                      <input class="form-control select-custom" [(ngModel)]="filterByName" placeholder="Search" (keyup.enter)="Search()" />
+                    </div>
+                  </div>
+                  <div class="col-sm-2 division-select">
+                    <button type="button" class="btn bg-dark-blue text-white btn-flat btn-block" (click)="Search()">Search</button>
+                  </div>
+                </div>
+              </div>
+              <div class="div-public-holiday-filter">
+                <div class="col-sm-2 public-holiday-filter">
+                  <button type="button" [ngClass]="{'btn bg-dark-blue btn-flat btn-block btn-custom': true, 'text-white ': !isPresent, 'isPresent': isPresent  }"
+                    (click)="clickPresent()">Present</button>
+                </div>
+                <div class="col-sm-2 public-holiday-filter">
+                  <button type="button" [ngClass]="{'btn bg-dark-blue btn-flat btn-block btn-custom': true, 'text-white ': isPresent, 'isPresent': !isPresent  }"
+                    (click)="clickAbsent()">Absent</button>
+                </div>
+                <div class="col-sm-2 public-holiday-filter">
+                  <button type="button" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom" (click)="ngxSmartModalService.getModal('myBootstrapModal').open()">Roster</button>
+                </div>
+                <div class="col-sm-2 public-holiday-filter"></div>
+                <div class="col-sm-2 public-holiday-filter"></div>
+                <div class="col-sm-2 public-holiday-filter"></div>
+              </div>
+              <table class="table table-bordered table-striped table-dashboard">
+                <thead>
+                  <tr>
+                    <th>
+                      <span>SN</span>
+                    </th>
+                    <th>
+                      <span>Employee Name</span>
+                    </th>
+                    <th>
+                      <span>Employee Key</span>
+                    </th>
+                    <th>
+                      <span>Employee ID</span>
+                    </th>
+                    <th>
+                      <span>Division</span>
+                    </th>
+                    <th>
+                      <span>Site</span>
+                    </th>
+                    <th>
+                      <span>Job Site</span>
+                    </th>
+                    <th>
+                      <span>Time In</span>
+                    </th>
+                    <th>
+                      <span>Time Out</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <ng-container *ngFor="let item of listUser; let i = index">
+                    <tr>
+                      <th>{{i + 1}}</th>
+                      <td class="td-employeename" (click)="openPopup(item.employeeId)">{{item.employeeName}}</td>
+                      <td>{{item.empkey}}</td>
+                      <td>{{item.empID}}</td>
+                      <td>{{item.department}}</td>
+                      <td>{{item.site}}</td>
+                      <td>{{item.jobSite}}</td>
+                      <td>{{formatTime(item.timeIn)}}</td>
+                      <td>{{formatTime(item.timeOut)}}</td>
+                    </tr>
+                  </ng-container>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="clearfix foot-content">
+            <div class="b-left">
+              Show {{show}} to 10 of {{totalItems}} entries
+            </div>
+            <div class="b-right">
+              <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="pageSize" [rotate]="true" [maxSize]="5" (pageChange)="loadPage($event)"></ngb-pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<ng2-toasty [position]="'top-right'"></ng2-toasty>
+
+
+<ngx-smart-modal #myBootstrapModal identifier="myBootstrapModal">
+  <div class="content-wrapper content-main">
+    <!-- Content area -->
+    <div class="page-body">
+      <br>
+      <br>
+      <div class="clearfix big-top-title jobsite-table">
+        <div class="supper-title">Employee Roster List</div>
+      </div>
+      <div class="jobsite-table">
+        <div class="body-content">
+          <div class="table-responsive" style="overflow: hidden">
+            <div class="div-public-holiday-filter">
+              <div class="row div-public-holiday-filter">
+                <div class="col-sm-9">
+                  <div class="row">
+                    <div class="col-sm-2 roster-filter">
+                      <div>Filter by</div>
+                    </div>
+                    <div class="col-sm-10">
+                      <div class="row">
+                        <div class="col-sm-3 roster-filter-company">
+                          <div class="select-group">
+                            <select name="" id="" class="form-control" [(ngModel)]="currentCompanyIdSelectModal" (ngModelChange)="onSelectCompanyModal()">
+                              <option *ngFor="let item of listCompanyModal" value="{{item.id}}">{{item.name}}</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-sm-3 roster-filter">
+                          <div class="select-group">
+                            <select name="" id="" class="form-control" [(ngModel)]="currentDepartmentIdSelectModal" (ngModelChange)="onSelectDepartmentModal()">
+                              <option value="0">All Division
+                              </option>
+                              <option *ngFor="let item of listDepartmentModal" value="{{item.id}}">{{item.name}}
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-sm-3 roster-filter">
+                          <div class="select-group">
+                            <select name="" id="" class="form-control" [(ngModel)]="currentSiteIdSelectModal" (ngModelChange)="onSelectSiteModal()">
+                              <option value="0">All Site</option>
+                              <option *ngFor="let item of listSiteModal" value="{{item.id}}">{{item.name}}</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-sm-3">
+                          <div class="select-group">
+                            <select name="" id="" class="form-control" [(ngModel)]="currentJobsiteIdSelectModal" (ngModelChange)="onSelectJobSiteModal()">
+                              <option value="0">All Job Site
+                              </option>
+                              <option *ngFor="let item of listJobsiteModal" value="{{item.id}}">{{item.name}}</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="row">
+                    <div class="col-sm-8 division-select">
+                      <div class="select-group">
+                        <input class="form-control select-custom" [(ngModel)]="filterRosterByName" placeholder="Search" (keyup.enter)="SearchRoster()"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-sm-4 division-select">
+                      <button type="button" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom" (click)="SearchRoster()">Search</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>Company</th>
+                  <th>Key</th>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <!-- <th>{{currentCompany.jobSite}}</th> -->
+                  <th>Job Site</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let user of listUserV2">
+                  <td>{{ user.companyName }}</td>
+                  <td>{{ user.employeeKey }}</td>
+                  <td>{{ user.employeeID }}</td>
+                  <td>{{ user.employeeName }}</td>
+                  <td>{{ user.jobSiteName }}</td>
+                  <td class="tbody-action">
+                    <a (click)="gotoRosterOfEmployee(user)" title="Roster">
+                      <img src="../../../../assets/images/icons8-overtime.png" alt="Roster">
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="clearfix foot-content">
+          <div class="b-left">
+            Show {{showV2}} to {{pageSize}} of {{totalItemsV2}} entries
+          </div>
+          <div class="b-right">
+            <ngb-pagination [collectionSize]="totalItemsV2" [(page)]="pageV2" [pageSize]="pageSize" [rotate]="true" [maxSize]="5" (pageChange)="loadPageModal($event)"></ngb-pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ngx-smart-modal>
+
+<!-- Manual Recording -->
+
+<ngx-smart-modal #myManualRecord identifier="myManualRecord">
+  <div class="content-wrapper content-main dashboard-animal">
+    <!-- Content area -->
+    <div class="page-body">
+      <div class="jobsite-table">
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div div class="row">
+            <div class="col-sm-12 div-contain-employee" (mouseup)="showHidePersonal()">
+              <span>Employee Info</span>
+              <i class="fa fa-caret-down"></i>
+            </div>
+          </div>
+          <div class="info-personal">
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-3 label-name label-margin">
+                <label class="employee-field-require">Name</label>
+              </div>
+              <div class="col-sm-5 form-group">
+                <input type="text" class="form-control ipn-custom" [(ngModel)]="employeeDetail.employeeName" disabled>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-3 label-name label-margin">
+                <label class="employee-field-require">Employee Key</label>
+              </div>
+              <div class="col-sm-5 form-group">
+                <input type="text" class="form-control ipn-custom" [(ngModel)]="employeeDetail.empkey" disabled>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-3 label-name label-margin">
+                <label class="employee-field-require">Employee ID</label>
+              </div>
+              <div class="col-sm-5 form-group">
+                <input type="text" class="form-control ipn-custom" [(ngModel)]="employeeDetail.empID" disabled>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-3 label-name label-margin">Designation</div>
+              <div class="col-sm-5 form-group">
+                <input type="text" class="form-control ipn-custom" [(ngModel)]="employeeDetail.designation" disabled />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-3 label-name label-margin">
+                <label class="employee-field-require">Call Sign</label>
+              </div>
+              <div class="col-sm-5 form-group">
+                <input type="text" class="form-control ipn-custom" [(ngModel)]="employeeDetail.callSign" disabled />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-3 label-name label-margin">Shift</div>
+              <div class="col-sm-5 form-group">
+                <input type="text" class="form-control ipn-custom" [(ngModel)]="employeeDetail.shift" disabled>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-3 label-name label-margin">Date</div>
+              <div class="col-sm-5 form-group">
+                <input type="text" class="form-control ipn-custom" [(ngModel)]="employeeDetail.date" disabled>
+              </div>
+            </div>
+          </div>
+
+          <div>
+
+            <div div class="row">
+              <div class="col-sm-12 div-contain-employee" (mouseup)="showHideLoginCredential()">
+                <span>Roster</span>
+                <i class="fa fa-caret-down"></i>
+              </div>
+            </div>
+
+            <div class="login-credential">
+              <div class="div-body">
+                <div class="form-group">
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12 label-title">Start Time</label>
+                  <div class="col-md-3 col-sm-3 col-xs-12">
+                    <input type="time" class="form-control ipn-custom" [(ngModel)]="rosterUpdate.startTime">
+                  </div>
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12 label-title label-title-end-time">End Time</label>
+                  <div class="col-md-3 col-sm-3 col-xs-12">
+                    <input type="time" class="form-control ipn-custom" [(ngModel)]="rosterUpdate.endTime">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12 label-title">Shift code</label>
+                  <div class="col-md-9 col-sm-9 col-xs-12">
+                    <select class="form-control" [(ngModel)]="rosterUpdate.ShiftId" name="shiftId">
+                      <option *ngFor="let item of listShiftCode" [value]="item.id">{{ item.mainCode }}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12 label-title">Attendence Code</label>
+                  <div class="col-md-9 col-sm-9 col-xs-12">
+                    <select class="form-control" [(ngModel)]="rosterUpdate.AttendanceId" name="attendanceId">
+                      <option *ngFor="let item of listAttendence" [value]="item.id">{{ item.name }}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12 label-title">OT Code</label>
+                  <div class="col-md-9 col-sm-9 col-xs-12">
+                    <select class="form-control" [(ngModel)]="rosterUpdate.OtCodeId" name="otCodeId">
+                      <option *ngFor="let item of listOTSettingCode" [value]="item.id">{{ item.payrollCode }}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12 label-title">Remarks</label>
+                  <div class="col-md-9 col-sm-9 col-xs-12">
+                    <textarea [(ngModel)]="rosterUpdate.Remarks" name="remarks" class="form-control" style="min-height: 100px" maxlength="250"></textarea>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <table class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>
+                          <b>Type</b>
+                        </th>
+                        <th>
+                          <b>Start Time</b>
+                        </th>
+                        <th>
+                          <b>End Time</b>
+                        </th>
+                        <th>
+                          <b>Remarks</b>
+                        </th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="icon-type">
+                            <img src="../../../../assets/images/icon/01-longshift.png" alt=""> Planned OT
+                            <input type="checkbox" [checked]="rosterUpdate.type1 == 1" (change)="rosterUpdate.type1 = $event.target.checked? 1 : 0 ">
+                          </span>
+                          <br/>
+                          <span class="icon-type">
+                            <img src="../../../../assets/images/icon/02-vaccination.png" alt=""> Vaccination
+                            <input type="checkbox" [checked]="rosterUpdate.type1 == 2" (change)="rosterUpdate.type1 = $event.target.checked? 2 : 0 ">
+                          </span>
+                          <br/>
+                          <span class="icon-type">
+                            <img src="../../../../assets/images/icon/03-training.png" alt=""> Training
+                            <input type="checkbox" [checked]="rosterUpdate.type1 == 3" (change)="rosterUpdate.type1 = $event.target.checked? 3 : 0">
+                          </span>
+                        </td>
+                        <td>
+                          <input type="time" class="form-control ipn-custom" [(ngModel)]="rosterUpdate.startTime1">
+                        </td>
+                        <td>
+                          <input type="time" class="form-control ipn-custom" [(ngModel)]="rosterUpdate.endTime1">
+                        </td>
+                        <td>
+                          <input type="text" class="form-control ipn-custom" [(ngModel)]="rosterUpdate.remarks1">
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <span>
+                            <span class="icon-type">
+                              <img src="../../../../assets/images/icon/01-longshift.png" alt=""> Planned OT
+                              <input type="checkbox" [checked]="rosterUpdate.type2 == 1" (change)="rosterUpdate.type2 = $event.target.checked? 1 : 0">
+                            </span>
+                            <span class="icon-type">
+                              <img src="../../../../assets/images/icon/02-vaccination.png" alt=""> Vaccination
+                              <input type="checkbox" [checked]="rosterUpdate.type2 == 2" (change)="rosterUpdate.type2 = $event.target.checked? 2 : 0">
+                            </span>
+                            <span class="icon-type">
+                              <img src="../../../../assets/images/icon/03-training.png" alt=""> Training
+                              <input type="checkbox" [checked]="rosterUpdate.type2 == 3" (change)="rosterUpdate.type2 = $event.target.checked? 3 : 0">
+                            </span>
+                          </span>
+                        </td>
+                        <td>
+                          <input type="time" class="form-control ipn-custom" [(ngModel)]="rosterUpdate.startTime2">
+                        </td>
+                        <td>
+                          <input type="time" class="form-control ipn-custom" [(ngModel)]="rosterUpdate.endTime2">
+                        </td>
+                        <td>
+                          <input type="text" class="form-control ipn-custom" [(ngModel)]="rosterUpdate.remarks2">
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <span>
+                            <span class="icon-type">
+                              <img src="../../../../assets/images/icon/01-longshift.png" alt=""> Planned OT
+                              <input type="checkbox" [checked]="rosterUpdate.type3 == 1" (change)="rosterUpdate.type3 = $event.target.checked? 1 : 0">
+                            </span>
+                            <span class="icon-type">
+                              <img src="../../../../assets/images/icon/02-vaccination.png" alt=""> Vaccination
+                              <input type="checkbox" [checked]="rosterUpdate.type3 == 2" (change)="rosterUpdate.type3 = $event.target.checked? 2 : 0">
+                            </span>
+                            <span class="icon-type">
+                              <img src="../../../../assets/images/icon/03-training.png" alt=""> Training
+                              <input type="checkbox" [checked]="rosterUpdate.type3 == 3" (change)="rosterUpdate.type3 = $event.target.checked? 3 : 0">
+                            </span>
+                          </span>
+                        </td>
+                        <td>
+                          <input type="time" class="form-control ipn-custom" [(ngModel)]="rosterUpdate.startTime3">
+                        </td>
+                        <td>
+                          <input type="time" class="form-control ipn-custom" [(ngModel)]="rosterUpdate.endTime3">
+                        </td>
+                        <td>
+                          <input type="text" class="form-control ipn-custom" [(ngModel)]="rosterUpdate.remarks3">
+                        </td>
+                      </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12 div-contain-employee" (mouseup)="showHideWorkPermit()">
+                <span>Attendance</span>
+                <i class="fa fa-caret-down"></i>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12" style="padding: 0;">
+                <table class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>
+                        <b>ATT Type</b>
+                      </th>
+                      <th>
+                        <b>Normal Type</b>
+                      </th>
+                      <th>
+                        <b>Time In</b>
+                      </th>
+                      <th>
+                        <b>Time Out</b>
+                      </th>
+                      <th>
+                        <b>Working Hours</b>
+                      </th>
+                      <th>
+                        <b>Remarks</b>
+                      </th>
+                      <th>
+                        <b>Action</b>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <ng-container *ngFor="let attendance of myForm.attendances; let i = index">
+                      <tr>
+                        <td>
+                          <select class="form-control select-custom" [(ngModel)]="attendance.attType">
+                            <option *ngFor="let item of attType" value={{item.id}}>
+                              {{item.value}}
+                            </option>
+                          </select>
+                        </td>
+                        <td>
+                          <select class="form-control select-custom" [(ngModel)]="attendance.normalType" *ngIf="attendance.attType != 2">
+                            <option *ngFor="let item of normalType" value={{item.id}}>
+                              {{item.value}}
+                            </option>
+                          </select>
+                        </td>
+                        <td>
+                          <input type="time" class="form-control ipn-custom" *ngIf="attendance.attType != 2" [(ngModel)]="attendance.timeIn">
+                        </td>
+                        <td>
+                          <input type="time" class="form-control ipn-custom" *ngIf="attendance.attType != 2" [(ngModel)]="attendance.timeOut">
+                        </td>
+                        <td>
+                          <!-- <select class="form-control select-custom" *ngIf="attendance.attType != 2" [(ngModel)]="attendance.workingHourse">
+                            <option *ngFor="let item of workingHours" value={{item}}>
+                              {{item}}
+                            </option>
+                          </select> -->
+                          <span *ngIf="attendance.attType != 2">
+                            {{ myForm.rosterShiftCode + ' (' + formatTime(attendance.timeIn) + ' to ' + formatTime(attendance.timeOut) + ')'}}
+                          </span>
+
+                        </td>
+                        <td>
+                          <input type="text" class="form-control ipn-custom" *ngIf="attendance.attType != 2" [(ngModel)]="attendance.remarks">
+                        </td>
+
+                        <td class="tbody-action">
+                          <button type="button" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom btn-search-dashboard" (click)="RemoveAttendance(i)">Remove</button>
+                        </td>
+                      </tr>
+                    </ng-container>
+                </table>
+                <br />
+                <br />
+                <div class="col-sm-2" style="margin-left: -10px;">
+                  <button type="button" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom btn-search-dashboard" (click)="AddAttendance()">+ Add More</button>
+                </div>
+
+                <br />
+                <br />
+                <div class="col-sm-5"></div>
+                <div class="col-sm-2" style="margin-left: -10px;">
+                  <button (click)="submitForm()" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom btn-search-dashboard">Save & Update
+                  </button>
+                </div>
+
+
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</ngx-smart-modal>

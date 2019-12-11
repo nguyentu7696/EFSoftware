@@ -1,0 +1,1323 @@
+<div class="content-wrapper content-main" style="display: table">
+  <!-- Page header -->
+  <div class="page-header">
+    <div class="breadcrumb-line breadcrumb-line-component">
+      <ul class="breadcrumb">
+        <!-- <li [routerLink]="['/company/job-site/list']">{{currentCompany.jobSite}}</li>
+        <li>
+          <a [routerLink]="['/company/job-site/detail/edit']">{{currentJobSite.name}}</a>
+        </li> -->
+        <li>
+          <a [routerLink]="['/company/job-site/detail/employee']">Employee</a>
+        </li>
+        <li class="active">Create</li>
+      </ul>
+    </div>
+  </div>
+  <!-- /page header -->
+  <!-- Content area -->
+  <div class="page-body">
+    <div class="supper-title">Employee Event</div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 col-lg-8-custom">
+        <div class="panel panel-flat">
+          <div class="panel-head">
+            <div class="name">Event</div>
+          </div>
+
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-3 label-name employee-field-require">Event Type</div>
+              <div class="col-sm-5 form-group">
+                <select class="form-control select-custom" [(ngModel)]="showHide" (ngModelChange)="changeEventType()">
+                  <option value="0">Promotion</option>
+                  <option value="1">Termination/Resign</option>
+                  <option value="2">Rejoin</option>
+                  <option value="3">Contract</option>
+                  <option value="4">Transfer</option>
+                </select>
+              </div>
+            </div>
+
+            <div *ngIf="showHide == 1">
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-3 label-name">Effective date</div>
+                <div class="col-sm-5 form-group">
+                  <my-date-picker [options]="myDatePickerOptions"
+                    (dateChanged)="eventTR.effectiveDate = _dateService.dateTo1200($event.jsdate)"
+                    [(ngModel)]="eventTRTmp.effectiveDate" required>
+                  </my-date-picker>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-3 label-name">Reason for Resigning</div>
+                <div class="col-sm-5 form-group">
+                  <select class="form-control select-custom" [(ngModel)]="eventTR.resignReasonId">
+                    <option value="0">Retired</option>
+                    <option *ngFor="let resign of listResign" value="{{resign.id}}">{{resign.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-3 label-name">Zone Location</div>
+                <div class="col-sm-5 form-group">
+                  <select class="form-control select-custom" [(ngModel)]="eventTR.zoneLocationId">
+                    <option value="0">All Zone Location</option>
+                    <option *ngFor="let item of listZoneLocation" value="{{item.id}}">{{item.name}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="showHide == 0">
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-3 label-name">Effective date</div>
+                <div class="col-sm-5 form-group">
+                  <my-date-picker [options]="myDatePickerOptions"
+                    (dateChanged)="eventPromotion.effectiveDate = _dateService.dateTo1200($event.jsdate)"
+                    [(ngModel)]="eventPromotionTmp.effectiveDate" required>
+                  </my-date-picker>
+                </div>
+              </div>
+              <div class="panel-head">
+                <div class="name">Promotion</div>
+              </div>
+              <div class="panel-body">
+                <div class="row">
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name employee-field-require formatpd-label">Designation</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <input type="text" class="form-control ipn-custom" [(ngModel)]="eventPromotion.designation">
+                      <span class="text-danger" *ngIf="!employeeValid.designation">
+                        Designation is required.
+                      </span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Designation Type</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <input type="text" class="form-control ipn-custom" [(ngModel)]="eventPromotion.designationType">
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Employee Type</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <input type="text" class="form-control ipn-custom" [(ngModel)]="eventPromotion.employeeType">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Division</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <select name="" id="" class="form-control" [(ngModel)]="eventPromotion.departmentId"
+                        (ngModelChange)="changeDepartmentPromotion($event)">
+                        <option value="0">--Select--
+                        </option>
+                        <option *ngFor="let item of listDepartment" value="{{item.id}}">{{item.name}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Site</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <select name="" id="" class="form-control" [(ngModel)]="eventPromotion.siteId"
+                        (ngModelChange)="changeSitePromotion($event)">
+                        <option value="0">--Select--</option>
+                        <option *ngFor="let item of listSite" value="{{item.id}}">{{item.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Job Site</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <select name="" id="" class="form-control" [(ngModel)]="eventPromotion.jobSiteId"
+                        (ngModelChange)="changeJobsitePromotion($event)">
+                        <option value="0">--Select--
+                        </option>
+                        <option *ngFor="let item of listJobsite" value="{{item.id}}">{{item.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Zone Location</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <select name="" id="" class="form-control" [(ngModel)]="eventPromotion.zoneLocationId">
+                        <option value="0">--Select--
+                        </option>
+                        <option *ngFor="let item of listZoneLocation" value="{{item.id}}">{{item.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-10 div-contain-employee" (mouseup)="showHideShift()">
+                    <span>Shift</span>
+                    <i class="fa fa-caret-down"></i>
+                  </div>
+                  <div class="col-sm-1"></div>
+                </div>
+                <div class="row info-shift">
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name employee-field-require formatpd-label">Shift Code</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <select class="form-control select-custom" [(ngModel)]="eventPromotion.shiftId">
+                        <option value="0">--Select--
+                        </option>
+                        <option *ngFor="let item of listShift" value="{{item.id}}">{{item.mainCode}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Shift Key</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <input type="text" class="form-control ipn-custom" [(ngModel)]="eventPromotion.shiftKey">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Sub Contractor</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <input type="text" class="form-control ipn-custom" [(ngModel)]="eventPromotion.subContractor">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Recall</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <input type="text" class="form-control ipn-custom" [(ngModel)]="eventPromotion.recall">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Remarks</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <input type="text" class="form-control ipn-custom" [(ngModel)]="eventPromotion.remarks">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Eligibility Shift</div>
+                    <div class="col-sm-5 form-group">
+                      <input type="checkbox" [(ngModel)]="eventPromotion.eligibilityShift" class="checkbox-width">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-10 div-contain-employee" (mouseup)="showHideAllowance()">
+                    <span>Allowance</span>
+                    <i class="fa fa-caret-down"></i>
+                  </div>
+                  <div class="col-sm-1"></div>
+                </div>
+
+                <div class="row info-allowance">
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Eligibility Allowance</div>
+                    <div class="col-sm-5 form-group">
+                      <input type="checkbox" [(ngModel)]="eventPromotion.eligibilityAllowance" class="checkbox-width">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">HQ Allowance Code</div>
+                    <div class="col-sm-5 form-group formatpd formatpd-input">
+                      <div class="col-sm-6 form-group">Code</div>
+                      <div class="col-sm-6 form-group">Value</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Meal Allowance </div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <select class="form-control select-custom" [(ngModel)]="eventPromotion.mealAllowanceId"
+                          (ngModelChange)="changeMealAllowancePromotion()">
+                          <option *ngFor="let item of listAllowance" value="{{item.id}}">{{item.code}}</option>
+                        </select></div>
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <input type="text" class="form-control ipn-custom"
+                          [(ngModel)]="eventPromotion.mealAllowanceValue">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Monthly Shift Allowance</div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <select class="form-control select-custom" [(ngModel)]="eventPromotion.monthlyShiftAllowanceId"
+                          (ngModelChange)="changeMonthlyShiftAllowancePromotion()">
+                          <option *ngFor="let item of listAllowance" value="{{item.id}}">{{item.code}}</option>
+                        </select></div>
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <input type="text" class="form-control ipn-custom"
+                          [(ngModel)]="eventPromotion.monthlyShiftAllowanceValue">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Transport Allowance </div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <select class="form-control select-custom" [(ngModel)]="eventPromotion.transportAllowanceId"
+                          (ngModelChange)="changeTransportAllowancePromotion()">
+                          <option *ngFor="let item of listAllowance" value="{{item.id}}">{{item.code}}</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <input type="text" class="form-control ipn-custom"
+                          [(ngModel)]="eventPromotion.transportAllowanceValue">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-10 div-contain-employee" (mouseup)="showHideOT()">
+                    <span>OT Information</span>
+                    <i class="fa fa-caret-down"></i>
+                  </div>
+                  <div class="col-sm-1"></div>
+                </div>
+                <div class="row info-ot">
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Eligibility OT</div>
+                    <div class="col-sm-5 form-group">
+                      <input type="checkbox" [(ngModel)]="eventPromotion.eligibilityOt" class="checkbox-width">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Max Working Hours/Week</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <input type="text" class="form-control ipn-custom" [(ngModel)]="eventPromotion.maxWorkingHours">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name"></div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group">Code</div>
+                      <div class="col-sm-6 form-group">Value</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">PH</div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <select class="form-control select-custom" [(ngModel)]="eventPromotion.otPhId"
+                          (ngModelChange)="changeOtPhPromotion()">
+                          <option *ngFor="let item of listOtPh" value="{{item.id}}">{{item.payrollCode}}</option>
+                        </select></div>
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <input type="text" class="form-control ipn-custom" [(ngModel)]="eventPromotion.otPhValue">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">RD</div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <select class="form-control select-custom" [(ngModel)]="eventPromotion.otRdId"
+                          (ngModelChange)="changeOtRdPromotion()">
+                          <option *ngFor="let item of listOtRd" value="{{item.id}}">{{item.payrollCode}}</option>
+                        </select></div>
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <input type="text" class="form-control ipn-custom" [(ngModel)]="eventPromotion.otRdValue">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">O</div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <select class="form-control select-custom" [(ngModel)]="eventPromotion.otOId"
+                          (ngModelChange)="changeOtOPromotion()">
+                          <option *ngFor="let item of listOtO" value="{{item.id}}">{{item.payrollCode}}</option>
+                        </select></div>
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <input type="text" class="form-control ipn-custom" [(ngModel)]="eventPromotion.otOValue">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">STD</div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <select class="form-control select-custom" [(ngModel)]="eventPromotion.otStdId"
+                          (ngModelChange)="changeOtStdPromotion()">
+                          <option *ngFor="let item of listOtStd" value="{{item.id}}">{{item.payrollCode}}</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <input type="text" class="form-control ipn-custom" [(ngModel)]="eventPromotion.otStdValue">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="showHide == 2">
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-3 label-name">Effective date</div>
+                <div class="col-sm-5 form-group">
+                  <!-- <input type="text" class="form-control ipn-custom" [(ngModel)]="eventRejoin.effectiveDate"> -->
+                  <my-date-picker [options]="myDatePickerOptions"
+                    (dateChanged)="eventRejoin.effectiveDate = _dateService.dateTo1200($event.jsdate)"
+                    [(ngModel)]="eventRejoinTmp.effectiveDate" required>
+                  </my-date-picker>
+                </div>
+              </div>
+              <div class="panel-head">
+                <div class="name">Rejoin</div>
+              </div>
+              <div class="panel-body">
+                <div class="row">
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Employee ID</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <input type="text" class="form-control ipn-custom" [(ngModel)]="eventRejoin.empId">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Employee Key</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <input type="text" class="form-control ipn-custom" [(ngModel)]="eventRejoin.empKey">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Division</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <select class="form-control select-custom" [(ngModel)]="eventRejoin.departmentId"
+                        (ngModelChange)="changeDepartmentRejoin()">
+                        <option value="0">--Select--
+                        </option>
+                        <option *ngFor="let item of listDepartment" value="{{item.id}}">{{item.name}}
+                        </option>
+                      </select>
+
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Job Site</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <select class="form-control select-custom" [(ngModel)]="eventRejoin.jobSiteId"
+                        (ngModelChange)="changeJobsiteRejoin()">
+                        <option value="0">--Select--
+                        </option>
+                        <option *ngFor="let item of listJobsite" value="{{item.id}}">{{item.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Zone Location</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <select class="form-control select-custom" [(ngModel)]="eventRejoin.zoneLocationId">
+                        <option value="0">--Select--
+                        </option>
+                        <option *ngFor="let item of listZoneLocation" value="{{item.id}}">{{item.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-10 div-contain-employee" (mouseup)="showHideShiftRejoin()">
+                    <span>Shift</span>
+                    <i class="fa fa-caret-down"></i>
+                  </div>
+                  <div class="col-sm-1"></div>
+                </div>
+                <div class="row info-shiftrejoin">
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name employee-field-require formatpd-label">Shift Code</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <select class="form-control select-custom" [(ngModel)]="eventRejoin.shiftId">
+                        <option value="0">--Select--
+                        </option>
+                        <option *ngFor="let item of listShift" value="{{item.id}}">{{item.mainCode}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Shift Key</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <input type="text" class="form-control ipn-custom" [(ngModel)]="eventRejoin.shiftKey">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Sub Contractor</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <input type="text" class="form-control ipn-custom" [(ngModel)]="eventRejoin.subContractor">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Recall</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <input type="text" class="form-control ipn-custom" [(ngModel)]="eventRejoin.recall">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Remarks</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <input type="text" class="form-control ipn-custom" [(ngModel)]="eventRejoin.remarks">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Eligibility Shift</div>
+                    <div class="col-sm-5 form-group">
+                      <input type="checkbox" [(ngModel)]="eventRejoin.eligibilityShift" class="checkbox-width">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-10 div-contain-employee" (mouseup)="showHideAllowanceRejoin()">
+                    <span>Allowance</span>
+                    <i class="fa fa-caret-down"></i>
+                  </div>
+                  <div class="col-sm-1"></div>
+                </div>
+
+                <div class="row info-allowancerejoin">
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Eligibility Allowance</div>
+                    <div class="col-sm-5 form-group">
+                      <input type="checkbox" [(ngModel)]="eventRejoin.eligibilityAllowance" class="checkbox-width">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">HQ Allowance Code</div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group">Code</div>
+                      <div class="col-sm-6 form-group">Value</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Meal Allowance </div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <select class="form-control select-custom" [(ngModel)]="eventRejoin.mealAllowanceId"
+                          (ngModelChange)="changeMealAllowance()">
+                          <option *ngFor="let item of listAllowance" value="{{item.id}}">{{item.code}}</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <input type="text" class="form-control ipn-custom" [(ngModel)]="eventRejoin.mealAllowanceValue">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Monthly Shift Allowance</div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <select class="form-control select-custom" [(ngModel)]="eventRejoin.monthlyShiftAllowanceId"
+                          (ngModelChange)="changeMonthlyShiftAllowance()">
+                          <option *ngFor="let item of listAllowance" value="{{item.id}}">{{item.code}}</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <input type="text" class="form-control ipn-custom"
+                          [(ngModel)]="eventRejoin.monthlyShiftAllowanceValue">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Transport Allowance </div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <select class="form-control select-custom" [(ngModel)]="eventRejoin.transportAllowanceId"
+                          (ngModelChange)="changeTransportAllowance()">
+                          <option *ngFor="let item of listAllowance" value="{{item.id}}">{{item.code}}</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <input type="text" class="form-control ipn-custom"
+                          [(ngModel)]="eventRejoin.transportAllowanceValue">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-10 div-contain-employee" (mouseup)="showHideOTRejoin()">
+                    <span>OT Information</span>
+                    <i class="fa fa-caret-down"></i>
+                  </div>
+                  <div class="col-sm-1"></div>
+                </div>
+                <div class="row info-otrejoin">
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Eligibility OT</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <input type="checkbox" [(ngModel)]="eventRejoin.eligibilityOt" class="checkbox-width">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Max Working Hours/Week</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <input type="text" class="form-control ipn-custom" [(ngModel)]="eventRejoin.maxWorkingHours">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name"></div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group">Code</div>
+                      <div class="col-sm-6 form-group">Value</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">PH</div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <select class="form-control select-custom" [(ngModel)]="eventRejoin.otPhId"
+                          (ngModelChange)="changeOtPh()">
+                          <option *ngFor="let item of listOtPh" value="{{item.id}}">{{item.payrollCode}}</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <input type="text" class="form-control ipn-custom" [(ngModel)]="eventRejoin.otPhValue">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">RD</div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <select class="form-control select-custom" [(ngModel)]="eventRejoin.otRdId"
+                          (ngModelChange)="changeOtRd()">
+                          <option *ngFor="let item of listOtRd" value="{{item.id}}">{{item.payrollCode}}</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <input type="text" class="form-control ipn-custom" [(ngModel)]="eventRejoin.OtRdValue">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">O</div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <select class="form-control select-custom" [(ngModel)]="eventRejoin.otOId"
+                          (ngModelChange)="changeOtO()">
+                          <option *ngFor="let item of listOtO" value="{{item.id}}">{{item.payrollCode}}</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <input type="text" class="form-control ipn-custom" [(ngModel)]="eventRejoin.otOValue">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">STD</div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <select class="form-control select-custom" [(ngModel)]="eventRejoin.otStdId"
+                          (ngModelChange)="changeOtStd()">
+                          <option *ngFor="let item of listOtStd" value="{{item.id}}">{{item.payrollCode}}</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <input type="text" class="form-control ipn-custom" [(ngModel)]="eventRejoin.otStdValue">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="showHide == 3">
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-3 label-name">Period</div>
+                <div class="col-sm-5 formatpd">
+                  <div class="col-sm-6 form-group">
+                    <my-date-picker [options]="myDatePickerOptions"
+                      (dateChanged)="eventContract.periodStart = _dateService.dateTo1200($event.jsdate)"
+                      [(ngModel)]="eventContractTmp.periodStart" required>
+                    </my-date-picker>
+                  </div>
+                  <div class="col-sm-6 form-group">
+                    <my-date-picker [options]="myDatePickerOptions"
+                      (dateChanged)="eventContract.periodEnd = _dateService.dateTo1200($event.jsdate)"
+                      [(ngModel)]="eventContractTmp.periodEnd" required>
+                    </my-date-picker>
+                  </div>
+                </div>
+              </div>
+              <div class="panel-head">
+                <div class="name">Contract</div>
+              </div>
+              <div class="panel-body">
+                <div class="row">
+
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Division</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <select class="form-control select-custom" [(ngModel)]="eventContract.departmentId"
+                        (ngModelChange)="changeDepartmentContract()">
+                        <option value="0">--Select--</option>
+                        <option *ngFor="let item of listDepartment" value="{{item.id}}">{{item.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Job Site</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <select class="form-control select-custom" [(ngModel)]="eventContract.jobSiteId"
+                        (ngModelChange)="changeJobsiteContract()">
+                        <option value="0">--Select--
+                        </option>
+                        <option *ngFor="let item of listJobsite" value="{{item.id}}">{{item.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Zone Location</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <select class="form-control select-custom" [(ngModel)]="eventContract.zoneLocationId"
+                        (ngModelChange)="changeZoneContract()">
+                        <option value="0">--Select--
+                        </option>
+                        <option *ngFor="let item of listZoneLocation" value="{{item.id}}">{{item.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Zone</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <select class="form-control select-custom" [(ngModel)]="eventContract.zoneId">
+                        <option value="0">--Select--
+                        </option>
+                        <option *ngFor="let item of listZone" value="{{item.id}}">{{item.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-10 div-contain-employee" (mouseup)="showHideShiftConTract()">
+                    <span>Shift</span>
+                    <i class="fa fa-caret-down"></i>
+                  </div>
+                  <div class="col-sm-1"></div>
+                </div>
+                <div class="row info-shiftcontract">
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name employee-field-require formatpd-label">Shift Code</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <select class="form-control select-custom" [(ngModel)]="eventContract.shiftId">
+                        <option value="0">--Select--
+                        </option>
+                        <option *ngFor="let item of listShift" value="{{item.id}}">{{item.mainCode}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Shift Key</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <input type="text" class="form-control ipn-custom" [(ngModel)]="eventContract.shiftKey">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Sub Contractor</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <input type="text" class="form-control ipn-custom" [(ngModel)]="eventContract.subContractor">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Recall</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <input type="text" class="form-control ipn-custom" [(ngModel)]="eventContract.recall">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Remarks</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <input type="text" class="form-control ipn-custom" [(ngModel)]="eventContract.remarks">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Eligibility Shift</div>
+                    <div class="col-sm-5 form-group">
+                      <input type="checkbox" [(ngModel)]="eventContract.eligibilityShift" class="checkbox-width">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-10 div-contain-employee" (mouseup)="showHideAllowanceConTract()">
+                    <span>Allowance</span>
+                    <i class="fa fa-caret-down"></i>
+                  </div>
+                  <div class="col-sm-1"></div>
+                </div>
+
+                <div class="row info-allowancecontract">
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Eligibility Allowance</div>
+                    <div class="col-sm-5 form-group">
+                      <input type="checkbox" [(ngModel)]="eventContract.eligibilityAllowance" class="checkbox-width">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">HQ Allowance Code</div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group">Code</div>
+                      <div class="col-sm-6 form-group">Value</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Meal Allowance </div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <select class="form-control select-custom" [(ngModel)]="eventContract.mealAllowanceId"
+                          (ngModelChange)="changeMealAllowanceContract()">
+                          <option *ngFor="let item of listAllowance" value="{{item.id}}">{{item.code}}</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <input type="text" class="form-control ipn-custom"
+                          [(ngModel)]="eventContract.mealAllowanceValue">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Monthly Shift Allowance</div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <select class="form-control select-custom" [(ngModel)]="eventContract.monthlyShiftAllowanceId"
+                          (ngModelChange)="changeMonthlyShiftAllowanceContract()">
+                          <option *ngFor="let item of listAllowance" value="{{item.id}}">{{item.code}}</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <input type="text" class="form-control ipn-custom"
+                          [(ngModel)]="eventContract.monthlyShiftAllowanceValue">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Transport Allowance </div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <select class="form-control select-custom" [(ngModel)]="eventContract.transportAllowanceId"
+                          (ngModelChange)="changeTransportAllowanceContract()">
+                          <option *ngFor="let item of listAllowance" value="{{item.id}}">{{item.code}}</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <input type="text" class="form-control ipn-custom"
+                          [(ngModel)]="eventContract.transportAllowanceValue">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-10 div-contain-employee" (mouseup)="showHideOTConTract()">
+                    <span>OT Information</span>
+                    <i class="fa fa-caret-down"></i>
+                  </div>
+                  <div class="col-sm-1"></div>
+                </div>
+                <div class="row info-otcontract">
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Eligibility OT</div>
+                    <div class="col-sm-5 form-group">
+                      <input type="checkbox" [(ngModel)]="eventContract.eligibilityOt" class="checkbox-width">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Max Working Hours/Week</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <input type="text" class="form-control ipn-custom" [(ngModel)]="eventContract.maxWorkingHours">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name"></div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group">Code</div>
+                      <div class="col-sm-6 form-group">Value</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">PH</div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <select class="form-control select-custom" [(ngModel)]="eventContract.otPhId"
+                          (ngModelChange)="changeOtPhContract()">
+                          <option *ngFor="let item of listOtPh" value="{{item.id}}">{{item.payrollCode}}</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <input type="text" class="form-control ipn-custom" [(ngModel)]="eventContract.otPhValue">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">RD</div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <select class="form-control select-custom" [(ngModel)]="eventContract.otRdId"
+                          (ngModelChange)="changeOtRdContract()">
+                          <option *ngFor="let item of listOtRd" value="{{item.id}}">{{item.payrollCode}}</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <input type="text" class="form-control ipn-custom">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">O</div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <select class="form-control select-custom" [(ngModel)]="eventContract.otOId"
+                          (ngModelChange)="changeOtOContract()">
+                          <option *ngFor="let item of listOtO" value="{{item.id}}">{{item.payrollCode}}</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <input type="text" class="form-control ipn-custom">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">STD</div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <select class="form-control select-custom" [(ngModel)]="eventContract.otStdId"
+                          (ngModelChange)="changeOtStdContract()">
+                          <option *ngFor="let item of listOtStd" value="{{item.id}}">{{item.payrollCode}}</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <input type="text" class="form-control ipn-custom">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="showHide == 4">
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-3 label-name">Period</div>
+                <div class="col-sm-5 formatpd" style="padding-left: 0px">
+                  <div class="col-sm-6 form-group">
+                    <my-date-picker [options]="myDatePickerOptions"
+                      (dateChanged)="eventTransfer.periodStart = _dateService.dateTo1200($event.jsdate)"
+                      [(ngModel)]="eventTransferTmp.periodStart" required>
+                    </my-date-picker>
+                  </div>
+                  <div class="col-sm-6 form-group">
+                    <my-date-picker [options]="myDatePickerOptions"
+                      (dateChanged)="eventTransfer.periodEnd = _dateService.dateTo1200($event.jsdate)"
+                      [(ngModel)]="eventTransferTmp.periodEnd" required>
+                    </my-date-picker>
+                  </div>
+                </div>
+              </div>
+              <div class="panel-head">
+                <div class="name">Transfer</div>
+              </div>
+              <div class="panel-body">
+                <div class="row">
+
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Division</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <select class="form-control select-custom" [(ngModel)]="eventTransfer.departmentId"
+                        (ngModelChange)="changeDepartmentTransfer()">
+                        <option value="0">--Select--</option>
+                        <option *ngFor="let item of listDepartment" value="{{item.id}}">{{item.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Job Site</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <select class="form-control select-custom" [(ngModel)]="eventTransfer.jobSiteId"
+                        (ngModelChange)="changeJobsiteTransfer()">
+                        <option value="0">--Select--
+                        </option>
+                        <option *ngFor="let item of listJobsite" value="{{item.id}}">{{item.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Zone Location</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <select class="form-control select-custom" [(ngModel)]="eventTransfer.zoneLocationId"
+                        (ngModelChange)="changeZoneTransfer()">
+                        <option value="0">--Select--
+                        </option>
+                        <option *ngFor="let item of listZoneLocation" value="{{item.id}}">{{item.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Zone</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <select class="form-control select-custom" [(ngModel)]="eventTransfer.zoneId">
+                        <option value="0">--Select--
+                        </option>
+                        <option *ngFor="let item of listZone" value="{{item.id}}">{{item.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-10 div-contain-employee" (mouseup)="showHideShiftTransfer()">
+                    <span>Shift</span>
+                    <i class="fa fa-caret-down"></i>
+                  </div>
+                  <div class="col-sm-1"></div>
+                </div>
+                <div class="row info-shifttransfer">
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name employee-field-require formatpd-label">Shift Code</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <select class="form-control select-custom" [(ngModel)]="eventTransfer.shiftId">
+                        <option value="0">--Select--
+                        </option>
+                        <option *ngFor="let item of listShift" value="{{item.id}}">{{item.mainCode}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Shift Key</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <input type="text" class="form-control ipn-custom" [(ngModel)]="eventTransfer.shiftKey">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Sub Contractor</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <input type="text" class="form-control ipn-custom" [(ngModel)]="eventTransfer.subContractor">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Recall</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <input type="text" class="form-control ipn-custom" [(ngModel)]="eventTransfer.recall">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Remarks</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <input type="text" class="form-control ipn-custom" [(ngModel)]="eventTransfer.remarks">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Eligibility Shift</div>
+                    <div class="col-sm-5 form-group">
+                      <input type="checkbox" [(ngModel)]="eventTransfer.eligibilityShift" class="checkbox-width">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-10 div-contain-employee" (mouseup)="showHideAllowanceTransfer()">
+                    <span>Allowance</span>
+                    <i class="fa fa-caret-down"></i>
+                  </div>
+                  <div class="col-sm-1"></div>
+                </div>
+                <div class="row info-allowancetransfer">
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Eligibility Allowance</div>
+                    <div class="col-sm-5 form-group">
+                      <input type="checkbox" [(ngModel)]="eventTransfer.eligibilityAllowance" class="checkbox-width">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">HQ Allowance Code</div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group">Code</div>
+                      <div class="col-sm-6 form-group">Value</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Meal Allowance </div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <select class="form-control select-custom" [(ngModel)]="eventTransfer.mealAllowanceId"
+                          (ngModelChange)="changeMealAllowanceTransfer()">
+                          <option *ngFor="let item of listAllowance" value="{{item.id}}">{{item.code}}</option>
+                        </select></div>
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <input type="text" class="form-control ipn-custom"
+                          [(ngModel)]="eventTransfer.mealAllowanceValue">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Monthly Shift Allowance</div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <select class="form-control select-custom" [(ngModel)]="eventTransfer.monthlyShiftAllowanceId"
+                          (ngModelChange)="changeMonthlyShiftAllowanceTransfer()">
+                          <option *ngFor="let item of listAllowance" value="{{item.id}}">{{item.code}}</option>
+                        </select></div>
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <input type="text" class="form-control ipn-custom"
+                          [(ngModel)]="eventTransfer.monthlyShiftAllowanceValue">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Transport Allowance </div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <select class="form-control select-custom" [(ngModel)]="eventTransfer.transportAllowanceId"
+                          (ngModelChange)="changeTransportAllowanceTransfer()">
+                          <option *ngFor="let item of listAllowance" value="{{item.id}}">{{item.code}}</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <input type="text" class="form-control ipn-custom"
+                          [(ngModel)]="eventTransfer.transportAllowanceValue">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-10 div-contain-employee" (mouseup)="showHideOTTransfer()">
+                    <span>OT Information</span>
+                    <i class="fa fa-caret-down"></i>
+                  </div>
+                  <div class="col-sm-1"></div>
+                </div>
+                <div class="row info-ottransfer">
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Eligibility OT</div>
+                    <div class="col-sm-5 form-group">
+                      <input type="checkbox" [(ngModel)]="eventTransfer.eligibilityOt" class="checkbox-width">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">Max Working Hours/Week</div>
+                    <div class="col-sm-5 form-group formatpd-input">
+                      <input type="text" class="form-control ipn-custom" [(ngModel)]="eventTransfer.maxWorkingHours">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name"></div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group">Code</div>
+                      <div class="col-sm-6 form-group">Value</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">PH</div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <select class="form-control select-custom" [(ngModel)]="eventTransfer.otPhId"
+                          (ngModelChange)="changeOtPhTransfer()">
+                          <option *ngFor="let item of listOtPh" value="{{item.id}}">{{item.payrollCode}}</option>
+                        </select></div>
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <input type="text" class="form-control ipn-custom" [(ngModel)]="eventTransfer.otPhValue">
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">RD</div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <select class="form-control select-custom" [(ngModel)]="eventTransfer.otRdId"
+                          (ngModelChange)="changeOtRdTransfer()">
+                          <option *ngFor="let item of listOtRd" value="{{item.id}}">{{item.payrollCode}}</option>
+                        </select></div>
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <input type="text" class="form-control ipn-custom" [(ngModel)]="eventTransfer.OtRdValue">
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">O</div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <select class="form-control select-custom" [(ngModel)]="eventTransfer.otOId"
+                          (ngModelChange)="changeOtTransfer()">
+                          <option *ngFor="let item of listOtO" value="{{item.id}}">{{item.payrollCode}}</option>
+                        </select></div>
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <input type="text" class="form-control ipn-custom" [(ngModel)]="eventTransfer.otOValue">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 label-name formatpd-label">STD</div>
+                    <div class="col-sm-5 form-group formatpd">
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <select class="form-control select-custom" [(ngModel)]="eventTransfer.otStdId"
+                          (ngModelChange)="changeOtStdTransfer()">
+                          <option *ngFor="let item of listOtStd" value="{{item.id}}">{{item.payrollCode}}</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-6 form-group formatpd-input">
+                        <input type="text" class="form-control ipn-custom" [(ngModel)]="eventTransfer.otStdValue">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-lg-4-custom">
+        <div class="panel panel-flat">
+          <div class="panel-head">
+            <div class="name">Action</div>
+          </div>
+          <div class="panel-body">
+            <div *ngIf="showHide == 0">
+              <div class="form-group">
+                <h4>Status</h4>
+              </div>
+              <div class="form-group">
+                <select class="form-control select-custom" [(ngModel)]="eventPromotion.status">
+                  <option value="1">Active</option>
+                  <option value="2">Inactive</option>
+                </select>
+              </div>
+            </div>
+
+            <div *ngIf="showHide == 1">
+              <div class="form-group">
+                <h4>Status</h4>
+              </div>
+              <div class="form-group">
+                <select class="form-control select-custom" [(ngModel)]="eventTR.status">
+                  <option value="1">Active</option>
+                  <option value="2">Inactive</option>
+                </select>
+              </div>
+            </div>
+            <div *ngIf="showHide == 2">
+              <div class="form-group">
+                <h4>Status</h4>
+              </div>
+              <div class="form-group">
+                <select class="form-control select-custom" [(ngModel)]="eventRejoin.status">
+                  <option value="1">Active</option>
+                  <option value="2">Inactive</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+
+              <button type="button" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom"
+                (click)="updateEventEmployee()">Update</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng2-toasty [position]="'top-right'"></ng2-toasty>

@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - EFSoftware</title>
+    <base href="~/" />
+
+    <link rel="stylesheet" href="~/dist/vendor.css" asp-append-version="true" />
+
+    <base href="/src">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/dist/assets/css/icons/icomoon/styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/dist/assets/css/icons/fontawesome/styles.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/dist/assets/css/bootstrap.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/dist/assets/css/core.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/dist/assets/css/components.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/dist/assets/css/colors.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/dist/assets/css/custom.css" asp-append-version="true" />
+    <script src="~/dist/assets/js/plugins/loaders/pace.min.js" asp-append-version="true"></script>
+    <script src="~/dist/assets/js/core/libraries/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/dist/assets/js/core/libraries/bootstrap.min.js" asp-append-version="true"></script>
+    <script src="~/dist/assets/js/plugins/loaders/blockui.min.js" asp-append-version="true"></script>
+    <script src="~/dist/assets/js/plugins/ui/nicescroll.min.js" asp-append-version="true"></script>
+    <script src="~/dist/assets/js/plugins/ui/drilldown.js" asp-append-version="true"></script>
+    <script src="~/dist/assets/js/core/app.js" asp-append-version="true"></script>
+</head>
+<body>
+    @RenderBody()
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

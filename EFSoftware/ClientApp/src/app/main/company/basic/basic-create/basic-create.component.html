@@ -1,0 +1,234 @@
+<div class="content-wrapper content-main">
+        <!-- Page header -->
+        <div class="page-header">
+            <div class="breadcrumb-line breadcrumb-line-component">
+                <ul class="breadcrumb">
+                    <li><a [routerLink]="['/company/basic/list']">Company</a></li>
+                    <li><a href="javascript:void(0)">{{currentCompany.name? currentCompany.name: 'Create'}}</a></li>
+                    <li class="active">Basic Information</li>
+                </ul>
+            </div>
+        </div>
+        <!-- /page header -->
+        <!-- Content area -->
+        <div class="page-body">
+            <div class="supper-title">Basic Information</div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 col-lg-8-custom">
+                    <div class="panel panel-flat">
+                        <div class="panel-head">
+                            <div class="name">Company Details</div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="label-name">Name</div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.name">
+                                        <span class="text-danger" *ngIf="!companyValid.name">
+                                            Name is required.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="label-name">PIC handphone</div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.picHandphone">
+                                        <span class="text-danger" *ngIf="!companyValid.picHandphone">
+                                            PIC handphone is required.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="label-name">Email address</div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.emailAddress">
+                                        <span class="text-danger" *ngIf="!companyValid.emailAddress">
+                                            Email address is required.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="label-name">Address</div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.address">
+                                        <span class="text-danger" *ngIf="!companyValid.address">
+                                            Address is required.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 class="font-OpenSans-SemiBold sub-supper-title">Preferred to display name</h3>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="label-name">Division</div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.department">
+                                        <span class="text-danger" *ngIf="!companyValid.department">
+                                            Division is required.
+                                        </span>
+                                        <!-- <select class="form-control select-custom" [(ngModel)]="currentCompany.department">
+                                            <option value="1">Department</option>
+                                            <option value="0">Division</option>
+                                        </select> -->
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="label-name">Site</div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.site">
+                                        <span class="text-danger" *ngIf="!companyValid.site">
+                                            Site is required.
+                                        </span>
+                                        <!-- <select class="form-control select-custom" [(ngModel)]="currentCompany.site">
+                                            <option value="0">Site</option>
+                                            <option value="1">Job</option>
+                                        </select> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="label-name">Job Site</div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.jobSite">
+                                        <span class="text-danger" *ngIf="!companyValid.jobSite">
+                                            Job Site is required.
+                                        </span>
+                                        <!-- <select class="form-control select-custom" [(ngModel)]="currentCompany.jobSite">
+                                            <option value="0">Job Site</option>
+                                            <option value="1">Job Task Number</option>
+                                        </select> -->
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="label-name">Zone</div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.zone">
+                                        <span class="text-danger" *ngIf="!companyValid.zone">
+                                            Zone is required.
+                                        </span>
+                                        <!-- <select class="form-control select-custom" [(ngModel)]="currentCompany.zone">
+                                                <option value="0">Zone</option>
+                                                <option value="1">Call sign</option>
+                                        </select> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="label-name">Level</div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.level">
+                                        <span class="text-danger" *ngIf="!companyValid.level">
+                                            Level is required.
+                                        </span>
+                                        <!-- <select class="form-control select-custom" [(ngModel)]="currentCompany.level">
+                                                <option value="0">Level</option>
+                                                <option value="1">Floor</option>
+                                        </select> -->
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="label-name">Area</div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.area">
+                                        <span class="text-danger" *ngIf="!companyValid.area">
+                                            Area is required.
+                                        </span>
+                                        <!-- <select class="form-control select-custom" [(ngModel)]="currentCompany.area">
+                                                <option value="0">Area</option>
+                                                <option value="1">Region</option>
+                                            </select> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="label-name">Location</div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.location">
+                                        <span class="text-danger" *ngIf="!companyValid.location">
+                                            Location is required.
+                                        </span>
+                                        <!-- <select class="form-control select-custom" [(ngModel)]="currentCompany.location">
+                                            <option value="0">Location</option>
+                                            <option value="1">Address</option>
+                                        </select> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-lg-4-custom">
+                    <div class="panel panel-flat">
+                        <div class="panel-head">
+                            <div class="name">Action</div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="label-name">Status</div>
+                            <div class="form-group">
+                                <!-- <select name="" id="" class="form-control select-custom">
+                                    <option value="">Active</option>
+                                    <option value="">Deactive</option>
+                                </select> -->
+                                <select class="form-control select-custom" [(ngModel)]="currentCompany.status">
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>
+                            </div>
+                            <br>
+                            <button type="button" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom"  *ngIf="iscreate"
+                            (click)="createCompany()">Create</button>
+                            <button type="button" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom"  *ngIf="!iscreate"
+                            (click)="updateCompany()">Update</button>
+                            <button type="button" class="btn border-light-red text-light-red btn-flat btn-block btn-custom" *ngIf="!iscreate"
+                            (click)="deleteCompany()">Delete</button>
+                        </div>
+                    </div>
+                    <div class="panel panel-flat">
+                        <div class="panel-head">
+                            <div class="name">Logo</div>
+                        </div>
+                        <div class="panel-body">
+                            <div>
+                                <img src="{{this.currentCompany.logo? baseUrl + this.currentCompany.logo :''}}" alt="" class="img-responsive center-block">
+                            </div>
+                            <div class="text-center logo-size">Size: 135px X 135px</div>
+                            <div class="custom-input-file">
+                                <input type="file" name="file" id="file" class="inputfile" data-multiple-caption="{count} files selected" multiple
+                                (change)="handleFileInput($event.target.files)" />
+                                <label for="file">Browse..</label>
+                            </div>
+                            <!-- <script type="text/javascript">
+                                var inputs = document.querySelectorAll( '.inputfile' );
+                                Array.prototype.forEach.call( inputs, function( input )
+                                {
+                                    var label    = input.nextElementSibling,
+                                        labelVal = label.innerHTML;
+                                    input.addEventListener( 'change', function( e )
+                                    {
+                                        var fileName = '';
+                                        if( this.files && this.files.length > 1 )
+                                            fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
+                                        else
+                                            fileName = e.target.value.split( '\\' ).pop();
+      
+                                        if( fileName )
+                                            label.querySelector( 'span' ).innerHTML = fileName;
+                                        else
+                                            label.innerHTML = labelVal;
+                                    });
+                                });
+                            </script> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <ng2-toasty [position]="'top-right'"></ng2-toasty>

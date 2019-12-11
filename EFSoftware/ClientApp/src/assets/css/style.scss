@@ -1,0 +1,17 @@
+// @import '~@fullcalendar/core/main.css';
+// @import '~@fullcalendar/daygrid/main.css';
+@import '_variable.scss';
+@import '_author.scss';
+@import '_font.scss';
+@import '_common.scss';
+@import '_header.scss';
+@import '_sidebar.scss';
+@import '_content.scss';
+@import '~angular-calendar/css/angular-calendar.css';
+@import "../../ngx-smart-modal/src/ngx-smart-modal";
+// @import '~bootstrap/dist/css/bootstrap.min.css';
+//@import '~open-iconic/font/css/open-iconic-bootstrap.css';
+.nsm-dialog {
+    max-width: 100% !important;
+    width: 80% !important;
+}

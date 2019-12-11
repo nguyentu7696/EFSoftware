@@ -1,0 +1,114 @@
+<div class="content-wrapper content-main" style="display: table">
+  <!-- Page header -->
+  <div class="page-header">
+    <div class="breadcrumb-line breadcrumb-line-component">
+      <ul class="breadcrumb">
+        <li><a [routerLink]="['/company/basic/list']">Company</a></li>
+        <li><a href="javascript:void(0)">{{currentCompany.name?currentCompany.name: 'Company'}}</a></li>
+        <li>OT Setting</li>
+        <li class="active">Edit</li>
+      </ul>
+    </div>
+  </div>
+  <!-- /page header -->
+  <!-- Content area -->
+  <div class="page-body">
+    <div class="supper-title">Update OT Setting</div>
+    <div class="row">
+      <form [formGroup]="otsettingForm" (ngSubmit)="update()" #formDir="ngForm" novalidate>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 col-lg-8-custom">
+          <div class="panel panel-flat">
+            <div class="panel-head">
+              <div class="name">OT Setting Details</div>
+            </div>
+            <div class="panel-body">
+              <div class="label-name">Payroll Code</div>
+              <div class="form-group">
+                <input type="text" class="form-control ipn-custom" [(ngModel)]="this.otsettingCurrent.payrollCode"
+                  [ngModelOptions]="{standalone: true}" disabled>
+                <!-- <span class="text-danger" *ngIf="payrollcode.invalid && formDir.submitted">
+                      Payroll Code is required.
+                    </span> -->
+              </div>
+              <div class="label-name">Payroll</div>
+              <div class="form-group">
+                <input type="text" class="form-control ipn-custom" [(ngModel)]="this.otsettingCurrent.payroll"
+                  [ngModelOptions]="{standalone: true}" disabled>
+              </div>
+              <div class="label-name">Type</div>
+              <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                  <div class="form-group">
+                    <select class="form-control select-custom" formControlName="type"
+                      (change)='onTypeSelected($event.target.value)'>
+                      <option *ngFor="let item of types" value="{{item.id}}">{{item.name}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                  <div class="form-group">
+                    <input type="number" class="form-control ipn-custom" formControlName="rate"
+                      (change)='onRateSelected($event.target.value)'>
+                    <span class="text-danger" *ngIf="rate.invalid && formDir.submitted">
+                      Rate is required.
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="label-name">Remarks</div>
+              <div class="form-group">
+                <!-- <input type="text" class="form-control ipn-custom" formControlName="remarks">
+                    <span class="text-danger" *ngIf="remarks.invalid && formDir.submitted">
+                      Remarks is required.
+                    </span> -->
+                <select class="form-control select-custom" formControlName="remarks">
+                  <option *ngFor="let item of remarkList" value="{{item.id}}">{{item.name}}</option>
+                </select>
+              </div>
+              <div class="label-name">Period </div>
+              <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                  <div class="form-group">
+                    <!-- <input type="date" class="form-control ipn-custom" formControlName="startdate">
+                          <span class="text-danger" *ngIf="startdate.invalid && formDir.submitted">
+                            Please choose End Date.
+                          </span> -->
+                    <my-date-picker formControlName="startdate" [options]="myDatePickerOptions"
+                      [(ngModel)]="startDateTime">
+                    </my-date-picker>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                  <div class="form-group">
+                    <!-- <input type="date" class="form-control ipn-custom" formControlName="enddate">
+                          <span class="text-danger" *ngIf="enddate.invalid && formDir.submitted">
+                            Please choose End Date.
+                          </span> -->
+                    <my-date-picker formControlName="enddate" [options]="myDatePickerOptions" [(ngModel)]="endDateTime">
+                    </my-date-picker>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-lg-4-custom">
+          <div class="panel panel-flat">
+            <div class="panel-head">
+              <div class="name">Action</div>
+            </div>
+            <div class="panel-body">
+              <br>
+              <button type="submit" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom">Update</button>
+              <button type="button" (click)="delete()"
+                class="btn border-light-red text-light-red btn-flat btn-block btn-custom">
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<ng2-toasty [position]="'top-right'"></ng2-toasty>

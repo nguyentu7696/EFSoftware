@@ -1,0 +1,7 @@
+Cài đặt:
+	Sql server >= 2014
+	Visual Studio 2017
+	.net Core sdk 2.2
+	visual Studio Code
+	angular cli
+	Node js

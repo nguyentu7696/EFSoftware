@@ -1,0 +1,1 @@
+{"version":3,"file":"public_api.js","sourceRoot":"","sources":["public_api.ts"],"names":[],"mappings":";;;;;AAAA;;GAEG;AACH,2CAAsC","sourcesContent":["/**\r\n * Entry point for all public APIs of the package.\r\n */\r\nexport * from './src/ngx-smart-modal';\r\n"]}

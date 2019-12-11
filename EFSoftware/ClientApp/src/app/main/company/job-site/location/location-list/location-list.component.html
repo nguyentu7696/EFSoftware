@@ -1,0 +1,83 @@
+<div class="content-wrapper content-main">
+  <!-- Page header -->
+  <div class="page-header">
+    <div class="breadcrumb-line breadcrumb-line-component">
+      <ul class="breadcrumb">
+        <li><a [routerLink]="['/company/job-site/list']">{{currentCompany.jobSite}}</a></li>
+        <li><a [routerLink]="['/company/job-site/detail/edit']">{{currentJobSite.name}}</a></li>
+        <li><a [routerLink]="['/company/job-site/detail/zone-location']">Zone Location</a></li>
+        <li class="active">{{currentCompany.location}}</li>
+      </ul>
+    </div>
+  </div>
+  <!-- /page header -->
+  <!-- Content area -->
+  <div class="page-body">
+    <div class="clearfix big-top-title">
+      <div class="supper-title">{{currentCompany.location}}</div>
+      <div class="action-right">
+        <button type="button" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom"
+          (click)="createLocation()">Create</button>
+      </div>
+    </div>
+    <div class="jobsite-table">
+      <div class="body-content">
+
+        <div class="row">
+          <div class="col-sm-1 public-holiday-filter">
+            <div>Filter by</div>
+          </div>
+          <div class="col-sm-3">
+            <div class="select-group">
+              <input class="form-control select-custom" [(ngModel)]="filterByName" placeholder="Search"
+                (keyup.enter)="Search()" />
+            </div>
+          </div>
+          <div class="col-sm-1 public-holiday-filter">
+            <button type="button" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom"
+              (click)="Search()">Search</button>
+          </div>
+        </div>
+        <br>
+
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th><b>Name</b></th>
+                <th><b>Status</b></th>
+                <th><b>Action</b></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of locationList">
+                <th>{{ item.name }}</th>
+                <td>{{ item.status }}</td>
+                <td class="tbody-action">
+                  <a [routerLink]="['/company/job-site/detail/location/edit/', item.id]" title="Edit">
+                    <img src="../../../../assets/images/icon/icon-edit.png" alt="">
+                  </a>
+                  <a href="javascript:void(0)" (click)="delete(item.id)" title="Remove">
+                    <img src="../../../../../assets/images/icon/icon-trash.png" alt="">
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="clearfix foot-content">
+        <div class="b-left">
+          Show {{show}} to 10 of {{totalItems}} entries
+        </div>
+        <div class="b-right">
+          <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="size" [rotate]="true" [maxSize]="5"
+            (pageChange)="loadPage($event)">
+          </ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng2-toasty [position]="'top-right'"></ng2-toasty>

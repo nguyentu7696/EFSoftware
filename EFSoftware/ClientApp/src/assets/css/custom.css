@@ -1,0 +1,195 @@
+/*   
+
+*    *   * * * *   *       *                * * * * *   * * * *   *     *   *       *   * * * *
+*  *     *         * *     *                    *       *     *   *     *   * *     *   *
+* *      * * * *   *   *   *    * * * * *       *       * * * *   *     *   *   *   *   *   * * *
+*  *     *         *     * *                    *       *   *     *     *   *     * *   *     *
+*    *   * * * *   *       *                    *       *     *   * * * *   *       *   * * * *
+
+Theme Name: Ken Trung Production
+Theme URI: https://kentrung256.blogspot.com
+Description: Progress is progress no matter how small
+Author: kentrung
+Author URI: trungnt256@gmail.com
+Version: 2569
+*/
+@font-face { font-family: OpenSans-Regular; src: url("../fonts/OpenSans-Regular.ttf"); }
+@font-face { font-family: OpenSans-SemiBold; src: url("../fonts/OpenSans-SemiBold.ttf"); }
+.font-OpenSans-SemiBold { font-family: OpenSans-SemiBold; }
+
+body { background: #f8f8f8; font-family: OpenSans-Regular; }
+
+:root { --dark-blue: #2c3e50; --white: #fff; --light-red: #e74c3c; }
+
+.bg-dark-blue { background: var(--dark-blue); }
+
+.text-white { color: var(--white); }
+
+.bg-light-red { background: var(--light-red); }
+
+.text-light-red { color: var(--light-red); }
+
+.border-light-red { border-color: var(--light-red); }
+
+.header { background: var(--dark-blue); margin: 0 0; border-bottom-color: #e7e7e7; -webkit-box-shadow: 0 3px 20px #e7e7e7; box-shadow: 0 3px 20px #e7e7e7; }
+.header .navbar-header { min-width: 245px; }
+.header .navbar-brand { height: 60px; width: 245px; }
+.header .navbar-brand > img { margin: 0 auto; height: auto; }
+.header .navbar-brand > img:hover { opacity: 0.7; }
+.header .navbar-menu { margin-left: 0; }
+.header .navbar-menu > li > a { padding: 19px 30px 0; font-family: OpenSans-Regular; font-size: 16px; color: rgba(255, 255, 255, 0.8); height: 60px; margin-right: 1px; }
+.header .navbar-menu > li > a:hover { background: #263644; color: var(--white); }
+.header .navbar-menu > li > a img { float: left; }
+.header .navbar-menu > li > a span { margin: 1px 0 auto 10px; display: inline-block; }
+.header .navbar-menu > li.menu3 > a img { margin-top: 2px; }
+.header .navbar-menu > li.active > a { background: #263644; color: var(--white); }
+.header .navbar-menu > li.active > a:hover { background: #263644; color: var(--white); }
+.header .navbar-menu > li.active > a span { font-family: OpenSans-SemiBold; }
+.header .navbar-user > li > a { padding: 19px 10px 0px; font-family: OpenSans-SemiBold; font-size: 16px; color: var(--white); height: 60px; }
+.header .navbar-user > li > a:hover { background: #263644; color: var(--white); }
+.header .navbar-user > li > a span { margin: 0 10px 0 0; }
+.header .navbar-user > li > a img { position: relative; top: -1px; }
+@media (max-width: 768px) { .header .navbar-brand { padding: 16px 20px; }
+  .header .visible-xs-block { margin: 5px 0 0; }
+  .header .navbar-menu > li > a, .header .navbar-user > li > a { padding: 19px 15px 0; font-size: 14px; }
+  .header .navbar-menu > li > a span { margin: 2px 0 0 10px; }
+  .header .nav.visible-xs-block > li > a[aria-expanded="true"] { color: #fff; background-color: #ababab; } }
+@media (min-width: 769px) and (max-width: 991px) { .header .navbar-header { float: none; margin-left: 0; }
+  .header .navbar-header .navbar-brand { float: none; display: block; margin: 0 auto; }
+  .header .navbar-menu { margin-left: 15px; }
+  .header .navbar-menu > li > a { padding: 19px 15px 0; font-size: 14px; }
+  .header .navbar-menu > li > a span { margin: 5px 0 auto 10px; }
+  .header .navbar-menu > li > a img { margin: 4px 0 0 0; }
+  .header .navbar-menu > li.menu3 > a img { margin: 5px 0 0; }
+  .header .navbar-user > li > a { padding: 24px 10px 0px; font-size: 14px; } }
+@media (min-width: 992px) and (max-width: 1199px) { .header .navbar-brand { padding: 12px 60px; }
+  .header .navbar-menu > li > a { padding: 19px 15px 0; font-size: 14px; }
+  .header .navbar-menu > li > a span { margin: 1px 0 auto 10px; }
+  .header .navbar-user > li > a { padding: 20px 5px 0; font-size: 14px; } }
+.sidebar-main { background: #fff; padding: 20px 15px; }
+.sidebar-main .company-name { padding: 25px 0 0; border-bottom: 2px solid #f9f9f9; }
+.sidebar-main .company-name .name { font-family: OpenSans-SemiBold; font-size: 22px; margin: 5px 0 10px 0; color: #2c3e50; }
+.sidebar-main .group-name { font-size: 14px; color: #2c3e50; margin: 15px 0 10px 0; }
+.sidebar-main .navigation { padding: 0 0; }
+.sidebar-main .ul-detail > li > a { border-radius: 4px; font-size: 16px; color: #2c3e50; padding: 9px 12px; height: 41px; min-height: 41px; }
+.sidebar-main .ul-detail > li > a img { position: relative; top: -3px; margin: 0 5px 0 0; }
+.sidebar-main .ul-detail > li.active a { background: #2c3e50; font-family: OpenSans-SemiBold; color: #fff; }
+
+@media (min-width: 769px) { .sidebar { width: 245px; } }
+@media (max-width: 768px) { .sidebar-main .company-name .name { font-size: 18px; margin: 10px 0; }
+  .sidebar-main .ul-detail > li > a { font-size: 14px; } }
+@media (min-width: 769px) and (max-width: 991px) { .sidebar-main .company-name .name { font-size: 18px; margin: 10px 0; }
+  .sidebar-main .ul-detail > li > a { font-size: 14px; } }
+@media (min-width: 992px) and (max-width: 1199px) { .sidebar-main .company-name .name { font-size: 18px; margin: 10px 0; }
+  .sidebar-main .ul-detail > li > a { font-size: 14px; } }
+.content-main .page-header { margin: 23px 0 0 0; }
+.content-main .page-header .breadcrumb-line-component { margin: 0 45px 20px; border: 1px solid #fff; }
+.content-main .page-header .breadcrumb-line-component .breadcrumb { margin-left: 0; }
+.content-main .page-header .breadcrumb-line-component .breadcrumb li { padding: 0 12px; }
+.content-main .page-header .breadcrumb-line-component .breadcrumb li a { font-size: 14px; color: var(--dark-blue); }
+.content-main .page-header .breadcrumb-line-component .breadcrumb li.active { font-family: OpenSans-SemiBold; color: rgba(0, 0, 0, 0.87); font-size: 14px; }
+.content-main .page-header .breadcrumb-line-component .breadcrumb li + li:before { content: "\f0da"; color: var(--dark-blue); font: normal normal normal 14px/1 FontAwesome; font-size: 12px; text-rendering: auto; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; position: absolute; left: -7px; top: 6px; }
+.content-main .page-body { margin: 0 45px 30px; }
+.content-main .page-body .big-top-title .supper-title { float: left; }
+.content-main .page-body .big-top-title .action-right { float: right; }
+.content-main .page-body .big-top-title .action-right .btn-custom { padding: 10px 93px; }
+.content-main .page-body .supper-title { font-family: OpenSans-SemiBold; font-size: 25.7px; color: var(--dark-blue); margin: 0 0 10px 0; }
+.content-main .page-body .sub-supper-title { font-family: OpenSans-SemiBold; font-size: 14px; color: var(--dark-blue); margin: 0 0 10px 0; border-bottom: 1px solid #f2f2f2; padding: 0 0 10px 0; }
+.content-main .page-body .panel-flat { border: none; border-radius: 0; -webkit-box-shadow: none; box-shadow: none; }
+.content-main .page-body .panel-head { padding: 13px 0; background: #7f8c8d; }
+.content-main .page-body .panel-head .name { font-family: OpenSans-SemiBold; font-size: 20px; color: var(--white); margin: 0 0 0 25px; }
+.content-main .page-body .panel-body { padding-left: 25px; padding-right: 25px; }
+.content-main .page-body .logo-size { font-size: 12px; color: #7f8c8d; margin: 10px 0 10px 0; }
+.content-main .page-body .custom-input-file .inputfile { width: 0.1px; height: 0.1px; opacity: 0; overflow: hidden; position: absolute; z-index: -1; }
+.content-main .page-body .custom-input-file .inputfile + label { font-family: OpenSans-SemiBold; font-size: 12px; font-weight: 600; color: white; background-color: var(--dark-blue); display: block; cursor: pointer; border-radius: 5px; text-align: center; padding: 5px 0; }
+.content-main .page-body .custom-input-file .inputfile:focus + label, .content-main .page-body .custom-input-file .inputfile + label:hover { opacity: 0.7; }
+.content-main .page-body .label-name { font-size: 12px; color: var(--dark-blue); margin: 0 0 5px 0; }
+.content-main .page-body .select-custom { font-family: OpenSans-SemiBold; font-size: 12px; color: rgba(0, 0, 0, 0.87); border-color: #f2f2f2; height: 34px; }
+.content-main .page-body .btn-custom { font-family: OpenSans-SemiBold; font-size: 12px; padding: 6px 12px; }
+.content-main .page-body .btn-flat { border-width: 1px; }
+.content-main .page-body .ipn-custom { font-size: 12px; color: rgba(0, 0, 0, 0.87); border-color: #f2f2f2; height: 34px; }
+.content-main .page-body .ipn-custom:focus { border-color: #666; }
+.content-main .page-body .filter-by { font-size: 19.68px; color: var(--dark-blue); }
+.content-main .page-body .filter-by .text { float: left; margin: 9px 15px 0 0; }
+.content-main .page-body .filter-by .select-group { float: left; width: 245px; margin: 0 12px 20px 0; }
+.content-main .page-body .filter-by .select-group select.form-control { background: var(--white); border-color: var(--white); font-size: 18px; height: 48px; border-radius: 5px; }
+.content-main .page-body .jobsite-table { background: var(--white); padding: 20px 33px; }
+.content-main .page-body .jobsite-table .head-content { margin: 0 0 10px 0; color: #7f8c8d; font-size: 19.68px; }
+.content-main .page-body .jobsite-table .body-content { margin: 0 0 25px 0; color: #2c3e50; font-size: 19.68px; }
+.content-main .page-body .jobsite-table .body-content .table > thead:first-child > tr:first-child > th { font-family: OpenSans-SemiBold; }
+.content-main .page-body .jobsite-table .body-content .table-striped > tbody > tr:nth-of-type(odd) { background: #f8f8f8; }
+.content-main .page-body .jobsite-table .body-content .tbody-action { width: 20%; white-space: nowrap; }
+.content-main .page-body .jobsite-table .body-content .tbody-action a { color: #7f8c8d; font-size: 19.68px; margin: 0 10px 0; }
+.content-main .page-body .jobsite-table .body-content .tbody-action a:hover { color: var(--light-red); }
+.content-main .page-body .jobsite-table .foot-content .b-left { float: left; color: #7f8c8d; font-size: 19.68px; }
+.content-main .page-body .jobsite-table .foot-content .b-right { float: right; }
+.content-main .page-body .jobsite-table .foot-content .b-right .pagination > li > span { font-size: 19.68px; color: var(--dark-blue); border-color: #f8f8f8; }
+.content-main .page-body .jobsite-table .foot-content .b-right .pagination > li > a { font-size: 19.68px; color: var(--dark-blue); border-color: #f8f8f8; }
+.content-main .page-body .jobsite-table .foot-content .b-right .pagination > li.active > span { background: var(--dark-blue); color: var(--white); border-color: var(--dark-blue); }
+.content-main .page-body .jobsite-table .foot-content .b-right .pagination > li:first-child > a, .content-main .page-body .jobsite-table .foot-content .b-right .pagination > li:last-child > a { padding-left: 20px; padding-right: 20px; }
+
+@media (max-width: 768px) { .content-main .page-header .breadcrumb-line-component { margin: 0 15px 20px; }
+  .content-main .page-header .breadcrumb-line-component .breadcrumb { margin: 0 0 0 15px; }
+  .content-main .page-header .breadcrumb-line-component .breadcrumb li:first-child { padding-left: 0; }
+  .content-main .page-header .breadcrumb-line-component .breadcrumb li { position: relative; }
+  .content-main .page-header .breadcrumb-line-component .breadcrumb li a, .content-main .page-header .breadcrumb-line-component .breadcrumb li.active { font-size: 13px; }
+  .content-main .page-body { margin: 0 15px 30px; }
+  .content-main .page-body .supper-title { font-size: 22px; }
+  .content-main .page-body .panel-head .name { font-size: 20px; margin: 0 0 0 15px; }
+  .content-main .page-body .panel-body { padding-left: 15px; padding-right: 15px; }
+  .content-main .page-body .label-name, .content-main .page-body .ipn-custom, .content-main .page-body .select-custom, .content-main .page-body .btn-custom, .content-main .page-body .custom-input-file .inputfile + label, .content-main .page-body .logo-size { font-size: 14px; }
+  .content-main .page-body .sub-supper-title { font-size: 16px; }
+  .content-main .page-body .big-top-title { margin-bottom: 15px; }
+  .content-main .page-body .big-top-title .action-right .btn-custom { padding-left: 15px; padding-right: 15px; }
+  .content-main .page-body .filter-by { font-size: 14px; }
+  .content-main .page-body .filter-by .text { float: none; margin: 0 0 10px 0; }
+  .content-main .page-body .filter-by .select-group { float: none; width: 100%; margin: 0 0px 15px 0; }
+  .content-main .page-body .filter-by .select-group select.form-control { font-size: 14px; }
+  .content-main .page-body .jobsite-table { padding-left: 10px; padding-right: 10px; }
+  .content-main .page-body .jobsite-table .head-content { font-size: 15px; }
+  .content-main .page-body .jobsite-table .body-content, .content-main .page-body .jobsite-table .body-content .tbody-action a, .content-main .page-body .jobsite-table .foot-content .b-left, .content-main .page-body .jobsite-table .foot-content .b-right .pagination > li > span, .content-main .page-body .jobsite-table .foot-content .b-right .pagination > li > a { font-size: 13px; }
+  .content-main .page-body .jobsite-table .foot-content .b-right .pagination > li:first-child > a, .content-main .page-body .jobsite-table .foot-content .b-right .pagination > li:last-child > a { padding-left: 10px; padding-right: 10px; } }
+@media (min-width: 769px) and (max-width: 991px) { .content-main .page-header .breadcrumb-line-component { margin: 0 15px 20px; }
+  .content-main .page-body { margin: 0 15px 30px; }
+  .content-main .page-header .breadcrumb-line-component .breadcrumb li { padding: 0 10px; }
+  .content-main .page-header .breadcrumb-line-component .breadcrumb li a, .content-main .page-header .breadcrumb-line-component .breadcrumb li.active { font-size: 14px; }
+  .content-main .page-header .breadcrumb-line-component .breadcrumb li + li:before { top: 6px; left: -4px; }
+  .content-main .page-body .supper-title { font-size: 25px; }
+  .content-main .page-body .panel-head .name { font-size: 20px; margin: 0 0 0 15px; }
+  .content-main .page-body .panel-body { padding-left: 15px; padding-right: 15px; }
+  .content-main .page-body .label-name { font-size: 14px; }
+  .content-main .page-body .big-top-title { margin-bottom: 15px; }
+  .content-main .page-body .big-top-title .action-right .btn-custom { padding-left: 20px; padding-right: 20px; }
+  .content-main .page-body .filter-by { font-size: 14px; }
+  .content-main .page-body .filter-by .text { float: none; margin: 0 0 10px 0; }
+  .content-main .page-body .filter-by .select-group { float: none; width: 100%; margin: 0 0px 15px 0; }
+  .content-main .page-body .filter-by .select-group select.form-control { font-size: 14px; }
+  .content-main .page-body .jobsite-table { padding-left: 10px; padding-right: 10px; }
+  .content-main .page-body .jobsite-table .head-content { font-size: 15px; }
+  .content-main .page-body .jobsite-table .body-content, .content-main .page-body .jobsite-table .body-content .tbody-action a, .content-main .page-body .jobsite-table .foot-content .b-left, .content-main .page-body .jobsite-table .foot-content .b-right .pagination > li > span, .content-main .page-body .jobsite-table .foot-content .b-right .pagination > li > a { font-size: 13px; }
+  .content-main .page-body .jobsite-table .foot-content .b-right .pagination > li:first-child > a, .content-main .page-body .jobsite-table .foot-content .b-right .pagination > li:last-child > a { padding-left: 10px; padding-right: 10px; } }
+@media (min-width: 992px) and (max-width: 1199px) { .content-main .page-header .breadcrumb-line-component { margin: 0 20px 20px; }
+  .content-main .page-body { margin: 0 20px 30px; }
+  .content-main .page-header .breadcrumb-line-component .breadcrumb li { padding: 0 10px; }
+  .content-main .page-header .breadcrumb-line-component .breadcrumb li a, .content-main .page-header .breadcrumb-line-component .breadcrumb li.active { font-size: 14px; }
+  .content-main .page-header .breadcrumb-line-component .breadcrumb li + li:before { top: 6px; left: -4px; }
+  .content-main .page-body .supper-title { font-size: 25px; }
+  .content-main .page-body .panel-head .name { font-size: 20px; margin: 0 0 0 15px; }
+  .content-main .page-body .panel-body { padding-left: 15px; padding-right: 15px; }
+  .content-main .page-body .label-name { font-size: 14px; }
+  .content-main .page-body .big-top-title { margin-bottom: 15px; }
+  .content-main .page-body .big-top-title .action-right .btn-custom { padding-left: 40px; padding-right: 40px; }
+  .content-main .page-body .filter-by { font-size: 14px; }
+  .content-main .page-body .filter-by .text { float: none; margin: 0 0 10px 0; }
+  .content-main .page-body .filter-by .select-group { float: none; width: 100%; margin: 0 0px 15px 0; }
+  .content-main .page-body .filter-by .select-group select.form-control { font-size: 14px; }
+  .content-main .page-body .jobsite-table { padding-left: 10px; padding-right: 10px; }
+  .content-main .page-body .jobsite-table .head-content { font-size: 16px; }
+  .content-main .page-body .jobsite-table .body-content, .content-main .page-body .jobsite-table .body-content .tbody-action a, .content-main .page-body .jobsite-table .foot-content .b-left, .content-main .page-body .jobsite-table .foot-content .b-right .pagination > li > span, .content-main .page-body .jobsite-table .foot-content .b-right .pagination > li > a { font-size: 14px; }
+  .content-main .page-body .jobsite-table .foot-content .b-right .pagination > li:first-child > a, .content-main .page-body .jobsite-table .foot-content .b-right .pagination > li:last-child > a { padding-left: 10px; padding-right: 10px; } }
+@media (min-width: 1200px) and (max-width: 1400px) { .content-main .page-body .filter-by { display: -webkit-box; display: -ms-flexbox; display: flex; }
+  .content-main .page-body .filter-by .text { -webkit-box-flex: 1; -ms-flex: 1; flex: 1; margin: 9px 0 0 0; float: none; }
+  .content-main .page-body .filter-by .select-group { -webkit-box-flex: 1; -ms-flex: 1; flex: 1; margin: 0 0px 20px 11px; float: none; }
+  .content-main .page-body .filter-by, .content-main .page-body .filter-by .select-group select.form-control, .content-main .page-body .jobsite-table .head-content, .content-main .page-body .jobsite-table .body-content, .content-main .page-body .jobsite-table .body-content .tbody-action a, .content-main .page-body .jobsite-table .foot-content .b-left, .content-main .page-body .jobsite-table .foot-content .b-right .pagination > li > span, .content-main .page-body .jobsite-table .foot-content .b-right .pagination > li > a { font-size: 15px; } }
+
+/*# sourceMappingURL=custom.css.map */

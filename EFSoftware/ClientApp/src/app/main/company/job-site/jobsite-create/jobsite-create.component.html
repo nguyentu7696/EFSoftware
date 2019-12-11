@@ -1,0 +1,81 @@
+<div class="content-wrapper content-main" style="display: table">
+  <!-- Page header -->
+  <div class="page-header">
+    <div class="breadcrumb-line breadcrumb-line-component">
+      <ul class="breadcrumb">
+        <li>
+          <a [routerLink]="['/company/job-site/list']">{{currentCompany.jobSite}}</a>
+        </li>
+        <!-- <li><a>{{currentJobSite.name}}</a></li> -->
+        <li class="active">Create</li>
+      </ul>
+    </div>
+  </div>
+  <!-- /page header -->
+  <!-- Content area -->
+  <div class="page-body">
+    <div class="supper-title">Create {{currentCompany.jobSite}}</div>
+    <div class="row">
+      <form [formGroup]="jobsiteForm" (ngSubmit)="create()" #formDir="ngForm" novalidate>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 col-lg-8-custom">
+          <div class="panel panel-flat">
+            <div class="panel-head">
+              <div class="name">{{currentCompany.jobSite}} Details</div>
+            </div>
+            <div class="panel-body">
+              <div class="label-name">Name</div>
+              <div class="form-group">
+                <input type="text" class="form-control ipn-custom" formControlName="name">
+                <span class="text-danger" *ngIf="name.invalid && formDir.submitted">
+                  Name is required.
+                </span>
+              </div>
+              <div class="label-name">Company</div>
+              <div class="form-group">
+                <select class="form-control select-custom" formControlName="companyId" (change)="onSelectCompany($event.target.value)">
+                  <option *ngFor="let item of listCompany" value="{{item.id}}">{{item.name}}</option>
+                </select>
+                <span class="text-danger" *ngIf="companyId.invalid && formDir.submitted">
+                  Company is required.
+                </span>
+              </div>
+              <div class="label-name">Department</div>
+              <div class="form-group">
+                <select class="form-control select-custom" formControlName="departmentId" (change)="onSelectDepartment($event.target.value)">
+                  <option *ngFor="let item of listDepartment" value="{{item.id}}">{{item.name}}</option>
+                </select>
+                <span class="text-danger" *ngIf="departmentId.invalid && formDir.submitted">
+                  Department is required.
+                </span>
+              </div>
+              <div class="label-name">Site</div>
+              <div class="form-group">
+                <select class="form-control select-custom" formControlName="siteId">
+                  <option *ngFor="let item of listSite" value="{{item.id}}">{{item.name}}</option>
+                </select>
+                <span class="text-danger" *ngIf="siteId.invalid && formDir.submitted">
+                  Site is required.
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-lg-4-custom">
+          <div class="panel panel-flat">
+            <div class="panel-head">
+              <div class="name">Action</div>
+            </div>
+            <div class="panel-body">
+              <br>
+              <button type="submit" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom">Create</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<ng2-toasty [position]="'top-right'"></ng2-toasty>

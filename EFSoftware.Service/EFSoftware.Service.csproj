@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EFSoftware.Core.Shared\EFSoftware.Core.Shared.csproj" />
+    <ProjectReference Include="..\EFSoftware.Repository.Interfaces\EFSoftware.Repository.Interfaces.csproj" />
+    <ProjectReference Include="..\EFSoftware.Repository\EFSoftware.Repository.csproj" />
+    <ProjectReference Include="..\EFSoftware.Service.Interfaces\EFSoftware.Service.Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,346 @@
+<div class="content-wrapper content-main" style="display: table">
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="breadcrumb-line breadcrumb-line-component">
+            <ul class="breadcrumb">
+                <li>
+                    <a [routerLink]="['/company/job-site/list']">{{currentCompany.jobSite}}</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/company/job-site/detail/edit']">{{currentJobSite.name}}</a>
+                </li>
+                <li class="active">
+                    <a>Roster</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /page header -->
+    <!-- Content area -->
+    <div class="page-body">
+        <div class="clearfix big-top-title">
+            <div class="supper-title col-sm-6">Roster Management</div>
+            <div class="col-sm-1 col-sm-push-5">
+                <button type="button" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom" (click)="DuplicateRoster()" title="Duplicate">
+                    <span>Duplicate</span>
+                </button>
+            </div>
+        </div>
+        <div class="jobsite-table">
+            <div class="body-content">
+
+                <div class="div-public-holiday-filter">
+                    <div class="col-sm-1 col-sm-push-6 public-holiday-filter title-search-roster text-right">
+                        <div>Filter</div>
+                    </div>
+                    <div class="col-sm-2 col-sm-push-6">
+                        <div class="select-group">
+                            <angular2-date-picker [(ngModel)]="dateStart" [settings]="settings" (ngModelChange)="changeDateStartSelect($event)"></angular2-date-picker>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-sm-push-6">
+                        <angular2-date-picker [(ngModel)]="dateEnd" [settings]="settings" (ngModelChange)="changeDateEndSelect($event)"></angular2-date-picker>
+                    </div>
+                    <div class="col-sm-1 col-sm-push-6">
+                        <button type="button" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom" (click)="reloadRosterData()" title="Apply">Apply</button>
+                    </div>
+                    <div class="clearfix big-top-title"></div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped" *ngFor="let item of trData; let itemIndex = index">
+                        <thead>
+                            <tr>
+                                <th class="month-title" colspan="6">{{ item.monthStr }}</th>
+                            </tr>
+                            <tr>
+                                <th style="width: 20%">Date</th>
+                                <th style="width: 15%">Roster Code</th>
+                                <th style="width: 15%">OT Code</th>
+                                <th style="width: 23%">Remarks</th>
+                                <th style="width: 22%">Type</th>
+                                <th style="width: 5%">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let td of item.listRoster; let index2 = index">
+                                <td>{{ td.date }}</td>
+                                <td *ngIf="!checkPublicHoliday(td.date)">{{ td.shiftCodeName }}</td>
+                                <td *ngIf="!checkPublicHoliday(td.date)">{{ td.otCodeName }}</td>
+                                <td *ngIf="!checkPublicHoliday(td.date)">{{ td.remarksSplit }}</td>
+                                <td *ngIf="!checkPublicHoliday(td.date)">
+                                    <span class="icon-type">
+                                        <img src="../../../../assets/images/icon/01-longshift.png" alt="">
+                                        Planned OT
+                                        <input type="checkbox"  [checked]="td.type1 == 1 || td.type2 == 1 || td.type3 == 1"
+                                        disabled>
+                                    </span>
+                                    <br/>
+                                    <span class="icon-type">
+                                        <img src="../../../../assets/images/icon/02-vaccination.png" alt="">
+                                        Vaccination
+                                        <input type="checkbox" [checked]="td.type1 == 2 || td.type2 == 2 || td.type3 == 2"
+                                        disabled>
+                                    </span>
+                                    <br/>
+                                    <span class="icon-type">
+                                        <img src="../../../../assets/images/icon/03-training.png" alt="">
+                                        Training
+                                        <input type="checkbox" [checked]="td.type1 == 3 || td.type2 == 3 || td.type3 == 3"
+                                        disabled>
+                                    </span>
+                                </td>
+                                <td *ngIf="!checkPublicHoliday(td.date)">
+                                    <a *ngIf="td.id == 0" (click)="EditRoster(td, itemIndex, index2)" title="Add">
+                                        <img src="../../../../assets/images/icon-add.png" alt="">
+                                    </a>
+                                    <a *ngIf="td.id > 0" (click)="EditRoster(td, itemIndex, index2)" title="Edit">
+                                        <img src="../../../../assets/images/icon-edit.png" alt="">
+                                    </a>
+                                </td>
+                                <td *ngIf="checkPublicHoliday(td.date)">
+                                    <span></span>
+                                </td>
+                                <td *ngIf="checkPublicHoliday(td.date)">
+                                    <span></span>
+                                </td>
+                                <td *ngIf="checkPublicHoliday(td.date)">
+                                    <span></span>
+                                </td>
+                                <td *ngIf="checkPublicHoliday(td.date)">
+                                    <span></span>
+                                </td>
+                                <td *ngIf="checkPublicHoliday(td.date)">
+                                    <span></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng2-toasty [position]="'top-right'"></ng2-toasty>
+
+
+<!-- Modal Add/Edit -->
+<div bsModal #modalUpdate="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1"
+    [config]="{backdrop: 'static'}" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-roster">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="dialog-sizes-name1" class="modal-title pull-left">Update Roster</h4>
+                <button type="button" class="close pull-right" (click)="modalUpdate.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- <form class="form-horizontal form-label-left" novalidate #updateForm="ngForm" (ngSubmit)="saveChange(updateForm.valid)" *ngIf="modelUpdate"> -->
+                <div class="div-body">
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12 label-title">Employee</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input type="text" class="form-control ipn-custom" [(ngModel)]="currentEmployee.empkey" disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12 label-title">Date</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input type="text" class="form-control ipn-custom" [ngModel]="rosterUpdate.dateTime" disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12 label-title">Start Time</label>
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <input type="time" class="form-control ipn-custom" [(ngModel)]="rosterUpdate.startTime">
+                        </div>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12 label-title label-title-end-time">End Time</label>
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <input type="time" class="form-control ipn-custom" [(ngModel)]="rosterUpdate.endTime">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12 label-title">Shift code</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select class="form-control" [(ngModel)]="rosterUpdate.ShiftId" name="shiftId">
+                                <option *ngFor="let item of listShiftCode" [value]="item.id">{{ item.mainCode }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12 label-title">Attendence Code</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select class="form-control" [(ngModel)]="rosterUpdate.AttendanceId" name="attendanceId">
+                                <option *ngFor="let item of listAttendence" [value]="item.id">{{ item.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12 label-title">OT Code</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select class="form-control" [(ngModel)]="rosterUpdate.OtCodeId" name="otCodeId" (change)="getListOTSettingCodeByType(rosterUpdate.OtCodeId)">
+                                <option *ngFor="let item of listOTSettingCode" [value]="item.id">{{ item.payrollCode }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select class="form-control" [(ngModel)]="rosterUpdate.OTCodeValue" name="otCodeValue">
+                                <option *ngFor="let item of listOTCodeValue" [value]="item.id">{{ item.payrollCode }}</option>
+                            </select>
+                        </div>
+                    </div> -->
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12 label-title">Remarks</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <textarea [(ngModel)]="rosterUpdate.Remarks" name="remarks" class="form-control" style="min-height: 100px" maxlength="250"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <b>Type</b>
+                                    </th>
+                                    <th>
+                                        <b>Start Time</b>
+                                    </th>
+                                    <th>
+                                        <b>End Time</b>
+                                    </th>
+                                    <th>
+                                        <b>Remarks</b>
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <span class="icon-type">
+                                            <img src="../../../../assets/images/icon/01-longshift.png" alt="">
+                                            Planned OT
+                                            <input type="checkbox" [checked]="rosterUpdate.type1 == 1" 
+                                            (change)="rosterUpdate.type1 = $event.target.checked? 1 : 0 ">
+                                        </span>
+                                        <br/>
+                                        <span class="icon-type">
+                                            <img src="../../../../assets/images/icon/02-vaccination.png" alt="">
+                                            Vaccination
+                                            <input type="checkbox" [checked]="rosterUpdate.type1 == 2" 
+                                            (change)="rosterUpdate.type1 = $event.target.checked? 2 : 0 ">
+                                        </span>
+                                        <br/>
+                                        <span class="icon-type">
+                                            <img src="../../../../assets/images/icon/03-training.png" alt="">
+                                            Training
+                                            <input type="checkbox" [checked]="rosterUpdate.type1 == 3" 
+                                            (change)="rosterUpdate.type1 = $event.target.checked? 3 : 0">
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <input type="time" class="form-control ipn-custom" [(ngModel)]="rosterUpdate.startTime1">
+                                    </td>
+                                    <td>
+                                        <input type="time" class="form-control ipn-custom" [(ngModel)]="rosterUpdate.endTime1">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control ipn-custom" [(ngModel)]="rosterUpdate.remarks1">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <span>
+                                            <span class="icon-type">
+                                                <img src="../../../../assets/images/icon/01-longshift.png" alt="">
+                                                Planned OT
+                                                <input type="checkbox"  [checked]="rosterUpdate.type2 == 1" 
+                                                (change)="rosterUpdate.type2 = $event.target.checked? 1 : 0">
+                                            </span>
+                                            <span class="icon-type">
+                                                <img src="../../../../assets/images/icon/02-vaccination.png" alt="">
+                                                Vaccination
+                                                <input type="checkbox" [checked]="rosterUpdate.type2 == 2" 
+                                                (change)="rosterUpdate.type2 = $event.target.checked? 2 : 0">
+                                            </span>
+                                            <span class="icon-type">
+                                                <img src="../../../../assets/images/icon/03-training.png" alt="">
+                                                Training
+                                                <input type="checkbox" [checked]="rosterUpdate.type2 == 3" 
+                                                (change)="rosterUpdate.type2 = $event.target.checked? 3 : 0">
+                                            </span>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <input type="time" class="form-control ipn-custom" [(ngModel)]="rosterUpdate.startTime2">
+                                    </td>
+                                    <td>
+                                        <input type="time" class="form-control ipn-custom" [(ngModel)]="rosterUpdate.endTime2">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control ipn-custom" [(ngModel)]="rosterUpdate.remarks2">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <span>
+                                            <span class="icon-type">
+                                                <img src="../../../../assets/images/icon/01-longshift.png" alt="">
+                                                Planned OT
+                                                <input type="checkbox"  [checked]="rosterUpdate.type3 == 1" 
+                                                (change)="rosterUpdate.type3 = $event.target.checked? 1 : 0">
+                                            </span>
+                                            <span class="icon-type">
+                                                <img src="../../../../assets/images/icon/02-vaccination.png" alt="">
+                                                Vaccination
+                                                <input type="checkbox" [checked]="rosterUpdate.type3 == 2" 
+                                                (change)="rosterUpdate.type3 = $event.target.checked? 2 : 0">
+                                            </span>
+                                            <span class="icon-type">
+                                                <img src="../../../../assets/images/icon/03-training.png" alt="">
+                                                Training
+                                                <input type="checkbox" [checked]="rosterUpdate.type3 == 3" 
+                                                (change)="rosterUpdate.type3 = $event.target.checked? 3 : 0">
+                                            </span>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <input type="time" class="form-control ipn-custom" [(ngModel)]="rosterUpdate.startTime3">
+                                    </td>
+                                    <td>
+                                        <input type="time" class="form-control ipn-custom" [(ngModel)]="rosterUpdate.endTime3">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control ipn-custom" [(ngModel)]="rosterUpdate.remarks3">
+                                    </td>
+                                </tr>
+
+                        </table>
+                    </div>
+
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-9">
+                            <button type="button" (click)="modalUpdate.hide()" class="btn btn-primary">Cancel</button>
+                            <button type="button" class="btn btn-success" (click) = "saveChange()">Update</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- </form> -->
+            </div>
+        </div>
+    </div>
+</div>

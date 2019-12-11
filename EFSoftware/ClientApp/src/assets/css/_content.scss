@@ -1,0 +1,414 @@
+.content-main {
+    .page-header {
+        margin: 23px 0 0 0;
+        .breadcrumb-line-component {
+            margin: 0 45px 20px;border: 1px solid #fff;
+            .breadcrumb {
+                margin-left: 0;
+                li {
+                    padding: 0 12px;
+                    a {font-size: 14px;color: var(--dark-blue);}
+                    &.active {font-family: OpenSans-SemiBold;color: rgba(0,0,0,0.87);font-size: 14px;}
+                    & + li:before {content:"\f0da";color: var(--dark-blue);font: normal normal normal 14px/1 FontAwesome;font-size: 12px;text-rendering: auto;-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;position: absolute;left: -7px;top: 6px;}
+                }
+            }
+        }
+    }
+    .page-body {
+        margin: 0 45px 30px;
+        .big-top-title {
+            .supper-title {float: left;}
+            .action-right {
+                float: right;
+                .btn-custom {padding: 10px 93px;}
+            }
+        }
+        .supper-title {font-family: OpenSans-SemiBold;font-size: 25.7px;color: var(--dark-blue);margin: 0 0 10px 0;}
+        .sub-supper-title {font-family: OpenSans-SemiBold;font-size: 14px;color: var(--dark-blue);margin: 0 0 10px 0;border-bottom: 1px solid #f2f2f2;padding: 0 0 10px 0;}
+        .panel-flat {border: none;border-radius: 0;box-shadow: none;}
+        .panel-head {
+            padding: 13px 0;background:darkgrey;
+            .name {font-family: OpenSans-SemiBold;font-size: 20px;color: var(--white);margin: 0 0 0 25px;}
+        }
+        .panel-body {padding-left: 25px;padding-right: 25px;}
+        .logo-size {font-size: 12px;color: #7f8c8d;margin: 10px 0 10px 0;}
+        .custom-input-file {
+            .inputfile {width: 0.1px;height: 0.1px;opacity: 0;overflow: hidden;position: absolute;z-index: -1;}
+            .inputfile + label {font-family: OpenSans-SemiBold;font-size: 12px;font-weight: 600;color: white;background-color: var(--dark-blue);display: block;cursor: pointer;border-radius: 5px;text-align: center;padding: 5px 0;}
+            .inputfile:focus + label,.inputfile + label:hover {opacity: 0.7;}        
+        }
+        .label-name {font-size:12px;color: var(--dark-blue);margin: 0 0 5px 0; }
+        .select-custom {font-family: OpenSans-SemiBold;font-size: 12px;color: rgba(0,0,0,0.87);border-color: #b9b9b9;height: 34px;
+            &:focus {border-color: blue;} 
+        }
+        .btn-custom {font-family: OpenSans-SemiBold;font-size: 12px;padding: 6px 12px;}
+        .btn-flat {border-width: 1px;}
+        .ipn-custom {
+            font-size: 12px;color: rgba(0,0,0,0.87);border-color: #b9b9b9;height: 34px;
+            &:focus {border-color: blue;}
+        }
+        .filter-by {
+            font-size: 19.68px;color: var(--dark-blue);
+            .text {float: left;margin: 9px 15px 0 0;}
+            .select-group {
+                float: left;width: 245px;margin: 0 12px 20px 0;
+                select.form-control {background: var(--white);border-color: var(--white);font-size: 18px;height: 48px;border-radius: 5px;}
+            }
+        }
+        .jobsite-table {
+            background: var(--white);padding: 20px 33px;
+            .head-content {margin: 0 0 10px 0;color: #7f8c8d;font-size: 19.68px;}
+            .body-content {
+                margin: 0 0 25px 0;color: #2c3e50;font-size: 19.68px; 
+                .table >thead:first-child>tr:first-child>th {font-family: OpenSans-SemiBold;}
+                .table-striped>tbody>tr:nth-of-type(odd) {background: #f8f8f8;}
+                .tbody-action {
+                    width: 10%;
+                    white-space: nowrap;
+                    a {
+                        color: #7f8c8d;font-size: 19.68px;margin: 0 10px 0;
+                        &:hover {color: var(--light-red);}
+                    }
+                }
+
+                .table-striped-scroll {
+                    thead {
+                        height: 30px;
+                        display: table;
+                        width: calc(100% - 17px);
+                        border-right: 0px;
+                        .th-action {
+                            border-right-width: 0px;
+                            width: 14%;
+                        }
+                    }
+
+                    tbody {
+                        height: 150px;
+                        overflow: auto;
+                        overflow-x: hidden;
+                        display: block;
+                        width: 100%;
+                        tr {
+                            display: table;
+                            table-layout: fixed;
+                        }
+                    }
+                }
+
+                .table-scroll {
+                    display: flex; 
+                    flex-flow: column; 
+                    max-height:490px; 
+                    width: 100%;
+                
+                    thead {
+                        display: block;
+                        table-layout: fixed;
+                        tr {
+                            width: 100%; 
+                            display: table; 
+                            table-layout: fixed;
+                        }
+                        .header-action {
+                            width: 132px;
+                        }
+                    }
+                
+                    tbody {
+                        flex: 1 1 auto;
+                        display: block;
+                        overflow-y: scroll;
+                
+                        tr {
+                            width: 100%;
+                            display: table;
+                            table-layout: fixed;
+                
+                            .tbody-action {
+                                width: 116px;
+                            }
+                        }
+                    }
+                }
+
+            }
+            .foot-content {
+                .b-left {float: left;color: #7f8c8d;font-size: 19.68px;}
+                .b-right {
+                    float: right;
+                    .pagination {
+                        > li {
+                            > span {font-size: 19.68px;color: var(--dark-blue);border-color: #f8f8f8;}
+                            > a {font-size: 19.68px;color: var(--dark-blue);border-color: #f8f8f8;}
+                            &.active {
+                                > span {background: var(--dark-blue);color: var(--white);border-color: var(--dark-blue);}
+                            }
+                            &:first-child, &:last-child {
+                                > a {padding-left: 20px;padding-right: 20px;}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+   }
+
+//    .div-public-holiday-filter {
+//        .btn-custom {
+//             padding: 10px 93px;
+//        }
+//    }
+
+.filter-pad{
+    padding-right: 0%;
+    padding-left: 0%;
+}
+   .div-contain-employee {
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        border-color: #b9b9b9;
+        border-width: 1px;
+        padding: 5px;
+        margin-bottom: 18px;
+
+        span {
+            font-size: 17px;
+            padding: 5px;
+        }
+
+        i {
+            font-size: 24px;
+            float: right;
+        }
+   }
+
+}
+
+.page-container {
+    min-height: 700px;
+    //min-height: calc(100% - 60px);
+}
+
+// .fc-view  > table {
+//     min-width: 200px !important;
+
+//     .fc-day-grid-container {
+//         overflow: hidden !important;
+//         height: auto !important;
+//     }
+// }
+
+.cal-day-selected {
+    background-color: #e8fde7 !important;
+}
+
+.cal-month-view .cal-day-cell.cal-today {
+    background-color: transparent;
+}
+
+.wc-date-container {
+    i {
+        color: var(--dark-blue) !important;
+        line-height: 25px !important;
+        font-size: 15px !important;
+    }
+    span {
+        color: var(--dark-blue) !important;
+        font-size: 13px !important;
+    }
+    border-color: #b4b3b3 !important;
+    border-radius: 3px !important;
+    height: 36px !important;
+    line-height: 25px !important;
+    font-family: OpenSans-Regular !important;
+    padding-right: 12px !important;
+    padding-left: 12px !important;
+}
+
+.ngx-datepicker-container .ngx-datepicker-input {
+    width: 100% !important;
+    border-radius: 3px !important;
+    color: var(--dark-blue) !important;
+    border: 1px solid #aaa6a6 !important;
+}
+
+.date-input-height {
+    height: 37px !important;
+}
+
+.mydp .selection {
+    font-size: 12px !important;
+    color: rgba(0, 0, 0, 0.87) !important;
+    padding: 7px 12px !important;
+    font-family: OpenSans-Regular !important;
+}
+
+@media (max-width: 768px) {
+    .content-main .page-header .breadcrumb-line-component {margin: 0 15px 20px;}
+    .content-main .page-header .breadcrumb-line-component .breadcrumb {margin: 0 0 0 15px;}
+    .content-main .page-header .breadcrumb-line-component .breadcrumb li:first-child {padding-left: 0;}
+    .content-main .page-header .breadcrumb-line-component .breadcrumb li {padding: 0 0 0 15px;position: relative;}
+    .content-main .page-header .breadcrumb-line-component .breadcrumb li a, .content-main .page-header .breadcrumb-line-component .breadcrumb li.active {font-size: 13px;}
+    .content-main .page-header .breadcrumb-line-component .breadcrumb li + li:before {content: "/\00a0";background: transparent;top: 0;left: 3px;}
+    .content-main .page-body {margin: 0 15px 30px;}
+    .content-main .page-body .supper-title {font-size: 22px;}
+    .content-main .page-body .panel-head .name {font-size: 20px;margin: 0 0 0 15px;}
+    .content-main .page-body .panel-body {padding-left: 15px;padding-right: 15px;}
+    .content-main .page-body .label-name, .content-main .page-body .ipn-custom, .content-main .page-body .select-custom, 
+    .content-main .page-body .btn-custom, .content-main .page-body .custom-input-file .inputfile + label, .content-main .page-body .logo-size {font-size: 14px;}
+    .content-main .page-body .sub-supper-title {font-size: 16px;}
+    .content-main .page-body .big-top-title {margin-bottom: 15px;}
+    .content-main .page-body .big-top-title .action-right .btn-custom {padding-left: 15px;padding-right: 15px;}
+    .content-main .page-body .filter-by {font-size: 14px;}
+    .content-main .page-body .filter-by .text {float: none;margin: 0 0 10px 0;}
+    .content-main .page-body .filter-by .select-group {float: none;width: 100%;margin: 0 0px 15px 0;}
+    .content-main .page-body .filter-by .select-group select.form-control {font-size: 14px;}
+    .content-main .page-body .jobsite-table {padding-left: 10px;padding-right: 10px;}
+    .content-main .page-body .jobsite-table .head-content {font-size: 15px;}
+    .content-main .page-body .jobsite-table .body-content,
+    .content-main .page-body .jobsite-table .body-content .tbody-action a,
+    .content-main .page-body .jobsite-table .foot-content .b-left,
+    .content-main .page-body .jobsite-table .foot-content .b-right .pagination > li > span, 
+    .content-main .page-body .jobsite-table .foot-content .b-right .pagination > li > a {font-size: 13px;}
+    .content-main .page-body .jobsite-table .foot-content .b-right .pagination > li:first-child > a, 
+    .content-main .page-body .jobsite-table .foot-content .b-right .pagination > li:last-child > a {padding-left: 10px;padding-right: 10px;}
+}
+@media (min-width: 769px) and (max-width: 991px) {
+    .content-main .page-header .breadcrumb-line-component {margin: 0 15px 20px;}
+    .content-main .page-body {margin: 0 15px 30px;}
+    .content-main .page-header .breadcrumb-line-component .breadcrumb li {padding: 0 10px;}
+    .content-main .page-header .breadcrumb-line-component .breadcrumb li a, .content-main .page-header .breadcrumb-line-component .breadcrumb li.active {font-size: 14px;}
+    .content-main .page-header .breadcrumb-line-component .breadcrumb li + li:before {top: 6px;left: -4px;}
+    .content-main .page-body .supper-title {font-size: 25px;}
+    .content-main .page-body .panel-head .name {font-size: 20px;margin: 0 0 0 15px;}
+    .content-main .page-body .panel-body {padding-left: 15px;padding-right: 15px;}
+    .content-main .page-body .label-name {font-size: 14px;}
+    .content-main .page-body .big-top-title {margin-bottom: 15px;} 
+    .content-main .page-body .big-top-title .action-right .btn-custom {padding-left: 20px;padding-right: 20px;}
+    .content-main .page-body .filter-by {font-size: 14px;}
+    .content-main .page-body .filter-by .text {float: none;margin: 0 0 10px 0;}
+    .content-main .page-body .filter-by .select-group {float: none;width: 100%;margin: 0 0px 15px 0;}
+    .content-main .page-body .filter-by .select-group select.form-control {font-size: 14px;}
+    .content-main .page-body .jobsite-table {padding-left: 10px;padding-right: 10px;}
+    .content-main .page-body .jobsite-table .head-content {font-size: 15px;}
+    .content-main .page-body .jobsite-table .body-content,
+    .content-main .page-body .jobsite-table .body-content .tbody-action a,
+    .content-main .page-body .jobsite-table .foot-content .b-left,
+    .content-main .page-body .jobsite-table .foot-content .b-right .pagination > li > span, 
+    .content-main .page-body .jobsite-table .foot-content .b-right .pagination > li > a {font-size: 13px;}
+    .content-main .page-body .jobsite-table .foot-content .b-right .pagination > li:first-child > a, 
+    .content-main .page-body .jobsite-table .foot-content .b-right .pagination > li:last-child > a {padding-left: 10px;padding-right: 10px;}
+} 
+@media (min-width: 992px) and (max-width: 1199px) {
+    .content-main .page-header .breadcrumb-line-component {margin: 0 20px 20px;}
+    .content-main .page-body {margin: 0 20px 30px;}
+    .content-main .page-header .breadcrumb-line-component .breadcrumb li {padding: 0 10px;}
+    .content-main .page-header .breadcrumb-line-component .breadcrumb li a, .content-main .page-header .breadcrumb-line-component .breadcrumb li.active {font-size: 14px;}
+    .content-main .page-header .breadcrumb-line-component .breadcrumb li + li:before {top: 6px;left: -4px;}
+    .content-main .page-body .supper-title {font-size: 25px;}
+    .content-main .page-body .panel-head .name {font-size: 20px;margin: 0 0 0 15px;}
+    .content-main .page-body .panel-body {padding-left: 15px;padding-right: 15px;}
+    .content-main .page-body .label-name {font-size: 14px;}
+    .content-main .page-body .big-top-title {margin-bottom: 15px;} 
+    .content-main .page-body .big-top-title .action-right .btn-custom {padding-left: 40px;padding-right: 40px;}
+    .content-main .page-body .filter-by {font-size: 14px;}
+    .content-main .page-body .filter-by .text {float: none;margin: 0 0 10px 0;}
+    .content-main .page-body .filter-by .select-group {float: none;width: 100%;margin: 0 0px 15px 0;}
+    .content-main .page-body .filter-by .select-group select.form-control {font-size: 14px;}
+    .content-main .page-body .jobsite-table {padding-left: 10px;padding-right: 10px;}
+    .content-main .page-body .jobsite-table .head-content {font-size: 16px;}
+    .content-main .page-body .jobsite-table .body-content,
+    .content-main .page-body .jobsite-table .body-content .tbody-action a,
+    .content-main .page-body .jobsite-table .foot-content .b-left,
+    .content-main .page-body .jobsite-table .foot-content .b-right .pagination > li > span, 
+    .content-main .page-body .jobsite-table .foot-content .b-right .pagination > li > a {font-size: 14px;}
+    .content-main .page-body .jobsite-table .foot-content .b-right .pagination > li:first-child > a, 
+    .content-main .page-body .jobsite-table .foot-content .b-right .pagination > li:last-child > a {padding-left: 10px;padding-right: 10px;}
+}
+@media (min-width: 1200px) and (max-width: 1400px) {
+    .content-main .page-body .filter-by {display: flex;}
+    .content-main .page-body .filter-by .text {flex: 1;margin: 9px 0 0 0;float: none;}
+    .content-main .page-body .filter-by .select-group {flex: 1;margin: 0 0px 20px 11px;float: none;}
+    .content-main .page-body .filter-by,
+    .content-main .page-body .filter-by .select-group select.form-control,
+    .content-main .page-body .jobsite-table .head-content,
+    .content-main .page-body .jobsite-table .body-content, 
+    .content-main .page-body .jobsite-table .body-content .tbody-action a,
+    .content-main .page-body .jobsite-table .foot-content .b-left,
+    .content-main .page-body .jobsite-table .foot-content .b-right .pagination > li > span, 
+    .content-main .page-body .jobsite-table .foot-content .b-right .pagination > li > a {font-size: 15px;}
+}
+
+@media (min-width: 769px) {
+    .content-wrapper {
+        display: block;
+    }
+}
+
+.header
+{ 
+    .navbar-nav  {
+        .active {
+            a:hover { 
+                background: #263644;
+                color: white;
+            }
+            a:focus  { 
+                background: #263644;
+                color: white;
+            }
+        } 
+    }
+}
+
+.sidebar-main .ul-detail > li > a img {
+    width: 26px;
+    position: relative;
+    top: -3px;
+    margin: 0 10px 0 0;
+}
+
+.div-public-holiday-filter {
+    font-size: 19.68px;
+    height: 40px;
+    margin-bottom: 7px;
+    padding-left: 0px;
+
+    .public-holiday-filter {
+        padding-left: 0px;
+        max-width: 87px;
+    }
+}
+
+.select-attendance {
+    padding-top: 3px;
+    padding-right: 15px;
+}
+
+.center-block {
+    min-width: 135px;
+}
+
+.tbody-action :first-child {
+    margin-left: 0px !important;
+}
+
+@media (min-width: 1200px) and (max-width: 1368px)
+{
+    .col-lg-8-custom {
+        width: 66.66666667% !important;
+    }
+    .col-lg-4-custom {
+        width: 33.33333333% !important;
+    }
+}
+
+
+
+
+
+
+
+
+

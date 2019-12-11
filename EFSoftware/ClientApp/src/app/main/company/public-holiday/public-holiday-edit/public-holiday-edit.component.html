@@ -1,0 +1,105 @@
+<!-- /main sidebar -->
+<!-- Main content -->
+<div class="content-wrapper content-main">
+    <!-- Page header -->
+    <div class="page-header">
+      <div class="breadcrumb-line breadcrumb-line-component">
+        <ul class="breadcrumb">
+          <li>
+            <a [routerLink]="['/company/basic/list']">Company</a>
+          </li>
+          <li>
+            <a [routerLink]="['/company/basic/update']">{{currentCompany.name?currentCompany.name: 'Company'}}</a>
+          </li>
+          <li>
+            <a [routerLink]="['/company/public-holiday/list']">Public Holiday</a>
+          </li>
+          <li class="active">
+            Edit
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- /page header -->
+    <!-- Content area -->
+    <div class="page-body">
+      <div class="supper-title">Update Public Holiday</div>
+      <form [formGroup]="publicholidayForm" (ngSubmit)="update()" #formDir="ngForm" novalidate>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 col-lg-8-custom">
+          <div class="panel panel-flat">
+            <div class="panel-head">
+              <div class="name">Public Holiday Details</div>
+            </div>
+            <div class="panel-body">
+              <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <div class="label-name">Year </div>
+                <div class="form-group">
+                  <select class="form-control select-custom" [(ngModel)]="currentPublicHoliday.year"
+                    (ngModelChange)="selectYears($event)">
+                    <option *ngFor="let itemyear of listYears" value={{itemyear}}>
+                      {{itemyear}}
+                    </option>
+                  </select>
+                </div>
+                <div class="label-name">Country</div>
+                <div class="form-group">
+                  <select class="form-control select-custom" [(ngModel)]="currentPublicHoliday.country">
+                    <option *ngFor="let itemcountry of listCountry" value={{itemcountry.code}}>
+                      {{itemcountry.value}}
+                    </option>
+                  </select>
+                </div>
+                <div class="label-name">Event</div>
+                <div class="form-group">
+                  <input type="text" class="form-control ipn-custom" [(ngModel)]="currentPublicHoliday.event">
+                  <span class="text-danger" *ngIf="!publicHolidayValid.event">
+                    Event is required.
+                  </span>
+                </div>
+  
+                <div class="label-name">Period </div>
+                <div class="row">
+                  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    <!-- <div class="label-name">Period </div> -->
+                    <div class="form-group">
+                      <input type="date" class="form-control ipn-custom" [ngModel]="periodStartDate | date:'yyyy-MM-dd'"
+                        (ngModelChange)="periodStartDate = $event" min="{{dateMin|date:'yyyy-MM-dd'}}"
+                        max="{{dateMax|date:'yyyy-MM-dd'}}">
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    <!-- <div class="label-name"></div> -->
+                    <div class="form-group">
+                      <input type="date" class="form-control ipn-custom" [ngModel]="periodEndDate | date:'yyyy-MM-dd'"
+                        (ngModelChange)="periodEndDate = $event" min="{{dateMin|date:'yyyy-MM-dd'}}"
+                        max="{{dateMax|date:'yyyy-MM-dd'}}">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-lg-4-custom">
+          <div class="panel panel-flat">
+            <div class="panel-head">
+              <div class="name">Action</div>
+            </div>
+            <div class="panel-body">
+                <button type="submit" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom">
+                    Update
+                </button>
+                <button type="button" (click)="delete()" class="btn border-light-red text-light-red btn-flat btn-block btn-custom">
+                    Delete
+                </button>
+              <br>
+            </div>
+          </div>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+  
+  <ng2-toasty [position]="'top-right'"></ng2-toasty>

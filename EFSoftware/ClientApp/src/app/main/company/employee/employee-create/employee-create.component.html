@@ -1,0 +1,372 @@
+<div class="content-wrapper content-main">
+  <!-- Page header -->
+  <div class="page-header">
+    <div class="breadcrumb-line breadcrumb-line-component">
+      <ul class="breadcrumb">
+        <li><a [routerLink]="['/company/basic/list']">Company</a></li>
+        <li><a href="javascript:void(0)">{{currentCompany.name? currentCompany.name: 'Create'}}</a></li>
+        <li class="active">Basic Information</li>
+      </ul>
+    </div>
+  </div>
+  <!-- /page header -->
+  <!-- Content area -->
+  <div class="page-body">
+    <div class="supper-title">Employee Details</div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 col-lg-8-custom">
+        <div class="panel panel-flat">
+          <div class="panel-head">
+            <div class="name">Basic Information</div>
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="form-group">
+
+                <select class="form-control select-custom" [(ngModel)]="currentCompany.personal">
+                  <option value="1">Personal</option>
+                  <option value="0">...</option>
+                </select>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-3 label-name">Name*</div>
+                <div class="col-sm-5 form-group">
+                  <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.name">
+                  <span class="text-danger" *ngIf="!companyValid.name">
+                    Name is required.
+                  </span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-3 label-name">Date Of Birth</div>
+                <div class="col-sm-5 form-group">
+                  <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.dateOfBirth">
+
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-3 label-name">Gender*</div>
+                <div class="col-sm-5 form-group">
+                  <select class="form-control select-custom" [(ngModel)]="currentCompany.gender">
+                    <option value="0">M</option>
+                    <option value="1">...</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-3 label-name">Marial Status</div>
+                <div class="col-sm-5 form-group">
+                  <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.marialStatus">
+
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-3 label-name">Nationality*</div>
+                <div class="col-sm-5 form-group">
+                  <select class="form-control select-custom" [(ngModel)]="currentCompany.nationality">
+                    <option value="0">...</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-3 label-name">Race</div>
+                <div class="col-sm-5 form-group">
+                  <select class="form-control select-custom" [(ngModel)]="currentCompany.race">
+                    <option value="0">...</option>
+
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-3 label-name">Religion</div>
+                <div class="col-sm-5 form-group">
+                  <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.religion">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-3 label-name">Tel No</div>
+                <div class="col-sm-5 form-group">
+                  <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.telNo">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-3 label-name">Home Number</div>
+                <div class="col-sm-5 form-group">
+                  <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.homeNumber">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-3 label-name">Stress</div>
+                <div class="col-sm-5 form-group">
+                  <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.stress">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-3 label-name">Ward</div>
+                <div class="col-sm-5 form-group">
+                  <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.ward">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-3 label-name">District</div>
+                <div class="col-sm-5 form-group">
+                  <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.district">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-3 label-name">City</div>
+                <div class="col-sm-5 form-group">
+                  <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.city">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-3 label-name">Country</div>
+                <div class="col-sm-5 form-group">
+                  <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.country">
+                </div>
+              </div>
+              <div class="form-group">
+
+                <select class="form-control select-custom" [(ngModel)]="currentCompany.loginCredential">
+                  <option value="1">Login Credential</option>
+                  <option value="0">...</option>
+                </select>
+              </div>
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-3 label-name">User ID*</div>
+                <div class="col-sm-5 form-group">
+                  <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.userId">
+                  <span class="text-danger" *ngIf="!companyValid.userId">
+                    User ID is required.
+                  </span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-3 label-name">Password</div>
+                <div class="col-sm-5 form-group">
+                  <input type="password" class="form-control ipn-custom" [(ngModel)]="currentCompany.password">
+                  
+                </div>
+              </div>
+              <div class="form-group">
+
+                <select class="form-control select-custom" [(ngModel)]="currentCompany.identity">
+                  <option value="1">Identity</option>
+                  <option value="0">...</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-3 label-name">NRIC*</div>
+              <div class="col-sm-5 form-group">
+                <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.nric">
+                <span class="text-danger" *ngIf="!companyValid.nric">
+                  NRIC is required.
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-3 label-name">Fin No</div>
+              <div class="col-sm-5 form-group">
+                <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.finNo">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-3 label-name">Passport No</div>
+              <div class="col-sm-5 form-group">
+                <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.passportNo">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-3 label-name">Residence</div>
+              <div class="col-sm-5 form-group">
+                <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.residence">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-3 label-name">Resign Reason</div>
+              <div class="col-sm-5 form-group">
+                <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.resignReason">
+              </div>
+            </div>
+            <div class="form-group">
+
+              <select class="form-control select-custom" [(ngModel)]="currentCompany.workingInformation">
+                <option value="1">Working Information</option>
+                <option value="0">...</option>
+              </select>
+            </div>
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-3 label-name">Key</div>
+              <div class="col-sm-5 form-group">
+                <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.key">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-3 label-name">ID</div>
+              <div class="col-sm-5 form-group">
+                <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.id">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-3 label-name">Commencement Date*</div>
+              <div class="col-sm-5 form-group">
+                <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.commencementDate">
+                <span class="text-danger" *ngIf="!companyValid.commencementDate">
+                  Commencement Date is required.
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-3 label-name">Resigned Date</div>
+              <div class="col-sm-5 form-group">
+                <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.resignedDate">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-3 label-name">OJT Expiry</div>
+              <div class="col-sm-5 form-group">
+                <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.ojtExpired">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-3 label-name">Transport Agent</div>
+              <div class="col-sm-5 form-group">
+                <select class="form-control select-custom" [(ngModel)]="currentCompany.transportAgent">
+                  <option value="0">...</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-3 label-name">PLRD Licence No</div>
+              <div class="col-sm-5 form-group">
+                <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.plrdLicenceNo">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-3 label-name">PLRD Licence Expiry Date</div>
+              <div class="col-sm-5 form-group">
+                <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.plrdLicenceDate">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-3 label-name">Emergency Recall List</div>
+              <div class="col-sm-5 form-group">
+                <select class="form-control select-custom" [(ngModel)]="currentCompany.emergencyRecall">
+                  <option value="0">...</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-3 label-name">Medical Due Date</div>
+              <div class="col-sm-5 form-group">
+                <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.medicalDueDate">
+              </div>
+            </div>
+            <div class="form-group">
+
+              <select class="form-control select-custom" [(ngModel)]="currentCompany.workingInformation">
+                <option value="1">Work Permit</option>
+                <option value="0">...</option>
+              </select>
+            </div>
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-3 label-name">Work Permit No</div>
+              <div class="col-sm-5 form-group">
+                <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.workPermitNo">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-3 label-name">Work Permit Expiry Date</div>
+              <div class="col-sm-5 form-group">
+                <input type="text" class="form-control ipn-custom" [(ngModel)]="currentCompany.workPermitDate">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-lg-4-custom">
+        <div class="panel panel-flat">
+          <div class="panel-head">
+            <div class="name">Action</div>
+          </div>
+          <div class="panel-body">
+            <div class="label-name">Status</div>
+            <div class="form-group">
+              <!-- <select name="" id="" class="form-control select-custom">
+                              <option value="">Active</option>
+                              <option value="">Deactive</option>
+                          </select> -->
+              <select class="form-control select-custom" [(ngModel)]="currentCompany.status">
+                <option value="1">Active</option>
+                <option value="0">Inactive</option>
+              </select>
+            </div>
+            <br>
+            <button type="button" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom" *ngIf="iscreate"
+              (click)="createCompany()">Create</button>
+            <button type="button" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom" *ngIf="!iscreate"
+              (click)="updateCompany()">Update</button>
+            <button type="button" class="btn border-light-red text-light-red btn-flat btn-block btn-custom"
+              *ngIf="!iscreate" (click)="deleteCompany()">Delete</button>
+          </div>
+        </div>
+        <div class="panel panel-flat">
+          <div class="panel-head">
+            <div class="name">Logo</div>
+          </div>
+          <div class="panel-body">
+            <div>
+              <img
+                src="{{this.currentCompany.logo? baseUrl + this.currentCompany.logo :'../../../../assets/images/inspius.jpg'}}"
+                alt="" class="img-responsive center-block">
+            </div>
+            <div class="text-center logo-size">Size: 135px X 135px</div>
+            <div class="custom-input-file">
+              <input type="file" name="file" id="file" class="inputfile" data-multiple-caption="{count} files selected"
+                multiple (change)="handleFileInput($event.target.files)" />
+              <label for="file">Browse..</label>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng2-toasty [position]="'top-right'"></ng2-toasty>

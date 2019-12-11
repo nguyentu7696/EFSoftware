@@ -1,0 +1,100 @@
+<div class="content-wrapper content-main" style="display: table">
+  <!-- Page header -->
+  <div class="page-header">
+    <div class="breadcrumb-line breadcrumb-line-component">
+      <ul class="breadcrumb">
+        <li>
+          <a [routerLink]="['/company/basic/list']">Company</a>
+        </li>
+        <li>
+          <a [routerLink]="['/company/basic/update']">{{currentCompany.name?currentCompany.name: 'Company'}}</a>
+        </li>
+        <li>
+          <a [routerLink]="['/company/attendance/list']">Attendance</a>
+        </li>
+        <li class="active">{{currentCompany.status == 0? 'Add' : 'Edit'}}</li>
+      </ul>
+    </div>
+  </div>
+  <!-- /page header -->
+  <!-- Content area -->
+  <div class="page-body">
+    <div class="supper-title">Create Attendance</div>
+    <div class="row">
+      <form [formGroup]="attendanceForm" (ngSubmit)="create()" #formDir="ngForm" novalidate>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 col-lg-8-custom">
+          <div class="panel panel-flat">
+            <div class="panel-head">
+              <div class="name">Attendance Details</div>
+            </div>
+            <div class="panel-body">
+              <div class="label-name">Name</div>
+              <div class="form-group">
+                <input type="text" class="form-control ipn-custom" formControlName="name">
+                <span class="text-danger" *ngIf="name.invalid && formDir.submitted">
+                  Name is required.
+                </span>
+              </div>
+              <div class="label-name">Code</div>
+              <div class="form-group">
+                <input type="text" class="form-control ipn-custom" formControlName="code">
+                <span class="text-danger" *ngIf="code.invalid && formDir.submitted">
+                  Code is required.
+                </span>
+              </div>
+              <div class="label-name">Value</div>
+              <div class="form-group">
+                <input type="text" class="form-control ipn-custom" formControlName="value">
+                <span class="text-danger" *ngIf="value.invalid && formDir.submitted">
+                  Value is required.
+                </span>
+              </div>
+              <div class="label-name">Remarks</div>
+              <div class="form-group">
+                <input type="text" class="form-control ipn-custom" formControlName="remarks">
+                <span class="text-danger" *ngIf="remarks.invalid && formDir.submitted">
+                  Remarks is required.
+                </span>
+              </div>
+              <div class="label-name">Start Date</div>
+              <div class="form-group">
+                <!-- <input type="date" class="form-control ipn-custom" formControlName="startdate"> -->
+                <!-- <span class="text-danger" *ngIf="startdate.invalid && formDir.submitted">
+                  Please choose Start Date.
+                </span> -->
+                <my-date-picker formControlName="startdate" [options]="myDatePickerOptions" [(ngModel)]="startDateTime">
+                  </my-date-picker>
+              </div>
+              <div class="label-name">End Date</div>
+              <div class="form-group">
+                <input type="date" class="form-control ipn-custom" formControlName="enddate">
+                <span class="text-danger" *ngIf="enddate.invalid && formDir.submitted">
+                  Please choose End Date.
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-lg-4-custom">
+          <div class="panel panel-flat">
+            <div class="panel-head">
+              <div class="name">Action</div>
+            </div>
+            <div class="panel-body">
+              <div class="label-name">Status</div>
+              <div class="form-group">
+                <select class="form-control select-custom" formControlName="status">
+                  <option value="1">Active</option>
+                  <option value="2">Inactive</option>
+                </select>
+              </div>
+              <br>
+              <button type="submit" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom">Create</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<ng2-toasty [position]="'top-right'"></ng2-toasty>

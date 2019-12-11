@@ -1,0 +1,102 @@
+<div class="content-wrapper content-main">
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="breadcrumb-line breadcrumb-line-component">
+            <ul class="breadcrumb">
+                <li>
+                    <a [routerLink]="['/company/basic/list']">Company</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/company/basic/update']">{{currentCompany.name}}</a>
+                </li>
+                <li class="active">{{currentCompany.site}}</li>
+            </ul>
+        </div>
+    </div>
+    <!-- /page header -->
+    <!-- Content area -->
+    <div class="page-body">
+        <div class="clearfix big-top-title">
+            <div class="supper-title">{{currentCompany.site}} Management</div>
+            <div class="action-right">
+                <button type="button" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom"
+                    (click)="createSite()">Create</button>
+            </div>
+
+        </div>
+        <div class="jobsite-table">
+            <div class="body-content">
+
+                <div class="div-public-holiday-filter">
+                    <div class="col-sm-2 public-holiday-filter">
+                        <div>Filter by</div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="select-group">
+                            <select class="form-control select-custom" [(ngModel)]="departmentIdSelect"
+                                (change)="onSelectDepartment($event.target.value)">
+                                <option value="0">All {{currentCompany.department}}</option>
+                                <option *ngFor="let item of listDepartment" value="{{item.id}}">{{item.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="select-group">
+                            <input class="form-control select-custom" [(ngModel)]="filterByName" placeholder="Search"
+                                (keyup.enter)="Search()" />
+                        </div>
+                    </div>
+                    <div class="col-sm-1 public-holiday-filter">
+                        <button type="button" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom"
+                            (click)="Search()">Search</button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th> {{currentCompany.department}}</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor="let item of listSite; let i = index">
+                                <tr>
+                                    <th>{{item.name}}</th>
+                                    <th>{{item.department}}</th>
+                                    <td class="tbody-action">
+                                        <a href="javascript:void(0)" title="{{currentCompany.jobSite}}"
+                                            (click)="goToJobSites(item)">
+                                            <img src="../../../../../assets/images/Asset 7.png" alt="">
+                                            <!-- <span>JobSites</span> -->
+                                        </a>
+                                        <a [routerLink]="['/company/site/edit/', item.id]" title="Edit">
+                                            <img src="../../../../../assets/images/icon-edit.png" alt="">
+                                            <!-- <span>Edit</span> -->
+                                        </a>
+                                        <a href="javascript:void(0)" (click)="delete(item.id)" title="Remove">
+                                            <img src="../../../../../assets/images/icon-trash.png" alt="">
+                                            <!-- <span>Remove</span> -->
+                                        </a>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="clearfix foot-content">
+                <div class="b-left">
+                    Show {{show}} to 10 of {{totalItems}} entries
+                </div>
+                <div class="b-right">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="size" [rotate]="true"
+                        [maxSize]="5" (pageChange)="loadPage($event)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng2-toasty [position]="'top-right'"></ng2-toasty>

@@ -1,0 +1,39 @@
+.sidebar-main {
+    background: #fff;padding: 20px 15px;
+    .company-name {
+        padding: 25px 0 0;border-bottom: 2px solid #f9f9f9;
+        .name {font-family: OpenSans-SemiBold;font-size: 22px;margin: 5px 0 10px 0;color: #2c3e50;}
+    }
+    .group-name {font-size: 14px;color: #2c3e50;margin: 15px 0 10px 0;}
+    .navigation {padding: 0 0;}
+    .ul-detail {
+        > li {
+            > a {
+                border-radius: 4px;font-size: 16px;color: #2c3e50;padding: 9px 12px;height: 41px;min-height: 41px;
+                img {position: relative;top: -3px;margin: 0 5px 0 0;}
+            }
+            &.active {
+                a {background: #2c3e50;font-family: OpenSans-SemiBold;color: #fff;}
+            }
+        }
+    }
+}
+@media (min-width: 769px) {
+    .sidebar {width: 245px;}
+}
+@media (max-width: 768px) {
+    .sidebar-main .company-name .name {font-size: 18px;margin: 10px 0;}
+    .sidebar-main .ul-detail > li > a {font-size: 14px;}
+}
+@media (min-width: 769px) and (max-width: 991px) {
+    .sidebar-main .company-name .name {font-size: 18px;margin: 10px 0;}
+    .sidebar-main .ul-detail > li > a {font-size: 14px;}
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+    .sidebar-main .company-name .name {font-size: 18px;margin: 10px 0;}
+    .sidebar-main .ul-detail > li > a {font-size: 14px;}
+}
+
+
+
+

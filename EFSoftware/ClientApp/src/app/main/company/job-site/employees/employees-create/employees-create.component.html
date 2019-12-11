@@ -1,0 +1,440 @@
+<div class="content-wrapper content-main" style="display: table">
+  <!-- Page header -->
+  <div class="page-header">
+    <div class="breadcrumb-line breadcrumb-line-component">
+      <ul class="breadcrumb">
+        <li [routerLink]="['/company/job-site/list']">{{currentCompany.jobSite}}</li>
+        <li>
+          <a [routerLink]="['/company/job-site/detail/edit']">{{currentJobSite.name}}</a>
+        </li>
+        <li>
+          <a [routerLink]="['/company/job-site/detail/employee']">Employee</a>
+        </li>
+        <li class="active">Create</li>
+      </ul>
+    </div>
+  </div>
+  <!-- /page header -->
+  <!-- Content area -->
+  <div class="page-body">
+    <div class="supper-title">Employee Details</div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 col-lg-8-custom">
+        <div class="panel panel-flat">
+          <div class="panel-head">
+            <div class="name">Basic Information</div>
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div div class="row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-10 div-contain-employee" (mouseup)="showHidePersonal()">
+                  <span>Personal</span>
+                  <i class="fa fa-caret-down"></i>
+                </div>
+                <div class="col-sm-1"></div>
+              </div>
+              <div class="info-personal">
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">
+                    <label class="employee-field-require">Name</label>
+                  </div>
+                  <div class="col-sm-5 form-group">
+                    <input type="text" class="form-control ipn-custom" [(ngModel)]="currentEmployee.name">
+                    <span class="text-danger" *ngIf="!employeeValid.name">
+                      Name is required.
+                    </span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">Date of Birth</div>
+                  <div class="col-sm-5 form-group">
+                    <!-- <input type="date" class="form-control ipn-custom" [ngModel]="currentEmployee.dob | date:'yyyy-MM-dd'"
+                    (ngModelChange)="currentEmployee.dob = $event"> -->
+                    <my-date-picker [options]="myDatePickerOptions" (dateChanged)="currentEmployee.dob = _dateService.dateTo1200($event.jsdate)"
+                     required></my-date-picker>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">Email</div>
+                  <div class="col-sm-5 form-group">
+                    <input type="text" class="form-control ipn-custom" [(ngModel)]="currentEmployee.email" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">
+                    <label class="employee-field-require">Gender</label>
+                  </div>
+                  <div class="col-sm-5 form-group">
+                    <input type="text" class="form-control ipn-custom" [(ngModel)]="currentEmployee.gender" />
+                     <span class="text-danger" *ngIf="!employeeValid.gender">
+                        Gender is required.
+                      </span>
+                    <!-- <select></select> -->
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">Marial Status</div>
+                  <div class="col-sm-5 form-group">
+                    <input type="text" class="form-control ipn-custom" [(ngModel)]="currentEmployee.marialStatus">
+
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">
+                    <label class="employee-field-require">Nationality</label>
+                  </div>
+                  <div class="col-sm-5 form-group">
+                    <!-- <select class="form-control select-custom" [(ngModel)]="currentEmployee.nationality">
+                      <option value="0">...</option>
+                    </select> -->
+                    <input type="text" class="form-control ipn-custom" [(ngModel)]="currentEmployee.nationality" />
+                    <span class="text-danger" *ngIf="!employeeValid.nationality">
+                        Nationality is required.
+                      </span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">Race</div>
+                  <div class="col-sm-5 form-group">
+                    <!-- <select class="form-control select-custom" [(ngModel)]="currentEmployee.race">
+                      <option value="0">...</option>
+                    </select> -->
+                    <input type="text" class="form-control ipn-custom" [(ngModel)]="currentEmployee.race" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">Religion</div>
+                  <div class="col-sm-5 form-group">
+                    <input type="text" class="form-control ipn-custom" [(ngModel)]="currentEmployee.religion">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">Tel No</div>
+                  <div class="col-sm-5 form-group">
+                    <input type="text" class="form-control ipn-custom" [(ngModel)]="currentEmployee.telNo">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">Home Number</div>
+                  <div class="col-sm-5 form-group">
+                    <input type="text" class="form-control ipn-custom" [(ngModel)]="currentEmployee.homeNumber">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">Stress</div>
+                  <div class="col-sm-5 form-group">
+                    <input type="text" class="form-control ipn-custom" [(ngModel)]="currentEmployee.stress">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">Ward</div>
+                  <div class="col-sm-5 form-group">
+                    <input type="text" class="form-control ipn-custom" [(ngModel)]="currentEmployee.ward">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">District</div>
+                  <div class="col-sm-5 form-group">
+                    <input type="text" class="form-control ipn-custom" [(ngModel)]="currentEmployee.district">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">City</div>
+                  <div class="col-sm-5 form-group">
+                    <input type="text" class="form-control ipn-custom" [(ngModel)]="currentEmployee.city">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">Country</div>
+                  <div class="col-sm-5 form-group">
+                    <input type="text" class="form-control ipn-custom" [(ngModel)]="currentEmployee.country">
+                  </div>
+                </div>
+              </div>
+
+
+              <div div class="row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-10 div-contain-employee" (mouseup)="showHideLoginCredential()">
+                  <span>Login Credential</span>
+                  <i class="fa fa-caret-down"></i>
+                </div>
+                <div class="col-sm-1"></div>
+              </div>
+
+              <div class="login-credential">
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">
+                    <label class="employee-field-require">User ID</label>
+                  </div>
+                  <div class="col-sm-5 form-group">
+                    <input type="text" class="form-control ipn-custom" [(ngModel)]="currentEmployee.userId">
+                    <span class="text-danger" *ngIf="!employeeValid.userId">
+                      User ID is required.
+                    </span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">Password</div>
+                  <div class="col-sm-5 form-group">
+                    <input type="password" class="form-control ipn-custom" [(ngModel)]="currentEmployee.password">
+
+                  </div>
+                </div>
+              </div>
+
+
+              <div div class="row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-10 div-contain-employee" (mouseup)="showHideIdentity()">
+                  <span>Identity</span>
+                  <i class="fa fa-caret-down"></i>
+                </div>
+                <div class="col-sm-1"></div>
+              </div>
+
+              <div class="div-indentity">
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">
+                    <label class="employee-field-require">NRIC</label>
+                  </div>
+                  <div class="col-sm-5 form-group">
+                    <input type="text" class="form-control ipn-custom" [(ngModel)]="currentEmployee.nric">
+                    <span class="text-danger" *ngIf="!employeeValid.nric">
+                      NRIC is required.
+                    </span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">Fin No</div>
+                  <div class="col-sm-5 form-group">
+                    <input type="text" class="form-control ipn-custom" [(ngModel)]="currentEmployee.finNo">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">Passport No</div>
+                  <div class="col-sm-5 form-group">
+                    <input type="text" class="form-control ipn-custom" [(ngModel)]="currentEmployee.passportNo">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">Residence</div>
+                  <div class="col-sm-5 form-group">
+                    <input type="text" class="form-control ipn-custom" [(ngModel)]="currentEmployee.residence">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">Resign Reason</div>
+                  <div class="col-sm-5 form-group">
+                    <input type="text" class="form-control ipn-custom" [(ngModel)]="currentEmployee.resignReason">
+                  </div>
+                </div>
+              </div>
+
+
+              <div div class="row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-10 div-contain-employee" (mouseup)="showHideWorkingInformation()">
+                  <span>Working Information</span>
+                  <i class="fa fa-caret-down"></i>
+                </div>
+                <div class="col-sm-1"></div>
+              </div>
+
+              <div class="working-information">
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">Key</div>
+                  <div class="col-sm-5 form-group">
+                    <input type="text" class="form-control ipn-custom" [(ngModel)]="currentEmployee.empKey">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">ID</div>
+                  <div class="col-sm-5 form-group">
+                    <input type="text" class="form-control ipn-custom" [(ngModel)]="currentEmployee.empId">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">Zone Location</div>
+                  <div class="col-sm-5 form-group">
+                    <input type="text" class="form-control ipn-custom" [(ngModel)]="currentEmployee.zoneLocation">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">
+                    <label class="employee-field-require">Commencement Date</label>
+                  </div>
+                  <div class="col-sm-5 form-group">
+                    <!-- <input type="date" class="form-control ipn-custom" [ngModel]="currentEmployee.dateJoined | date:'yyyy-MM-dd'"
+                    (ngModelChange)="currentEmployee.dateJoined = $event"> -->
+                    <my-date-picker [options]="myDatePickerOptions" (dateChanged)="currentEmployee.dateJoined = _dateService.dateTo1200($event.jsdate)"
+                     required></my-date-picker>
+                    <span class="text-danger" *ngIf="!employeeValid.dateJoined">
+                      Commencement Date is required.
+                    </span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">Resigned Date</div>
+                  <div class="col-sm-5 form-group">
+                    <!-- <input type="date" class="form-control ipn-custom" [(ngModel)]="currentEmployee.dateResigned"> -->
+                    <my-date-picker  [options]="myDatePickerOptions"  (dateChanged)="currentEmployee.dateResigned = _dateService.dateTo1200($event.jsdate)"
+                     required></my-date-picker>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">OJT Expiry</div>
+                  <div class="col-sm-5 form-group">
+                    <!-- <input type="date" class="form-control ipn-custom" [(ngModel)]="currentEmployee.ojtExpiryDate"> -->
+                    <my-date-picker [options]="myDatePickerOptions" (dateChanged)="currentEmployee.ojtExpiryDate = _dateService.dateTo1200($event.jsdate)"
+                     required></my-date-picker>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">Transport Agent</div>
+                  <div class="col-sm-5 form-group">
+                    <input type="text" class="form-control ipn-custom" [(ngModel)]="currentEmployee.transportAgent">
+                    <!-- <select class="form-control select-custom" [(ngModel)]="currentEmployee.transportAgent">
+                      <option value="0">...</option>
+                    </select> -->
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">PLRD Licence No</div>
+                  <div class="col-sm-5 form-group">
+                    <input type="text" class="form-control ipn-custom" [(ngModel)]="currentEmployee.plrdLienceNo">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">PLRD Licence Expiry Date</div>
+                  <div class="col-sm-5 form-group">
+                    <!-- <input type="date" class="form-control ipn-custom" [(ngModel)]="currentEmployee.plrdLicenceDate"> -->
+                    <my-date-picker [options]="myDatePickerOptions" (dateChanged)="currentEmployee.plrdLicenceExpiryDate = _dateService.dateTo1200($event.jsdate)"
+                     required></my-date-picker>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">Emergency Recall List</div>
+                  <div class="col-sm-5 form-group">
+                    <!-- <select class="form-control select-custom" [(ngModel)]="currentEmployee.emergencyRecall">
+                      <option value="0">...</option>
+                    </select> -->
+                    <input type="text" class="form-control ipn-custom" [(ngModel)]="currentEmployee.reCall">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">Medical Due Date</div>
+                  <div class="col-sm-5 form-group">
+                    <!-- <input type="date" class="form-control ipn-custom" [(ngModel)]="currentEmployee.dateMedicalDue"> -->
+                    <my-date-picker [options]="myDatePickerOptions" (dateChanged)="currentEmployee.dateMedicalDue = _dateService.dateTo1200($event.jsdate)"
+                    required></my-date-picker>
+                  </div>
+                </div>
+              </div>
+
+              <div div class="row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-10 div-contain-employee" (mouseup)="showHideWorkPermit()">
+                  <span>Work Permit</span>
+                  <i class="fa fa-caret-down"></i>
+                </div>
+                <div class="col-sm-1"></div>
+              </div>
+
+              <div class="work-permit">
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">Work Permit No</div>
+                  <div class="col-sm-5 form-group">
+                    <input type="text" class="form-control ipn-custom" [(ngModel)]="currentEmployee.workPermitNo">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3 label-name label-margin">Work Permit Expiry Date</div>
+                  <div class="col-sm-5 form-group">
+                    <!-- <input type="date" class="form-control ipn-custom" [(ngModel)]="currentEmployee.workPermitDate"> -->
+                    <my-date-picker [options]="myDatePickerOptions" (dateChanged)="currentEmployee.dateWorkPermitExpiry = _dateService.dateTo1200($event.jsdate)"
+                     required></my-date-picker>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-lg-4-custom">
+        <div class="panel panel-flat">
+          <div class="panel-head">
+            <div class="name">Action</div>
+          </div>
+          <div class="panel-body">
+            <div class="label-name">Status</div>
+            <div class="form-group">
+              <select class="form-control select-custom" [(ngModel)]="currentEmployee.status">
+                <option value="1">Active</option>
+                <option value="2">Inactive</option>
+              </select>
+            </div>
+            <br>
+            <button type="button" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom" *ngIf="iscreate" (click)="createEmployee()">Create</button>
+            <button type="button" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom" *ngIf="!iscreate" (click)="updateEmployee()">Update</button>
+            <button type="button" class="btn border-light-red text-light-red btn-flat btn-block btn-custom" *ngIf="!iscreate" (click)="deleteEmployee()">Delete</button>
+          </div>
+        </div>
+        <div class="panel panel-flat">
+          <div class="panel-head">
+            <div class="name">Logo</div>
+          </div>
+          <div class="panel-body">
+            <div>
+              <img src="{{this.currentEmployee.photo? baseUrl + this.currentEmployee.photo :''}}" alt=""
+                class="img-responsive center-block">
+            </div>
+            <div class="text-center logo-size">Size: 135px X 135px</div>
+            <div class="custom-input-file">
+              <input type="file" name="file" id="file" class="inputfile" data-multiple-caption="{count} files selected" multiple (change)="handleFileInput($event.target.files)"
+              />
+              <label for="file">Browse..</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng2-toasty [position]="'top-right'"></ng2-toasty>

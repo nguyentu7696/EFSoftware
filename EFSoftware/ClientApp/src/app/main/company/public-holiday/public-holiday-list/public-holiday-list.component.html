@@ -1,0 +1,135 @@
+<!-- Main content -->
+<div class="content-wrapper content-main">
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="breadcrumb-line breadcrumb-line-component">
+            <ul class="breadcrumb">
+                <li>
+                    <a [routerLink]="['/company/basic/list']">Company</a>
+                </li>
+                <li>
+                    <a
+                        [routerLink]="['/company/basic/update']">{{currentCompany.name?currentCompany.name: 'Company'}}</a>
+                </li>
+                <li class="active">
+                    Public Holiday
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /page header -->
+    <!-- Content area -->
+    <div class="page-body">
+        <div class="clearfix big-top-title">
+            <div class="supper-title">Public Holiday Management</div>
+            <div class="action-right">
+                <button type="button" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom"
+                    (click)="addPublicHoliday()">
+                    Add
+                </button>
+            </div>
+            <div class="select-group action-right select-attendance">
+                <select name="" id="" class="form-control" (change)="onSelectPublicHolidayGlobal($event.target.value)">
+                    <option value="">Choose Public Holiday</option>
+                    <option *ngFor="let item of publicHolidayGlobal" value="{{item.id}}">{{item.event}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="jobsite-table">
+            <div class="body-content">
+                <div class="table-responsive" style="overflow: hidden">
+                    <div class="div-public-holiday-filter">
+                        <div class="row">
+                            <div class="col-sm-10">
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div>Filter by</div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="select-group">
+                                            <select class="form-control select-custom" [(ngModel)]="country"
+                                                (change)="onSelectCountry($event.target.value)">
+                                                <option *ngFor="let itemcountry of listCountry"
+                                                    value={{itemcountry.code}}>
+                                                    {{itemcountry.value}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="select-group">
+                                            <select class="form-control select-custom" [(ngModel)]="year"
+                                                (change)="onSelectYear($event.target.value)">
+                                                <option *ngFor="let itemyear of listYears" value={{itemyear}}>
+                                                    {{itemyear}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="select-group">
+                                            <input class="form-control select-custom" [(ngModel)]="filterByName"
+                                                placeholder="Search" (keyup.enter)="Search()" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="col-sm-9">
+                                            <button type="button"
+                                                class="btn bg-dark-blue text-white btn-flat btn-block btn-custom"
+                                                (click)="Search()">Search</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <button type="button" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom"
+                                    (click)="createPublicHoliday()">
+                                    Create
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Event</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of publicHoliday">
+                                <th>{{ item.event }}</th>
+                                <td>{{ item.periodStartDate | date:'dd MMM yyyy' }}</td>
+                                <td>{{ item.periodEndDate | date:'dd MMM yyyy' }}</td>
+                                <td class="tbody-action">
+                                    <a href="javascript:void(0)" (click)="editPublicHoliday(item.id)" title="Edit">
+                                        <img src="../../../../../assets/images/icon-edit.png" alt="">
+                                        <!-- <span>Edit</span> -->
+                                    </a>
+                                    <a href="javascript:void(0)" (click)="deletePublicHoliday(item.id)" title="Remove">
+                                        <img src="../../../../../assets/images/icon-trash.png" alt="">
+                                        <!-- <span>Remove</span> -->
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="clearfix foot-content">
+                <div class="b-left">
+                    Show {{show}} to 10 of {{totalItems}} entries
+                </div>
+                <div class="b-right">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="size" [rotate]="true"
+                        [maxSize]="5" (pageChange)="loadPage($event)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng2-toasty [position]="'top-right'"></ng2-toasty>

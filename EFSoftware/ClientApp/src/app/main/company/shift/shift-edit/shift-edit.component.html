@@ -1,0 +1,66 @@
+<div class="content-wrapper content-main" style="display: table">
+  <!-- Page header -->
+  <div class="page-header">
+      <div class="breadcrumb-line breadcrumb-line-component">
+        <ul class="breadcrumb">
+            <li>
+                <a [routerLink]="['/company/basic/list']">Company</a>
+            </li>
+            <li>
+                <a [routerLink]="['/company/basic/update']">{{currentCompany.name?currentCompany.name: 'Company'}}</a>
+            </li>
+            <li>
+                <a [routerLink]="['/company/shift/list']">Shift</a>
+            </li>
+            <li class="active">Edit</li>
+        </ul>
+      </div>
+  </div>
+  <!-- /page header -->
+  <!-- Content area -->
+  <div class="page-body">
+      <div class="supper-title">Update Shift</div>
+      <div class="row">
+          <form [formGroup]="shiftForm" (ngSubmit)="update()" #formDir="ngForm" novalidate>
+              <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 col-lg-8-custom">
+                  <div class="panel panel-flat">
+                      <div class="panel-head">
+                          <div class="name">Shift Details</div>
+                      </div>
+                      <div class="panel-body">
+                          <div class="label-name">Shift Main-code</div>
+                          <div class="form-group">
+                              <input type="text" class="form-control ipn-custom" formControlName="mainCode">
+                              <span class="text-danger" *ngIf="mainCode.invalid && formDir.submitted">
+                                Shift Main-code is required.
+                              </span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-lg-4-custom">
+                  <div class="panel panel-flat">
+                    <div class="panel-head">
+                      <div class="name">Action</div>
+                    </div>
+                    <div class="panel-body">
+                      <div class="label-name">Status</div>
+                      <div class="form-group">
+                        <select class="form-control select-custom" formControlName="status" *ngIf= "isshowstatus">
+                          <option value="1">Active</option>
+                          <option value="2">Inactive</option>
+                        </select>
+                        <span  *ngIf = "!isshowstatus" style="font-weight: bold;">Expired</span>
+                      </div>
+                      <br>
+                      <button type="submit" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom">Update</button>
+                      <button type="button" (click)="delete()"
+                          class="btn border-light-red text-light-red btn-flat btn-block btn-custom">Delete</button>
+                  </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <ng2-toasty [position]="'top-right'"></ng2-toasty>

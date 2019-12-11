@@ -1,0 +1,22 @@
+{
+  "base": "node_modules",
+  "paths": {
+    "source": {
+      "config": "src/theme.config",
+      "definitions": "src/definitions/",
+      "site": "src/site/",
+      "themes": "src/themes/"
+    },
+    "output": {
+      "packaged": "../wwwroot/dist/",
+      "uncompressed": "../wwwroot/dist/components/",
+      "compressed": "../wwwroot/dist/components/",
+      "themes": "../wwwroot/dist/themes/"
+    },
+    "clean": "../wwwroot/dist/"
+  },
+  "permission": false,
+  "autoInstall": false,
+  "rtl": false,
+  "version": "2.3.3"
+}

@@ -1,0 +1,27 @@
+.employee-field-require::after {
+    content: '*';
+    margin-right: 2px;
+    color: red;
+}
+
+.label-margin {
+    margin-top: 7px !important;
+}
+
+.formatpd {
+    padding: 0 0 0 0;
+    margin-bottom: 0%;
+}
+
+.formatpd-label {
+    padding-left: 0%;
+}
+
+.formatpd-input {
+    padding-right: 0%;
+}
+
+.checkbox-width {
+    transform: scale(2);
+    margin-left: 5px;
+}

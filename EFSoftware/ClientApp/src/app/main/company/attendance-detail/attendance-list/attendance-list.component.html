@@ -1,0 +1,145 @@
+<div class="content-wrapper content-main">
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="breadcrumb-line breadcrumb-line-component">
+            <ul class="breadcrumb">
+                <li>
+                    <a [routerLink]="['/company/basic/list']">Company</a>
+                </li>
+                <li>
+                    <a
+                        [routerLink]="['/company/basic/update']">{{currentCompany.name?currentCompany.name: 'Company'}}</a>
+                </li>
+                <li class="active">
+                    Attendance
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /page header -->
+    <!-- Content area -->
+    <div class="page-body">
+        <!-- <div class="row" style="padding: 0 0 12px 0;">
+            <div class="col-sm-7">
+                <h1 style="margin-top: -2px;">
+                    <b>Attendance Management</b>
+                </h1>
+            </div>
+            <div class="col-sm-4">
+                <div class="select-group">
+                    <select name="" id="" class="form-control">
+                        <option value="">Choose Attendance Code</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-sm-1">
+                <a [routerLink]="['/company/attendance-detail/create/']" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom"
+                    style="padding: 3px 12px;">
+                    Add
+                </a>
+            </div>
+        </div> -->
+
+        <div class="clearfix big-top-title">
+            <div class="supper-title">Attendance Management</div>
+            <div class="action-right">
+                <button type="button" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom"
+                    (click)="addAttendance()">Add</button>
+            </div>
+            <div class="select-group action-right select-attendance">
+                <select name="" id="" class="form-control" (change)="onSelectAttendanceGlobal($event.target.value)">
+                    <option value="">Choose Attendance Code</option>
+                    <option *ngFor="let item of atttendanceGlobal" value="{{item.id}}">{{item.code}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="jobsite-table">
+            <div class="body-content">
+
+                <div class="row">
+                    <div class="col-sm-1 public-holiday-filter">
+                        <div>Filter by</div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="select-group">
+                            <input class="form-control select-custom" [(ngModel)]="filterByName" placeholder="Search"
+                                (keyup.enter)="Search()" />
+                        </div>
+                    </div>
+                    <div class="col-sm-1 public-holiday-filter">
+                        <button type="button" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom"
+                            (click)="Search()">Search</button>
+                    </div>
+                </div>
+                <br>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <b>Name</b>
+                                </th>
+                                <th>
+                                    <b>Code</b>
+                                </th>
+                                <th>
+                                    <b>Value</b>
+                                </th>
+                                <th>
+                                    <b>Remarks</b>
+                                </th>
+                                <th>
+                                    <b>Start Date</b>
+                                </th>
+                                <th>
+                                    <b>End Date</b>
+                                </th>
+                                <th>
+                                    <b>Action</b>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let attendance of attendances">
+                                <th>{{ attendance.name }}</th>
+                                <td>{{ attendance.code }}</td>
+                                <td>{{ attendance.value }}</td>
+                                <td>{{ attendance.remarks }}</td>
+                                <td>
+                                    <div *ngIf="attendance.startDate.indexOf('0001-01-01') < 0? true : false">
+                                        {{ attendance.startDate | date:'dd MMM yyyy' }}</div>
+                                </td>
+                                <td>
+                                    <div *ngIf="attendance.endDate.indexOf('0001-01-01') < 0? true : false">
+                                        {{ attendance.endDate | date:'dd MMM yyyy' }}</div>
+                                </td>
+                                <td class="tbody-action">
+                                    <a [routerLink]="['/company/attendance/edit/', attendance.id]" title="Edit">
+                                        <img src="../../../../assets/images/icon/icon-edit.png" alt="">
+                                        <!-- <span>Edit</span> -->
+                                    </a>
+                                    <a href="javascript:void(0)" (click)="delete(attendance.id)" title="Remove">
+                                        <img src="../../../../../assets/images/icon/icon-trash.png" alt="">
+                                        <!-- <span>Remove</span> -->
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="clearfix foot-content">
+                <div class="b-left">
+                    Show {{show}} to 10 of {{totalItems}} entries
+                </div>
+                <div class="b-right">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="size" [rotate]="true"
+                        [maxSize]="5" (pageChange)="loadPage($event)">
+                    </ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng2-toasty [position]="'top-right'"></ng2-toasty>

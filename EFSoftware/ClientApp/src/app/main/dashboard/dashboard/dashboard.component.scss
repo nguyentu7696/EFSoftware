@@ -1,0 +1,166 @@
+.table-dashboard {
+    font-size: 13px;
+    th {
+        padding: 12px 6px;
+        span {
+            text-align: left;
+            display: block;
+        }
+    }
+    td {
+        text-align: left !important;
+        padding : 12px 6px !important;
+    }
+}
+
+.isPresent {
+    background: white;
+    border: 1px solid black;
+    color: black;
+}
+
+.isPresent:hover {
+    background: white !important;
+    border: 1px solid black !important;
+    color: black !important;
+}
+
+.isPresent:focus {
+    background: white !important;
+    border: 1px solid black !important;
+    color: black !important;
+}
+
+.btn-search-dashboard {
+    padding: 8px !important;
+}
+
+.cal-cell-top {
+    min-height: 50px;
+    .cal-day-number {
+        font-size: 21px;
+    }
+}
+
+.number-employee {
+    margin: 5px; 
+    text-align: center;
+    font-size: 21px;
+}
+
+.cal-day-selected {
+    background-color: #e8fde7;
+}
+
+.cal-month-view > .cal-day-cell > .cal-today {
+    background-color: '';
+}
+
+.division-select {
+    padding-left: 0px;
+    min-height: 60px !important;
+}
+
+.date-right {
+    min-width: 117px;
+    padding-left: 0px;
+    input {
+        text-align: center !important;
+        height: 36px !important;
+    }
+}
+
+.div-btn-search{
+    min-width: 90px;
+    padding-left: 0px;
+}
+
+.label-endtime-dashboard {
+    text-align: right;
+}
+
+.dashboard-animal {
+    .label-name {
+        line-height: 34px;
+    }
+}
+
+.roster-filter-company {
+    padding-left: 0%;
+    padding-right: 0%;
+}
+
+.roster-filter {
+    padding-right: 0%;
+}
+
+.td-employeename:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.icon-type {
+    line-height: 32px;
+    display: table;
+}
+
+.div-body {
+    display: grid;
+}
+
+.label-title {
+    line-height: 34px;
+    margin-bottom: 0px;
+}
+
+.label-title-end-time {
+    text-align: right;
+}
+
+@media (min-width: 1239px) and (max-width: 1413px) {
+    .div-btn-search-dashboard {
+        padding-top: 7px !important;
+    }
+
+    .div-dashboard-search {
+        min-height: 60px !important;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1239px) {
+    .div-alljobsite-dashboard {
+        padding-left: 0px;
+        padding-top: 7px;
+    }
+    .div-btn-search-dashboard {
+        padding-top: 7px !important;
+    }
+
+    .div-dashboard-search {
+        min-height: 60px !important;
+    }
+}
+
+@media (min-width: 1094px) and (max-width: 1200px) {
+    .div-btn-search-dashboard {
+        padding-top: 7px !important;
+    }
+
+    .div-dashboard-search {
+        min-height: 60px !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1094px) {
+    .div-alljobsite-dashboard {
+        padding-left: 0px;
+        padding-top: 7px;
+    }
+    .div-btn-search-dashboard {
+        padding-top: 7px !important;
+    }
+
+    .div-dashboard-search {
+        min-height: 60px !important;
+    }
+}

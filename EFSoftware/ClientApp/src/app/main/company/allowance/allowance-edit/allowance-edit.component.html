@@ -1,0 +1,105 @@
+<div class="content-wrapper content-main" style="display: table">
+  <!-- Page header -->
+  <div class="page-header">
+      <div class="breadcrumb-line breadcrumb-line-component">
+          <ul class="breadcrumb">
+            <li>
+                <a [routerLink]="['/company/basic/list']">Company</a>
+            </li>
+            <li>
+                <a [routerLink]="['/company/basic/update']">{{currentCompany.name?currentCompany.name: 'Company'}}</a>
+            </li>
+            <li>
+                <a [routerLink]="['/company/allowance/list']"> Allowance</a>
+            </li>
+            <li class="active">Edit</li>
+          </ul>
+      </div>
+  </div>
+  <!-- /page header -->
+  <!-- Content area -->
+  <div class="page-body">
+      <div class="supper-title">Update Allowance</div>
+      <div class="row">
+          <form [formGroup]="allowanceForm" (ngSubmit)="update()" #formDir="ngForm" novalidate>
+              <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 col-lg-8-custom">
+                  <div class="panel panel-flat">
+                      <div class="panel-head">
+                          <div class="name">Allowance Details</div>
+                      </div>
+                      <div class="panel-body">
+                          <div class="label-name">Name</div>
+                          <div class="form-group">
+                              <input type="text" class="form-control ipn-custom" formControlName="description">
+                              <span class="text-danger" *ngIf="description.invalid && formDir.submitted">
+                                Name is required.
+                              </span>
+                          </div>
+                          <div class="label-name">Code</div>
+                          <div class="form-group">
+                              <input type="text" class="form-control ipn-custom" formControlName="code">
+                              <span class="text-danger" *ngIf="code.invalid && formDir.submitted">
+                                  Code is required.
+                              </span>
+                          </div>
+                          <div class="label-name">Remarks</div>
+                          <div class="form-group">
+                              <input type="text" class="form-control ipn-custom" formControlName="remarks">
+                              <span class="text-danger" *ngIf="remarks.invalid && formDir.submitted">
+                                  Remarks is required.
+                              </span>
+                          </div>
+                          <div class="label-name">Start Date</div>
+                          <div class="form-group">
+                              <!-- <input type="date" class="form-control ipn-custom" formControlName="startdate" > -->
+                              <!-- <input type="date" data-date="" data-date-format="DD-MMMM-YYYY" formControlName="startdate"> -->
+                              <!-- <input type="date" class="form-control ipn-custom" formControlName="startdate"  (ngModelChange)="changeStartDate($event)"
+                              max="{{dateMax|date:'yyyy-MM-dd'}}" > -->
+                              <!-- <span class="text-danger" *ngIf="startdate.invalid && formDir.submitted">
+                                  Start Date is required.
+                              </span> -->
+
+                              <my-date-picker formControlName="startdate" [options]="myDatePickerOptions" [(ngModel)]="startDateTime"
+                              ></my-date-picker>
+
+                          </div>
+                          <div class="label-name">End Date</div>
+                          <div class="form-group">
+                              <!-- <input type="date" class="form-control ipn-custom" formControlName="enddate" (ngModelChange)="endDateChange($event)" > -->
+                              <!-- <input type="date" class="form-control ipn-custom" formControlName="enddate"  min="{{dateMin|date:'yyyy-MM-dd'}}" 
+                              (ngModelChange)="changeEndDate($event)"> -->
+                              <!-- <span class="text-danger" *ngIf="enddate.invalid && formDir.submitted">
+                                  End Date is required.
+                              </span> -->
+                              <my-date-picker formControlName="enddate" [options]="myDatePickerOptions" [(ngModel)]="endDateTime"
+                              ></my-date-picker>
+                          </div>
+                          <div class="label-name">Amount</div>
+                          <div class="form-group" style="position: relative; padding-right: 23px;">
+                              <input type="text" class="form-control ipn-custom" formControlName="amount">
+                              <div style="position: absolute; right: 0; top: 7px;">($)</div>
+                              <span class="text-danger" *ngIf="amount.invalid && formDir.submitted">
+                                Amount is required.
+                              </span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-lg-4-custom">
+                  <div class="panel panel-flat">
+                    <div class="panel-head">
+                      <div class="name">Action</div>
+                    </div>
+                    <div class="panel-body">
+                      <br>
+                      <button type="submit" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom">Update</button>
+                      <button type="button" (click)="delete()"
+                          class="btn border-light-red text-light-red btn-flat btn-block btn-custom">Delete</button>
+                  </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <ng2-toasty [position]="'top-right'"></ng2-toasty>

@@ -1,0 +1,217 @@
+<div class="content-wrapper content-main">
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="breadcrumb-line breadcrumb-line-component">
+            <ul class="breadcrumb">
+                <li>
+                    <a [routerLink]="['/company/job-site/list']">{{currentCompany.jobSite}}</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/company/job-site/detail/edit']">{{currentJobSite.name}}</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/company/job-site/detail/job-site-shift']">Shift</a>
+                </li>
+                <li class="active">Create</li>
+            </ul>
+        </div>
+    </div>
+    <!-- /page header -->
+    <!-- Content area -->
+    <div class="page-body">
+        <div class="supper-title">Create Shift</div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 col-lg-8-custom">
+                <div class="panel panel-flat">
+                    <div class="panel-head">
+                        <div class="name">Shift Detail</div>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                                <div class="label-name">Shift Main Code</div>
+                            </div>
+                            <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+                                <div class="form-group">
+                                    <input type="text" readonly class="form-control ipn-custom"
+                                        [(ngModel)]="shiftMainCode">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                                <div class="label-name">Shift Sub Code</div>
+                            </div>
+                            <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+                                <div class="form-group">
+                                    <input type="text" class="form-control ipn-custom" [(ngModel)]="shift.subCode">
+                                    <span class="text-danger" *ngIf="!shiftValid.subCode">
+                                        Shift Sub Code is required.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                            </div>
+                            <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9"
+                                style="padding-left: 0px !important;padding-right: 0px !important;">
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="label-name">Start Time</div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="label-name">End Time</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                                <div class="label-name">Working Hours</div>
+                            </div>
+                            <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9"
+                                style="padding-left: 0px !important;padding-right: 0px !important;">
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <input type="time" class="form-control ipn-custom"
+                                            [(ngModel)]="shift.startHours">
+                                        <span class="text-danger" *ngIf="!shiftValid.startHours">
+                                            Start Time is required.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <input type="time" class="form-control ipn-custom" [(ngModel)]="shift.endHours">
+                                        <span class="text-danger" *ngIf="!shiftValid.endHours">
+                                            End Time is required.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                            </div>
+                            <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9"
+                                style="padding-left: 0px !important;padding-right: 0px !important;">
+                                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                    <div class="label-name">Minutes</div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                    <div class="label-name">Start Time</div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                    <div class="label-name">End Time</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                                <div class="label-name">Tolerance</div>
+                            </div>
+                            <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9"
+                                style="padding-left: 0px !important;padding-right: 0px !important;">
+                                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                    <input type="number" class="form-control ipn-custom" [(ngModel)]="shift.minutes">
+                                    <span class="text-danger" *ngIf="!shiftValid.minutes">
+                                        Minutes is required.
+                                    </span>
+                                </div>
+                                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                    <input type="time" class="form-control ipn-custom" [(ngModel)]="shift.startMinutes">
+                                    <span class="text-danger" *ngIf="!shiftValid.startMinutes">
+                                        Start Time is required.
+                                    </span>
+                                </div>
+                                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                    <input type="time" class="form-control ipn-custom" [(ngModel)]="shift.endMinutes">
+                                    <span class="text-danger" *ngIf="!shiftValid.endMinutes">
+                                        End Time is required.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                                <div class="label-name">Total Hours</div>
+                            </div>
+                            <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+                                <div class="form-group">
+                                    <input type="text" class="form-control ipn-custom" [(ngModel)]="shift.hours">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                                <div class="label-name">Valid Period</div>
+                            </div>
+                            <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+                                <div class="form-group">
+                                    <!-- <input type="date" class="form-control ipn-custom" [(ngModel)]="shift.periodDate"> -->
+                                    <my-date-picker [options]="myDatePickerOptions"
+                                        (dateChanged)="shift.periodDate = _dateService.dateTo1200($event.jsdate)"
+                                        required></my-date-picker>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                                <div class="label-name">Remarks</div>
+                            </div>
+                            <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+                                <div class="form-group">
+                                    <input type="text" class="form-control ipn-custom" [(ngModel)]="shift.remarks">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                                <div class="label-name">Value</div>
+                            </div>
+                            <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+                                <div class="form-group">
+                                    <input type="text" class="form-control ipn-custom" [(ngModel)]="shift.value">
+                                    <span class="text-danger" *ngIf="!shiftValid.value">
+                                        Value is required.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-lg-4-custom">
+                <div class="panel panel-flat">
+                    <div class="panel-head">
+                        <div class="name">Action</div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="label-name">Status</div>
+                        <div class="form-group">
+                            <select class="form-control select-custom" [(ngModel)]="shift.status">
+                                <option value="1">Active</option>
+                                <option value="2">Inactive</option>
+                            </select>
+                        </div>
+                        <br>
+                        <button type="button" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom"
+                            (click)="createShift()">Create</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<ng2-toasty [position]="'top-right'"></ng2-toasty>

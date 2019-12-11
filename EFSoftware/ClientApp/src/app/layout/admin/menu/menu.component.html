@@ -1,0 +1,55 @@
+<!-- Main navbar -->
+<div class="navbar navbar-default header">
+    <div class="navbar-header">
+      <a class="navbar-brand" [routerLink]="['/dashboard/']">
+        <img src="../../../assets/images/logo.png" alt="">
+      </a>
+      <ul class="nav navbar-nav visible-xs-block">
+        <li>
+          <a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a>
+        </li>
+        <li>
+          <a class="sidebar-mobile-main-toggle"><i class="icon-paragraph-justify3"></i></a>
+        </li>
+      </ul>
+    </div>
+    <div class="navbar-collapse collapse" id="navbar-mobile">
+      <ul class="nav navbar-nav navbar-menu">
+        <li  [ngClass]="{'menu1': true, 'active': tabSelect == 1 }">
+          <a [routerLink]="['/global/']">
+            <img src="../../../assets/images/icon/Asset 17.png" alt="">
+            <span>Global Config</span>
+          </a>
+        </li>
+        <li  [ngClass]="{'menu2': true, 'active': tabSelect == 2 }">
+          <a [routerLink]="['/company/']">
+            <img src="../../../assets/images/icon/Asset 10.png" alt="">
+            <span>Company</span>
+          </a>
+        </li>
+        <li  [ngClass]="{'menu3': true, 'active': tabSelect == 3 }">
+            <a [routerLink]="['/jobsite/']">
+            <img src="../../../assets/images/icon/Asset 15.png" alt="">
+            <span>{{currentCompany.jobSite != 1? 'Job Site':'Job Task Number'}}</span>
+          </a>
+        </li>
+        <li [ngClass]="{'menu4': true, 'active': tabSelect == 4 }">
+          <a [routerLink]="['/user/']">
+            <img src="../../../assets/images/icon/Asset 16.png" alt="">
+            <span>User</span>
+          </a>
+        </li>
+      </ul>
+      <div class="navbar-right">
+        <ul class="nav navbar-nav navbar-user">
+          <li class="">
+            <a href="javascript:void(0)">
+              <span>{{currentUserLogin.name}}</span>
+              <img src="../../../assets/images/icon-header5.png" alt="">
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- /main navbar -->

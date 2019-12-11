@@ -1,0 +1,78 @@
+<div class="content-wrapper content-main">
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="breadcrumb-line breadcrumb-line-component">
+              <ul class="breadcrumb">
+                  <li><a [routerLink]="['/company/basic/list']">Company</a></li>
+                  <li>
+                    <a [routerLink]="['/company/basic/update']">{{currentCompany.name}}</a>
+                  </li>
+                  <li><a [routerLink]="['/company/site/list']">{{currentCompany.site}}</a></li>
+                  <li class="active">Edit</li>
+              </ul>
+        </div>
+    </div>
+    <!-- /page header -->
+    <!-- Content area -->
+    <div class="page-body">
+        <div class="supper-title">Update {{currentCompany.site}}</div>
+        <div class="row">
+            <form [formGroup]="siteForm" (ngSubmit)="update()" #formDir="ngForm" novalidate>
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 col-lg-8-custom">
+                <div class="panel panel-flat">
+                    <div class="panel-head">
+                        <div class="name">{{currentCompany.site}} Details</div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="label-name">Name</div>
+                        <div class="form-group">
+                            <input type="text" class="form-control ipn-custom" formControlName="name">
+                            <span class="text-danger" *ngIf="name.invalid && formDir.submitted">
+                                Name is required.
+                            </span>
+                        </div>
+                        <div class="label-name">Company</div>
+                        <div class="form-group">
+                            <select class="form-control select-custom" formControlName="companyId" (change)="onSelect($event.target.value)">
+                                <option *ngFor="let item of listCompany" value="{{item.id}}">{{item.name}}</option>
+                            </select>
+                            <span class="text-danger" *ngIf="companyId.invalid && formDir.submitted">
+                                Company is required.
+                            </span>
+                        </div>
+                        <div class="label-name"> {{currentCompany.department}}</div>
+                        <div class="form-group">
+                            <select class="form-control select-custom" formControlName="departmentId">
+                                <option *ngFor="let item of listDepartment" value="{{item.id}}">{{item.name}}</option>
+                            </select>
+                            <span class="text-danger" *ngIf="departmentId.invalid && formDir.submitted">
+                                {{currentCompany.department}} is required.
+                            </span>
+                        </div>
+                    </div>   
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-lg-4-custom">
+                <div class="panel panel-flat">
+                    <div class="panel-head">
+                        <div class="name">Action</div>
+                    </div>
+                    <div class="panel-body">
+                      <!-- <br>
+                      <button type="button" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom"  *ngIf="iscreate"
+                      (click)="createSite()">Create</button>
+                      <button type="button" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom"  *ngIf="!iscreate"
+                      (click)="updateSite()">Update</button>
+                      <button type="button" class="btn border-light-red text-light-red btn-flat btn-block btn-custom" *ngIf="!iscreate"
+                      (click)="deleteSite()">Delete</button> -->
+                        <br>
+                        <button type="button" (click)="update()" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom">Update</button>
+                        <button type="button" (click)="delete()" class="btn border-light-red text-light-red btn-flat btn-block btn-custom">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        </div>
+    </div>
+  </div>
+  <ng2-toasty [position]="'top-right'"></ng2-toasty>

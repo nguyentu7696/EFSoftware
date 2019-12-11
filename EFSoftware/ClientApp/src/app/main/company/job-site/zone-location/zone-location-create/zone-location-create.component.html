@@ -1,0 +1,116 @@
+<div class="content-wrapper content-main" style="display: table">
+  <!-- Page header -->
+  <div class="page-header">
+    <div class="breadcrumb-line breadcrumb-line-component">
+      <ul class="breadcrumb">
+        <li [routerLink]="['/company/job-site/list']">{{currentCompany.jobSite}}</li>
+        <li>
+          <a [routerLink]="['/company/job-site/detail/edit']">{{currentJobSite.name}}</a>
+        </li>
+        <li>
+          <a [routerLink]="['/company/job-site/detail/zone-location']">Zone Location</a>
+        </li>
+        <li class="active">Create</li>
+      </ul>
+    </div>
+  </div>
+  <!-- /page header -->
+  <!-- Content area -->
+  <div class="page-body">
+    <div class="supper-title">Create Zone Location</div>
+    <div class="row">
+      <form [formGroup]="zonelocationForm" (ngSubmit)="create()" #formDir="ngForm" novalidate>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 col-lg-8-custom">
+          <div class="panel panel-flat">
+            <div class="panel-head">
+              <div class="name">Zone Location Details</div>
+            </div>
+            <div class="panel-body">
+              <div class="label-name">Name</div>
+              <div class="form-group">
+                <input type="text" class="form-control ipn-custom" formControlName="name">
+                <span class="text-danger" *ngIf="name.invalid && formDir.submitted">
+                  Name is required.
+                </span>
+              </div>
+              <div class="label-name">{{currentCompany.level}}</div>
+              <div class="form-group">
+                <select class="form-control select-custom" formControlName="levelId">
+                  <option *ngFor="let item of listLevel" value="{{item.id}}">{{item.name}}</option>
+                </select>
+                <!-- <span class="text-danger" *ngIf="levelId.invalid && formDir.submitted">
+                  Level is required.
+                </span> -->
+              </div>
+              <div class="label-name">{{currentCompany.area}}</div>
+              <div class="form-group">
+                <select class="form-control select-custom" formControlName="areaId">
+                  <option *ngFor="let item of listArea" value="{{item.id}}">{{item.name}}</option>
+                </select>
+                <!-- <span class="text-danger" *ngIf="areaId.invalid && formDir.submitted">
+                  Area is required.
+                </span> -->
+              </div>
+              <div class="label-name">{{currentCompany.location}}</div>
+              <div class="form-group">
+                <select class="form-control select-custom" formControlName="locationId">
+                  <option *ngFor="let item of listLocation" value="{{item.id}}">{{item.name}}</option>
+                </select>
+                <!-- <span class="text-danger" *ngIf="locationId.invalid && formDir.submitted">
+                  Location is required.
+                </span> -->
+              </div>
+              <div class="label-name">{{currentCompany.department}}</div>
+              <div class="form-group">
+                <select class="form-control select-custom" formControlName="departmentId" (change)="onSelectDepartment($event.target.value)">
+                  <option *ngFor="let item of listDepartment" value="{{item.id}}">{{item.name}}</option>
+                </select>
+                <span class="text-danger" *ngIf="departmentId.invalid && formDir.submitted">
+                  {{currentCompany.department}} is required.
+                </span>
+              </div>
+              <div class="label-name">{{currentCompany.site}}</div>
+              <div class="form-group">
+                <select class="form-control select-custom" formControlName="siteId" (change)="onSelectSite($event.target.value)">
+                  <option *ngFor="let item of listSite" value="{{item.id}}">{{item.name}}</option>
+                </select>
+                <span class="text-danger" *ngIf="siteId.invalid && formDir.submitted">
+                  {{currentCompany.site}} is required.
+                </span>
+              </div>
+              <div class="label-name">{{currentCompany.jobSite}}</div>
+              <div class="form-group">
+                <select class="form-control select-custom" formControlName="jobSiteId">
+                  <option *ngFor="let item of listJobSite" value="{{item.id}}">{{item.name}}</option>
+                </select>
+                <span class="text-danger" *ngIf="jobSiteId.invalid && formDir.submitted">
+                  {{currentCompany.jobSite}} is required.
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-lg-4-custom">
+          <div class="panel panel-flat">
+            <div class="panel-head">
+              <div class="name">Action</div>
+            </div>
+            <div class="panel-body">
+              <div class="label-name">Status</div>
+              <div class="form-group">
+                <select class="form-control select-custom" formControlName="status">
+                  <option value="1">Active</option>
+                  <option value="2">Inactive</option>
+                </select>
+              </div>
+              <br>
+              <button type="submit" class="btn bg-dark-blue text-white btn-flat btn-block btn-custom">Create</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<ng2-toasty [position]="'top-right'"></ng2-toasty>
